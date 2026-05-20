@@ -1,0 +1,538 @@
+@import "tailwindcss";
+
+/* ============================================================
+   POKEMON GAME DESIGN SYSTEM
+   FireRed / LeafGreen GBA Aesthetic — Ghost Trainer Edition
+   ============================================================ */
+
+:root {
+  /* ── Night sky palette ──────────────────────────────────── */
+  --game-bg:          #0f0820;
+  --game-bg-2:        #1a1030;
+  --game-bg-3:        #251840;
+  --game-sky-top:     #0a0518;
+  --game-sky-mid:     #1a0f3a;
+  --game-sky-btm:     #2d1b5a;
+
+  /* ── UI Box palette ─────────────────────────────────────── */
+  --game-box:         #f0f0e8;
+  --game-box-2:       #e0e0d8;
+  --game-box-dark:    #d8d8c8;
+  --game-box-border:  #383838;
+  --game-box-shadow:  #787878;
+  --game-box-hi:      #ffffff;
+  --game-box-accent:  #c8c8b8;
+
+  /* ── Text ───────────────────────────────────────────────── */
+  --game-text:        #383838;
+  --game-text-mid:    #585858;
+  --game-text-light:  #888880;
+  --game-text-dim:    #b0b0a8;
+  --game-text-white:  #f0f0f8;
+  --game-text-glow:   #c8b8f0;
+
+  /* ── Brand accents ──────────────────────────────────────── */
+  --game-accent:      #705898;
+  --game-accent-2:    #9870c0;
+  --game-accent-glow: rgba(112, 88, 152, 0.45);
+  --game-electric:    #f8d030;
+  --game-fire:        #f08030;
+  --game-water:       #6890f0;
+  --game-psychic:     #f85888;
+  --game-grass:       #78c850;
+  --game-dark:        #705848;
+  --game-title-blue:  #3050e0;
+  --game-title-hi:    #88aaff;
+
+  /* ── HP system ──────────────────────────────────────────── */
+  --game-hp-green:    #58c038;
+  --game-hp-yellow:   #f8c000;
+  --game-hp-red:      #e82010;
+  --game-hp-track:    #181818;
+
+  /* ── Stars ──────────────────────────────────────────────── */
+  --star-dim:         rgba(200,180,255,0.3);
+  --star-bright:      rgba(240,230,255,0.9);
+}
+
+/* ── Tailwind v4 theme registration ────────────────────────── */
+@theme inline {
+  --font-pixel: var(--font-press-start);
+  --font-vt:    var(--font-vt323);
+  --color-game-bg:       var(--game-bg);
+  --color-game-box:      var(--game-box);
+  --color-game-border:   var(--game-box-border);
+  --color-game-text:     var(--game-text);
+  --color-game-accent:   var(--game-accent);
+  --color-game-electric: var(--game-electric);
+  --color-game-hp-green: var(--game-hp-green);
+}
+
+/* ============================================================
+   BASE RESET
+   ============================================================ */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  background: var(--game-bg);
+  /* Snap scroll — each .game-screen fills the viewport */
+  scroll-snap-type: y mandatory;
+  overflow-y: scroll;
+  height: 100%;
+  /* Kill subpixel rendering — pixel font needs it */
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-vt), 'Courier New', monospace;
+  background: var(--game-bg);
+  color: var(--game-text-white);
+  min-height: 100%;
+  overflow-x: hidden;
+  /* Disable font smoothing for crisp pixel rendering */
+  -webkit-font-smoothing: none;
+  -moz-osx-font-smoothing: unset;
+  font-smooth: never;
+  cursor: default;
+}
+
+img { image-rendering: pixelated; }
+
+/* ── Scanlines CRT overlay ────────────────────────────────── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    0deg,
+    transparent, transparent 3px,
+    rgba(0,0,0,0.06) 3px, rgba(0,0,0,0.06) 4px
+  );
+  pointer-events: none;
+  z-index: 9998;
+}
+
+/* ── CRT vignette ─────────────────────────────────────────── */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,0.5) 100%);
+  pointer-events: none;
+  z-index: 9997;
+}
+
+/* ============================================================
+   GAME SCREEN — each section snaps to full viewport
+   ============================================================ */
+
+.game-screen {
+  scroll-snap-align: start;
+  height: 100vh;
+  min-height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+
+/* ============================================================
+   GAME BOX SYSTEM — the core Pokemon UI element
+   Classic FR/LG inner-bevel box
+   ============================================================ */
+
+.game-box {
+  background: var(--game-box);
+  border: 4px solid var(--game-box-border);
+  box-shadow: 4px 4px 0 var(--game-box-border);
+  position: relative;
+  color: var(--game-text);
+}
+
+/* Inner bevel highlight */
+.game-box::after {
+  content: '';
+  position: absolute;
+  inset: 2px;
+  border-top:    2px solid var(--game-box-hi);
+  border-left:   2px solid var(--game-box-hi);
+  border-bottom: 2px solid var(--game-box-shadow);
+  border-right:  2px solid var(--game-box-shadow);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Dark variant */
+.game-box-dark {
+  background: var(--game-bg-2);
+  border: 4px solid var(--game-box-border);
+  box-shadow: 4px 4px 0 var(--game-box-border);
+  position: relative;
+  color: var(--game-text-white);
+}
+.game-box-dark::after {
+  content: '';
+  position: absolute;
+  inset: 2px;
+  border-top:    2px solid rgba(255,255,255,0.12);
+  border-left:   2px solid rgba(255,255,255,0.12);
+  border-bottom: 2px solid rgba(0,0,0,0.35);
+  border-right:  2px solid rgba(0,0,0,0.35);
+  pointer-events: none;
+}
+
+/* Ghost accent box */
+.game-box-accent {
+  background: var(--game-accent);
+  border: 4px solid var(--game-box-border);
+  box-shadow: 4px 4px 0 var(--game-box-border);
+  position: relative;
+  color: #fff;
+}
+
+/* Small shadow variant */
+.game-box-sm {
+  border: 3px solid var(--game-box-border) !important;
+  box-shadow: 3px 3px 0 var(--game-box-border) !important;
+}
+
+/* Inset / pressed variant */
+.game-box-pressed {
+  box-shadow: inset 2px 2px 0 rgba(0,0,0,0.25) !important;
+  transform: translate(2px, 2px);
+}
+
+/* ============================================================
+   HP BAR SYSTEM
+   ============================================================ */
+
+.hp-bar-track {
+  background: var(--game-hp-track);
+  height: 10px;
+  position: relative;
+  overflow: hidden;
+  flex: 1;
+}
+
+.hp-bar-fill {
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  transition: width 1s steps(20, end);
+}
+.hp-bar-fill.green  { background: var(--game-hp-green);  }
+.hp-bar-fill.yellow { background: var(--game-hp-yellow); }
+.hp-bar-fill.red    { background: var(--game-hp-red);    }
+
+/* Double-scanline inside HP bar */
+.hp-bar-track::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    90deg,
+    transparent, transparent 3px,
+    rgba(0,0,0,0.12) 3px, rgba(0,0,0,0.12) 4px
+  );
+  pointer-events: none;
+}
+
+/* ============================================================
+   FONT SYSTEM
+   ============================================================ */
+
+.font-pixel {
+  font-family: var(--font-pixel), monospace;
+  -webkit-font-smoothing: none;
+  font-smooth: never;
+  font-variant-numeric: tabular-nums;
+}
+
+.font-vt {
+  font-family: var(--font-vt), 'Courier New', monospace;
+  -webkit-font-smoothing: none;
+}
+
+/* Pixel text scale — strict multiples of 2 */
+.text-px-6  { font-size: 6px;  line-height: 14px; }
+.text-px-8  { font-size: 8px;  line-height: 16px; }
+.text-px-10 { font-size: 10px; line-height: 20px; }
+.text-px-12 { font-size: 12px; line-height: 22px; }
+.text-px-16 { font-size: 16px; line-height: 28px; }
+.text-px-20 { font-size: 20px; line-height: 32px; }
+.text-px-24 { font-size: 24px; line-height: 36px; }
+.text-px-32 { font-size: 32px; line-height: 44px; }
+.text-px-48 { font-size: 48px; line-height: 60px; }
+
+/* VT323 large body text */
+.text-vt-16 { font-family: var(--font-vt); font-size: 16px; line-height: 20px; }
+.text-vt-18 { font-family: var(--font-vt); font-size: 18px; line-height: 22px; }
+.text-vt-20 { font-family: var(--font-vt); font-size: 20px; line-height: 24px; }
+.text-vt-22 { font-family: var(--font-vt); font-size: 22px; line-height: 26px; }
+.text-vt-24 { font-family: var(--font-vt); font-size: 24px; line-height: 28px; }
+.text-vt-28 { font-family: var(--font-vt); font-size: 28px; line-height: 32px; }
+.text-vt-32 { font-family: var(--font-vt); font-size: 32px; line-height: 36px; }
+
+/* ============================================================
+   LOCATION BADGE
+   ============================================================ */
+
+.location-badge {
+  display: inline-block;
+  background: var(--game-box);
+  border: 3px solid var(--game-box-border);
+  box-shadow: 3px 3px 0 var(--game-box-border);
+  padding: 5px 12px;
+  font-family: var(--font-pixel), monospace;
+  font-size: 8px;
+  color: var(--game-text);
+  letter-spacing: 0.08em;
+  -webkit-font-smoothing: none;
+}
+
+/* ============================================================
+   DIALOGUE BOX
+   ============================================================ */
+
+.dialogue-box {
+  background: var(--game-box);
+  border: 4px solid var(--game-box-border);
+  box-shadow: 4px 4px 0 var(--game-box-border);
+  padding: 14px 20px;
+  position: relative;
+  color: var(--game-text);
+  cursor: pointer;
+  user-select: none;
+}
+.dialogue-box::after {
+  content: '';
+  position: absolute;
+  inset: 2px;
+  border-top:    2px solid var(--game-box-hi);
+  border-left:   2px solid var(--game-box-hi);
+  border-bottom: 2px solid var(--game-box-shadow);
+  border-right:  2px solid var(--game-box-shadow);
+  pointer-events: none;
+}
+
+/* ============================================================
+   GAME MENU
+   ============================================================ */
+
+.game-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 14px;
+  font-family: var(--font-pixel), monospace;
+  font-size: 9px;
+  cursor: pointer;
+  color: var(--game-text);
+  -webkit-font-smoothing: none;
+}
+.game-menu-item:hover,
+.game-menu-item.active { background: var(--game-box-dark); }
+
+/* ============================================================
+   ANIMATIONS
+   ============================================================ */
+
+/* Cursor blink — classic 0.6s step */
+@keyframes cursor-blink {
+  0%, 49%  { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+.cursor-blink { animation: cursor-blink 0.6s step-start infinite; }
+
+/* Title glow pulse */
+@keyframes title-glow {
+  0%, 100% {
+    text-shadow:
+      0 0 8px rgba(248,208,48,0.6),
+      0 0 20px rgba(248,208,48,0.3),
+      4px 4px 0 rgba(0,0,0,0.8);
+  }
+  50% {
+    text-shadow:
+      0 0 16px rgba(248,208,48,1),
+      0 0 40px rgba(248,208,48,0.6),
+      0 0 80px rgba(248,208,48,0.2),
+      4px 4px 0 rgba(0,0,0,0.8);
+  }
+}
+
+/* Sprite float — 4 step pixel bounce */
+@keyframes sprite-float {
+  0%, 100% { transform: translateY(0px); }
+  25%       { transform: translateY(-6px); }
+  50%       { transform: translateY(-8px); }
+  75%       { transform: translateY(-4px); }
+}
+.sprite-float { animation: sprite-float 1.6s steps(4) infinite; }
+
+/* Star twinkle */
+@keyframes star-twinkle {
+  0%, 100% { opacity: 0.2; transform: scale(1); }
+  50%       { opacity: 1;   transform: scale(1.4); }
+}
+
+/* Sprite idle bob (gentler) */
+@keyframes sprite-bob {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-4px); }
+}
+.sprite-bob { animation: sprite-bob 2s steps(2) infinite; }
+
+/* Battle flash */
+@keyframes battle-flash {
+  0%   { opacity: 1; background: #000; }
+  14%  { background: #fff; }
+  28%  { background: #000; }
+  42%  { background: #fff; }
+  56%  { background: #000; }
+  70%  { background: #fff; }
+  84%  { background: #000; }
+  100% { opacity: 0; }
+}
+
+/* Screen enter — black to reveal */
+@keyframes screen-enter {
+  0%   { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+/* HP drain */
+@keyframes hp-drain {
+  from { width: var(--hp-from, 100%); }
+  to   { width: var(--hp-to, 0%);    }
+}
+
+/* Shake (error) */
+@keyframes pixel-shake {
+  0%, 100% { transform: translateX(0); }
+  20%       { transform: translateX(-4px); }
+  40%       { transform: translateX(4px); }
+  60%       { transform: translateX(-4px); }
+  80%       { transform: translateX(4px); }
+}
+
+/* Walking trainer sprite frames */
+@keyframes trainer-walk {
+  0%   { background-position: 0 0; }
+  25%  { background-position: -32px 0; }
+  50%  { background-position: -64px 0; }
+  75%  { background-position: -32px 0; }
+  100% { background-position: 0 0; }
+}
+
+/* ============================================================
+   TYPE BADGE — game style (no border-radius)
+   ============================================================ */
+
+.type-badge-px {
+  font-family: var(--font-pixel), monospace;
+  font-size: 6px;
+  letter-spacing: 0.08em;
+  border: 2px solid rgba(0,0,0,0.4);
+  padding: 3px 7px;
+  text-transform: uppercase;
+  display: inline-block;
+  -webkit-font-smoothing: none;
+}
+
+/* ============================================================
+   STAR FIELD HELPERS
+   ============================================================ */
+
+.star-field { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+.star {
+  position: absolute;
+  background: var(--star-bright);
+  animation: star-twinkle var(--sdur, 2s) step-start var(--sdel, 0s) infinite;
+}
+
+/* ============================================================
+   PIXEL GRID DECORATION
+   ============================================================ */
+
+.pixel-grid {
+  background-image:
+    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+/* ============================================================
+   SCROLLBAR — pixel style
+   ============================================================ */
+
+::-webkit-scrollbar       { width: 4px; }
+::-webkit-scrollbar-track { background: #101010; }
+::-webkit-scrollbar-thumb { background: var(--game-accent); }
+
+/* ============================================================
+   SELECTION
+   ============================================================ */
+
+::selection { background: var(--game-accent); color: #fff; }
+
+/* ============================================================
+   GAME HUD — fixed overlay
+   ============================================================ */
+
+.game-hud {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 500;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 8px;
+  pointer-events: none;
+}
+.game-hud > * { pointer-events: auto; }
+
+/* ============================================================
+   BATTLE OVERLAY
+   ============================================================ */
+
+.battle-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9996;
+  pointer-events: none;
+}
+
+/* ============================================================
+   FORM INPUTS — pixel style
+   ============================================================ */
+
+.game-input {
+  width: 100%;
+  padding: 6px 10px;
+  border: 3px solid var(--game-box-border);
+  background: var(--game-box);
+  font-family: var(--font-vt), monospace;
+  font-size: 20px;
+  color: var(--game-text);
+  outline: none;
+  -webkit-font-smoothing: none;
+  transition: none;
+}
+.game-input:focus { border-color: var(--game-accent); }
+.game-input::placeholder { color: var(--game-text-dim); }
+
+/* ============================================================
+   TILE PATTERN BG — used for area backgrounds
+   ============================================================ */
+
+.tile-checker {
+  background-image:
+    repeating-conic-gradient(rgba(255,255,255,0.02) 0% 25%, transparent 0% 50%);
+  background-size: 24px 24px;
+}
+
+/* Night sky gradient background */
+.sky-bg {
+  background: linear-gradient(180deg, var(--game-sky-top) 0%, var(--game-sky-mid) 40%, var(--game-sky-btm) 100%);
+}

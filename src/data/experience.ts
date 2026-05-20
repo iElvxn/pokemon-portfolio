@@ -1,0 +1,56 @@
+import { Experience } from '@/types/experience';
+
+export const experiences: Experience[] = [
+  {
+    id: 'exp-1',
+    company: 'Capital One',
+    role: 'Software Engineering Intern',
+    startDate: 'Incoming',
+    endDate: 'Present',
+    location: 'Richmond, VA',
+    description: 'Incoming SWE Intern at Capital One.',
+    achievements: [
+      'Selected for a highly competitive SWE internship at one of the top U.S. financial institutions',
+      'Will join the engineering org to work on core consumer or enterprise products',
+    ],
+    techStack: ['electric', 'steel'],
+    techLabels: ['React', 'TypeScript', 'AWS'],
+    levelGained: 'Enterprise-scale financial systems',
+    badgeColor: '#D03027',
+  },
+  {
+    id: 'exp-2',
+    company: 'MyStage',
+    role: 'Software Engineering Intern',
+    startDate: 'Aug 2025',
+    endDate: 'Jan 2026',
+    location: 'Remote',
+    description: 'Full-stack intern at an early-stage startup building performance and creator tooling.',
+    achievements: [
+      'Engineered a full-stack admin dashboard using React/TypeScript, Firebase, Python/Flask, and GCP — streamlined data management efficiency by 35%',
+      'Architected and deployed a scalable Python/Flask RESTful microservice on GCP for the web scraping pipeline, leveraging hash distribution to cut query bottlenecks by 60%',
+      'Implemented CI/CD pipelines with GitHub Workflows, automating testing and deployment',
+    ],
+    techStack: ['electric', 'water', 'steel', 'fire'],
+    techLabels: ['React', 'TypeScript', 'Python/Flask', 'GCP', 'Firebase', 'CI/CD'],
+    levelGained: 'Full-stack microservices & GCP cloud architecture',
+    badgeColor: '#7857a3',
+  },
+  {
+    id: 'exp-3',
+    company: 'Stony Brook University',
+    role: 'Teaching Assistant — Data Structures & Algorithms',
+    startDate: 'Aug 2025',
+    endDate: 'Dec 2025',
+    location: 'Stony Brook, NY',
+    description: 'TA for CSE 214: Data Structures & Algorithms.',
+    achievements: [
+      'Assisted 150+ students in data structures and algorithms, improving comprehension via weekly office hours and recitation',
+      'Explained complex topics including trees, graphs, dynamic programming, and sorting algorithms',
+    ],
+    techStack: ['ghost', 'psychic'],
+    techLabels: ['Java', 'Data Structures', 'Algorithms'],
+    levelGained: 'Teaching complex CS concepts clearly to 150+ students',
+    badgeColor: '#CC0033',
+  },
+];
