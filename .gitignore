@@ -44,3 +44,12 @@ next-env.d.ts
 CLAUDE.md
 AGENTS.md
 .claude/
+
+# loose asset files in root (use public/ instead)
+*.jpg
+*.jpeg
+*.png
+*.gif
+*.webp
+*.mp4
+*.pdf

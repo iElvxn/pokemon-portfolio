@@ -11,6 +11,7 @@ const AREA_MAP: Record<string, string> = {
   skills:     'POKEMON CENTER',
   projects:   'TRAINER HALL',
   experience: 'BADGE CASE',
+  education:  'TRAINER ACADEMY',
   contact:    'POKÉGEAR',
 };
 

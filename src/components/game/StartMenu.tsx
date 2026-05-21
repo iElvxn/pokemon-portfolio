@@ -7,9 +7,10 @@ import { MenuCursor } from './MenuCursor';
 
 const MENU_ITEMS = [
   { label: 'POKÉDEX',  sub: 'ABOUT ME',    href: '#about'      },
-  { label: 'POKÉMON',  sub: 'SKILLS',      href: '#skills'     },
-  { label: 'BAG',      sub: 'PROJECTS',    href: '#projects'   },
   { label: 'TRAINER',  sub: 'EXPERIENCE',  href: '#experience' },
+  { label: 'BAG',      sub: 'PROJECTS',    href: '#projects'   },
+  { label: 'DIPLOMA',  sub: 'EDUCATION',   href: '#education'  },
+  { label: 'POKÉMON',  sub: 'SKILLS',      href: '#skills'     },
   { label: 'SAVE',     sub: 'CONTACT',     href: '#contact'    },
   { label: 'QUIT',     sub: 'CLOSE MENU',  href: ''            },
 ];

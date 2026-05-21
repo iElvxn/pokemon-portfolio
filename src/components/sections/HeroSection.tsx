@@ -1,68 +1,66 @@
 'use client';
 
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { SectionEnterTransition } from '@/components/game/BattleTransition';
 import { personal } from '@/data/personal';
 
-/* ── Random starfield, generated once ─────────────────────── */
-function useStars(count: number) {
-  return useMemo(() =>
-    Array.from({ length: count }, (_, i) => ({
-      id: i,
-      x: (Math.random() * 100).toFixed(2),
-      y: (Math.random() * 100).toFixed(2),
-      w: Math.random() < 0.25 ? 2 : 1,
-      dur: (1.2 + Math.random() * 2.4).toFixed(2),
-      del: (Math.random() * 4).toFixed(2),
-    })),
-  [count]);
-}
-
-/* ── Shooting star ─────────────────────────────────────────── */
-function ShootingStar({ x, y }: { x: number; y: number }) {
-  return (
-    <motion.div
-      className="absolute h-px"
-      style={{
-        left: `${x}%`,
-        top:  `${y}%`,
-        width: 60,
-        background: 'linear-gradient(90deg, rgba(248,230,255,0.9), transparent)',
-        transformOrigin: 'left center',
-      }}
-      initial={{ x: 0, opacity: 0, rotate: -35 }}
-      animate={{ x: 120, opacity: [0, 1, 0] }}
-      transition={{ duration: 0.8, delay: Math.random() * 4 }}
-    />
-  );
-}
-
 type Phase = 'title' | 'menu';
+
+/* ── Pokemon logo text-shadow outline helper ───────────────── */
+function outline(size: number, color = '#1a0c36', drop = true): string {
+  const s = size;
+  const layers = [
+    `${-s}px ${-s}px 0 ${color}`,
+    `${s}px ${-s}px 0 ${color}`,
+    `${-s}px ${s}px 0 ${color}`,
+    `${s}px ${s}px 0 ${color}`,
+    `0 ${-s}px 0 ${color}`,
+    `0 ${s}px 0 ${color}`,
+    `${-s}px 0 0 ${color}`,
+    `${s}px 0 0 ${color}`,
+    /* fill diagonals for smooth thick pixel outline */
+    `${-(s - 1)}px ${-s}px 0 ${color}`,
+    `${s - 1}px ${-s}px 0 ${color}`,
+    `${-s}px ${-(s - 1)}px 0 ${color}`,
+    `${s}px ${-(s - 1)}px 0 ${color}`,
+    `${-(s - 1)}px ${s}px 0 ${color}`,
+    `${s - 1}px ${s}px 0 ${color}`,
+    `${-s}px ${s - 1}px 0 ${color}`,
+    `${s}px ${s - 1}px 0 ${color}`,
+  ];
+  if (drop) layers.push(`${s + 3}px ${s + 5}px 0 rgba(0,0,0,0.4)`);
+  return layers.join(', ');
+}
 
 export function HeroSection() {
   const [phase, setPhase]           = useState<Phase>('title');
   const [menuCursor, setMenuCursor] = useState(0);
   const [blink, setBlink]           = useState(true);
-  const stars = useStars(90);
+  const [visible, setVisible]       = useState(false);
+
+  /* Wait for SectionEnterTransition to clear (~400ms) */
+  useEffect(() => {
+    const t = setTimeout(() => setVisible(true), 420);
+    return () => clearTimeout(t);
+  }, []);
 
   /* Blink timer */
   useEffect(() => {
-    const t = setInterval(() => setBlink((b) => !b), 600);
+    const t = setInterval(() => setBlink(b => !b), 600);
     return () => clearInterval(t);
   }, []);
 
-  /* Keyboard navigation */
+  /* Keyboard nav */
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
       if (phase === 'title') {
         if (e.key === 'Enter' || e.key === ' ') setPhase('menu');
       } else {
-        if (e.key === 'ArrowDown') setMenuCursor((c) => Math.min(2, c + 1));
-        if (e.key === 'ArrowUp')   setMenuCursor((c) => Math.max(0, c - 1));
-        if (e.key === 'Enter' || e.key === ' ') {
+        if (e.key === 'ArrowDown') setMenuCursor(c => Math.min(2, c + 1));
+        if (e.key === 'ArrowUp')   setMenuCursor(c => Math.max(0, c - 1));
+        if (e.key === 'Enter' || e.key === ' ')
           document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
-        }
       }
     };
     window.addEventListener('keydown', handler);
@@ -70,161 +68,160 @@ export function HeroSection() {
   }, [phase]);
 
   const menuItems = [
-    { label: 'CONTINUE',  action: () => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' }) },
-    { label: 'NEW GAME',  action: () => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' }) },
-    { label: 'OPTIONS',   action: () => {} },
+    { label: 'CONTINUE', action: () => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' }) },
+    { label: 'NEW GAME', action: () => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' }) },
+    { label: 'OPTIONS',  action: () => {} },
   ];
 
   return (
     <section
       id="hero"
-      className="game-screen flex items-center justify-center relative overflow-hidden"
+      className="game-screen relative overflow-hidden"
       style={{
-        background: 'radial-gradient(ellipse 120% 90% at 50% 30%, #1a0f3a 0%, #0a0518 60%, #050210 100%)',
+        backgroundImage: 'url(/wallpaper.jpg)',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center center',
       }}
     >
       <SectionEnterTransition />
 
-      {/* ── Stars ─────────────────────────────────────────── */}
-      <div className="star-field">
-        {stars.map((s) => (
-          <div
-            key={s.id}
-            className="star"
-            style={{
-              left: `${s.x}%`,
-              top:  `${s.y}%`,
-              width:  s.w,
-              height: s.w,
-              '--sdur': `${s.dur}s`,
-              '--sdel': `${s.del}s`,
-            } as React.CSSProperties}
-          />
-        ))}
-        <ShootingStar x={20} y={15} />
-        <ShootingStar x={60} y={8} />
-      </div>
-
-      {/* ── Ground strip ────────────────────────────────── */}
+      {/* Subtle dark overlay — keeps text readable, preserves wallpaper vibrancy */}
       <div
-        className="absolute bottom-0 left-0 right-0 h-20 pointer-events-none"
-        style={{
-          background: 'linear-gradient(180deg, transparent 0%, rgba(88,48,56,0.3) 60%, rgba(68,28,36,0.6) 100%)',
-        }}
+        className="absolute inset-0 pointer-events-none"
+        style={{ background: 'rgba(8,4,18,0.28)' }}
       />
 
-      {/* ── Scanlines (heavier on title) ────────────────── */}
+      {/* Bottom ground gradient — ties into the rest of the site */}
+      <div
+        className="absolute bottom-0 left-0 right-0 h-32 pointer-events-none"
+        style={{ background: 'linear-gradient(180deg, transparent 0%, rgba(15,8,32,0.7) 100%)' }}
+      />
+
+      {/* CRT scanlines */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          backgroundImage:
-            'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.08) 2px, rgba(0,0,0,0.08) 4px)',
-          zIndex: 2,
+          backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.06) 2px, rgba(0,0,0,0.06) 4px)',
+          zIndex: 3,
         }}
       />
 
-      {/* ── Content ─────────────────────────────────────── */}
+      {/* ── Gengar — floats on the left like Beautifly in the reference ── */}
+      <motion.div
+        className="absolute z-10"
+        style={{ left: '8%', top: '50%', transform: 'translateY(-50%)' }}
+        initial={{ opacity: 0, x: -30 }}
+        animate={{ opacity: visible ? 1 : 0, x: visible ? 0 : -30 }}
+        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+      >
+        <img
+          src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/94.png"
+          alt="Gengar"
+          className="sprite-float"
+          style={{
+            imageRendering: 'pixelated',
+            width: 'clamp(80px, 11vw, 144px)',
+            height: 'auto',
+            filter: [
+              'drop-shadow(0 0 14px rgba(112,88,152,1))',
+              'drop-shadow(0 0 36px rgba(112,88,152,0.65))',
+              'drop-shadow(0 0 64px rgba(112,88,152,0.3))',
+              'brightness(1.15)',
+            ].join(' '),
+          }}
+        />
+      </motion.div>
+
+      {/* ── Main content ─────────────────────────────────────── */}
       <AnimatePresence mode="wait">
         {phase === 'title' ? (
           <motion.div
             key="title"
-            className="relative z-10 flex flex-col items-center gap-6 sm:gap-8 text-center px-4"
+            className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-4 sm:gap-5 text-center px-4"
+            style={{ paddingBottom: '12%' }}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.4 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.35 }}
           >
-            {/* Version tag */}
+            {/* "Hi, my name is" intro */}
             <motion.div
-              className="font-pixel text-px-8 tracking-[0.3em]"
-              style={{ color: 'var(--game-electric)' }}
+              className="font-pixel select-none"
+              style={{
+                fontSize: 'clamp(8px, 1.6vw, 14px)',
+                color: '#ffffff',
+                letterSpacing: '0.22em',
+                textShadow: outline(2, '#1a0c36', false),
+              }}
               initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.3 }}
+              animate={{ opacity: visible ? 1 : 0 }}
+              transition={{ delay: 0.0, duration: 0.4 }}
             >
-              ★ VERSION PORTFOLIO ★
+              HI, MY NAME IS
             </motion.div>
 
-            {/* Title */}
-            <div>
-              <motion.div
-                className="font-pixel leading-none"
+            {/* ── NAME — big yellow logo treatment ─────────── */}
+            <motion.div
+              initial={{ opacity: 0, y: -28, scale: 0.88 }}
+              animate={{ opacity: visible ? 1 : 0, y: visible ? 0 : -28, scale: visible ? 1 : 0.88 }}
+              transition={{ delay: 0.08, duration: 0.55, type: 'spring', stiffness: 180, damping: 18 }}
+            >
+              <div
+                className="font-pixel leading-none select-none"
                 style={{
-                  fontSize: 'clamp(20px, 5vw, 36px)',
-                  color: 'var(--game-electric)',
-                  animation: 'title-glow 2.5s ease-in-out infinite',
+                  fontSize: 'clamp(28px, 7vw, 64px)',
+                  color: '#F8D030',
+                  textShadow: outline(5, '#1a0c36'),
+                  letterSpacing: '0.06em',
                 }}
-                initial={{ y: -16, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.5, duration: 0.4 }}
               >
-                POKÉMON
-              </motion.div>
-              <motion.div
-                className="font-pixel mt-2"
-                style={{
-                  fontSize: 'clamp(12px, 3vw, 22px)',
-                  color: '#e8e8ff',
-                  textShadow: '2px 2px 0 rgba(0,0,0,0.9), -1px -1px 0 rgba(0,0,0,0.5)',
-                  letterSpacing: '0.12em',
-                }}
-                initial={{ y: -8, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.7, duration: 0.35 }}
-              >
-                PORTFOLIO
-              </motion.div>
-            </div>
-
-            {/* Gengar sprite */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.7 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.9, type: 'spring', stiffness: 200, damping: 15 }}
-            >
-              <img
-                src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/94.png"
-                alt="Gengar"
-                className="sprite-float"
-                style={{
-                  imageRendering: 'pixelated',
-                  width:  'clamp(72px, 14vw, 120px)',
-                  height: 'auto',
-                  filter:
-                    'drop-shadow(0 0 12px rgba(112,88,152,0.9)) drop-shadow(0 0 30px rgba(112,88,152,0.4)) brightness(1.1)',
-                }}
-              />
+                {personal.name.toUpperCase()}
+              </div>
             </motion.div>
 
-            {/* Trainer name */}
+            {/* Role subtitle */}
             <motion.div
-              className="font-pixel text-px-8 tracking-[0.2em]"
-              style={{ color: 'rgba(200,180,255,0.7)' }}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 1.1 }}
+              className="font-pixel select-none"
+              style={{
+                fontSize: 'clamp(10px, 2.2vw, 20px)',
+                color: '#ffffff',
+                letterSpacing: '0.2em',
+                textShadow: outline(3, '#1a0c36'),
+              }}
+              initial={{ opacity: 0, y: -12 }}
+              animate={{ opacity: visible ? 1 : 0, y: visible ? 0 : -12 }}
+              transition={{ delay: 0.22, duration: 0.4 }}
             >
-              by {personal.name.toUpperCase()}
+              SOFTWARE ENGINEER
             </motion.div>
 
-            {/* Press enter */}
+            {/* PRESS ENTER — blinking */}
             <motion.div
-              className="font-pixel text-px-8 tracking-[0.04em]"
-              style={{ color: '#f0f0f8', opacity: blink ? 1 : 0 }}
+              className="font-pixel text-px-8 select-none"
+              style={{
+                color: '#ffffff',
+                opacity: visible && blink ? 1 : 0,
+                textShadow: outline(2, '#1a0c36', false),
+                letterSpacing: '0.04em',
+              }}
               initial={{ opacity: 0 }}
-              animate={{ opacity: blink ? 1 : 0 }}
-              transition={{ delay: 1.3 }}
+              animate={{ opacity: visible && blink ? 1 : 0 }}
+              transition={{ delay: 0.7 }}
             >
               PRESS ENTER TO CONTINUE
             </motion.div>
 
-            {/* Click hint on mobile */}
+            {/* Mobile tap hint */}
             <motion.button
-              className="font-pixel text-px-6 tracking-[0.04em]"
-              style={{ color: 'rgba(200,180,255,0.5)' }}
+              className="font-pixel text-px-6"
+              style={{
+                color: 'rgba(255,255,255,0.65)',
+                textShadow: '1px 1px 0 rgba(0,0,0,0.9)',
+                marginTop: 4,
+              }}
               initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 2 }}
+              animate={{ opacity: visible ? 1 : 0 }}
+              transition={{ delay: 1.4 }}
               onClick={() => setPhase('menu')}
             >
               [ tap to continue ]
@@ -232,59 +229,61 @@ export function HeroSection() {
 
             {/* Copyright */}
             <motion.div
-              className="font-pixel text-px-6 absolute bottom-24"
-              style={{ color: 'rgba(180,160,220,0.4)' }}
+              className="font-pixel text-px-6 absolute bottom-6"
+              style={{
+                color: 'rgba(255,255,255,0.45)',
+                textShadow: '1px 1px 0 rgba(0,0,0,0.9)',
+              }}
               initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 1.6 }}
+              animate={{ opacity: visible ? 1 : 0 }}
+              transition={{ delay: 1.0 }}
             >
               © 2025 {personal.name.toUpperCase()}
             </motion.div>
           </motion.div>
+
         ) : (
           /* ── Game Start Menu ─────────────────────────────── */
           <motion.div
             key="menu"
-            className="relative z-10 flex flex-col items-center gap-8"
+            className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-6"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.3 }}
+            transition={{ duration: 0.25 }}
           >
-            {/* Mini header */}
-            <div className="flex items-center gap-4">
-              <img
-                src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/94.png"
-                alt="Gengar"
-                className="sprite-bob"
-                style={{
-                  imageRendering: 'pixelated',
-                  width: 56,
-                  height: 56,
-                  filter: 'drop-shadow(0 0 8px rgba(112,88,152,0.8))',
-                }}
-              />
-              <div
-                className="font-pixel text-px-16"
-                style={{
-                  color: 'var(--game-electric)',
-                  textShadow: '2px 2px 0 rgba(0,0,0,0.9)',
-                }}
-              >
-                POKÉMON
-              </div>
-            </div>
+            {/* Name header in menu phase */}
+            <motion.div
+              className="font-pixel leading-none select-none"
+              style={{
+                fontSize: 'clamp(18px, 4vw, 36px)',
+                color: '#F8D030',
+                textShadow: outline(4, '#1a0c36'),
+                letterSpacing: '0.06em',
+              }}
+              initial={{ y: -12, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 0.05 }}
+            >
+              {personal.name.toUpperCase()}
+            </motion.div>
 
-            {/* Menu box */}
-            <div className="game-box w-52">
+            {/* Menu box — snaps open like the game */}
+            <motion.div
+              className="game-box w-52"
+              initial={{ scaleY: 0, opacity: 0 }}
+              animate={{ scaleY: 1, opacity: 1 }}
+              style={{ transformOrigin: 'top center' }}
+              transition={{ duration: 0.14, ease: 'linear' }}
+            >
               {menuItems.map((item, i) => (
                 <div
                   key={item.label}
-                  className={`game-menu-item ${i < menuItems.length - 1 ? 'border-b-2 border-[var(--game-box-shadow)]/20' : ''}`}
+                  className={`game-menu-item${i < menuItems.length - 1 ? ' border-b-2 border-[var(--game-box-shadow)]/25' : ''}`}
                   onMouseEnter={() => setMenuCursor(i)}
                   onClick={item.action}
                 >
                   <span
-                    className="font-pixel text-px-10 w-4"
+                    className="font-pixel text-px-10 w-4 flex-shrink-0"
                     style={{ opacity: menuCursor === i ? 1 : 0, color: 'var(--game-text)' }}
                   >
                     ►
@@ -292,7 +291,7 @@ export function HeroSection() {
                   <span className="font-pixel text-px-8 text-[var(--game-text)]">{item.label}</span>
                 </div>
               ))}
-            </div>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>

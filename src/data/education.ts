@@ -1,0 +1,51 @@
+export const education = {
+  institution: 'Stony Brook University',
+  location: 'Stony Brook, NY',
+  badgeColor: '#CC0033',
+  degrees: [
+    {
+      id: 'ms',
+      degree: "Master's of Science",
+      field: 'Computer Science',
+      status: 'In Progress' as const,
+      startDate: 'Aug 2026',
+      endDate: 'May 2027',
+      gpa: null,
+    },
+    {
+      id: 'bs',
+      degree: 'Bachelor of Science',
+      field: 'Computer Science',
+      status: 'Completed' as const,
+      startDate: 'Aug 2023',
+      endDate: 'May 2026',
+      gpa: 3.73,
+    },
+  ],
+  coursework: [
+    'Software Development',
+    'Data Structures & Algorithms',
+    'Database Systems',
+    'System Fundamentals',
+    'OOP',
+    'Data Science',
+    'Computer Networks',
+    'Natural Language Processing',
+  ],
+  affiliations: [
+    {
+      org: 'Google',
+      role: 'BASTA SWEP Code2Career Fellow',
+      period: 'Oct 2025 – Present',
+      description: "Selected for Google's BASTA SWEP for mentorship from Google Software Engineers.",
+      color: '#4285F4',
+    },
+    {
+      org: 'Asian Student Alliance',
+      role: 'External Public Relations',
+      period: 'Sep 2023 – Present',
+      description: 'Leading external communications and public relations for the Asian Student Alliance.',
+      color: '#E24329',
+    },
+  ],
+};

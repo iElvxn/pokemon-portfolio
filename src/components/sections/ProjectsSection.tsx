@@ -24,7 +24,6 @@ export function ProjectsSection() {
     <section
       id="projects"
       className="game-screen flex flex-col items-center justify-center relative overflow-hidden"
-      style={{ background: 'var(--game-bg)' }}
     >
       <SectionEnterTransition />
 
