@@ -109,7 +109,7 @@ export function ContactSection() {
                 <div className="flex items-center gap-2">
                   <MenuCursor active={contactCursor === i} />
                   <div>
-                    <div className="font-pixel text-px-6" style={{ color: 'var(--game-text-light)' }}>
+                    <div className="font-pixel text-px-8" style={{ color: 'var(--game-text-light)' }}>
                       {c.label}
                     </div>
                     <div
@@ -150,7 +150,7 @@ export function ContactSection() {
                 <div className="font-pixel text-px-8" style={{ color: 'var(--game-text)' }}>
                   NEW MESSAGE
                 </div>
-                <div className="font-pixel text-px-6 mt-0.5" style={{ color: 'var(--game-text-light)' }}>
+                <div className="font-pixel text-px-8 mt-0.5" style={{ color: 'var(--game-text-light)' }}>
                   OPEN TO ROLES, COLLABS & COOL PROJECTS
                 </div>
               </div>
@@ -197,7 +197,7 @@ export function ContactSection() {
                     >
                       <div className="grid grid-cols-2 gap-3">
                         <div>
-                          <label className="font-pixel text-px-6 block mb-1" style={{ color: 'var(--game-text-light)' }}>
+                          <label className="font-pixel text-px-8 block mb-1" style={{ color: 'var(--game-text-light)' }}>
                             NAME
                           </label>
                           <input
@@ -206,11 +206,11 @@ export function ContactSection() {
                             style={inputBase}
                           />
                           {errors.name && (
-                            <span className="font-pixel text-px-6" style={{ color: 'var(--game-hp-red)' }}>REQUIRED</span>
+                            <span className="font-pixel text-px-8" style={{ color: 'var(--game-hp-red)' }}>REQUIRED</span>
                           )}
                         </div>
                         <div>
-                          <label className="font-pixel text-px-6 block mb-1" style={{ color: 'var(--game-text-light)' }}>
+                          <label className="font-pixel text-px-8 block mb-1" style={{ color: 'var(--game-text-light)' }}>
                             EMAIL
                           </label>
                           <input
@@ -220,12 +220,12 @@ export function ContactSection() {
                             style={inputBase}
                           />
                           {errors.email && (
-                            <span className="font-pixel text-px-6" style={{ color: 'var(--game-hp-red)' }}>INVALID</span>
+                            <span className="font-pixel text-px-8" style={{ color: 'var(--game-hp-red)' }}>INVALID</span>
                           )}
                         </div>
                       </div>
                       <div>
-                        <label className="font-pixel text-px-6 block mb-1" style={{ color: 'var(--game-text-light)' }}>
+                        <label className="font-pixel text-px-8 block mb-1" style={{ color: 'var(--game-text-light)' }}>
                           SUBJECT
                         </label>
                         <input
@@ -235,7 +235,7 @@ export function ContactSection() {
                         />
                       </div>
                       <div>
-                        <label className="font-pixel text-px-6 block mb-1" style={{ color: 'var(--game-text-light)' }}>
+                        <label className="font-pixel text-px-8 block mb-1" style={{ color: 'var(--game-text-light)' }}>
                           MESSAGE
                         </label>
                         <textarea

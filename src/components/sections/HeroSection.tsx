@@ -255,7 +255,7 @@ export function HeroSection() {
                     </span>
                     <div>
                       <div className="font-pixel text-px-8 text-[var(--game-text)]">{item.label}</div>
-                      <div className="font-pixel text-px-6 text-[var(--game-text-light)] mt-0.5">{item.sub}</div>
+                      <div className="font-pixel text-px-8 text-[var(--game-text-light)] mt-0.5">{item.sub}</div>
                     </div>
                   </div>
                 ))}
@@ -280,7 +280,7 @@ export function HeroSection() {
 
       {/* Copyright */}
       <motion.div
-        className="font-pixel text-px-6 absolute bottom-6 left-1/2 -translate-x-1/2 z-10"
+        className="font-pixel text-px-8 absolute bottom-6 left-1/2 -translate-x-1/2 z-10"
         style={{ color: 'rgba(255,255,255,0.45)', textShadow: '1px 1px 0 rgba(0,0,0,0.9)' }}
         initial={{ opacity: 0 }}
         animate={{ opacity: visible ? 1 : 0 }}

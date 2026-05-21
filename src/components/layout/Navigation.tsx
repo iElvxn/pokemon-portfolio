@@ -77,7 +77,7 @@ export function Navigation() {
           <span className="font-pixel text-px-8 text-[var(--game-text)]">
             {personal.name.split(' ')[0].toUpperCase()} ♂
           </span>
-          <span className="font-pixel text-px-6 text-[var(--game-text-light)]">
+          <span className="font-pixel text-px-8 text-[var(--game-text-light)]">
             LV.{personal.level}
           </span>
         </div>

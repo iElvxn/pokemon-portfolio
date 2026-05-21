@@ -7,8 +7,14 @@ import { MenuCursor } from '@/components/game/MenuCursor';
 import { experiences } from '@/data/experience';
 import { getTypeColor, PokemonType } from '@/lib/type-colors';
 
-/* Badge icons using Pokemon gym badge style shapes */
-const BADGE_ICONS = ['⬡', '◈', '✦', '❋', '⟡', '◆'];
+const BADGE_SPRITES = [
+  '/badges/volcano.webp',
+  '/badges/thunder.webp',
+  '/badges/boulder.webp',
+  '/badges/earth.webp',
+  '/badges/thunder.webp',
+  '/badges/boulder.webp',
+];
 
 export function ExperienceSection() {
   const [selected, setSelected] = useState(0);
@@ -51,21 +57,26 @@ export function ExperienceSection() {
                   <motion.div
                     whileHover={{ scale: 1.15, y: -2 }}
                     animate={{ scale: selected === i ? 1.2 : 1 }}
-                    className="w-14 h-14 flex items-center justify-center font-pixel text-px-24"
+                    className="w-14 h-14 flex items-center justify-center"
                     style={{
-                      background: selected === i ? e.badgeColor : 'rgba(255,255,255,0.05)',
+                      background: selected === i ? `${e.badgeColor}22` : 'rgba(255,255,255,0.05)',
                       border: `3px solid ${e.badgeColor}`,
                       boxShadow: selected === i
                         ? `0 0 14px ${e.badgeColor}88, 3px 3px 0 rgba(0,0,0,0.4)`
                         : '3px 3px 0 rgba(0,0,0,0.4)',
-                      color: selected === i ? '#fff' : e.badgeColor,
                       transition: 'background 0.2s, box-shadow 0.2s',
                     }}
                   >
-                    {BADGE_ICONS[i] ?? '◆'}
+                    <img
+                      src={BADGE_SPRITES[i]}
+                      alt={`${e.company} badge`}
+                      width={36}
+                      height={36}
+                      style={{ imageRendering: 'pixelated', filter: selected === i ? `drop-shadow(0 0 4px ${e.badgeColor})` : 'none' }}
+                    />
                   </motion.div>
-                  <span className="font-pixel text-px-6" style={{ color: e.badgeColor }}>
-                    {e.company.split(' ')[0].toUpperCase().slice(0, 6)}
+                  <span className="font-pixel text-px-8" style={{ color: e.badgeColor }}>
+                    {e.company.toUpperCase()}
                   </span>
                 </button>
               ))}
@@ -90,14 +101,20 @@ export function ExperienceSection() {
                 style={{ borderBottom: '3px solid var(--game-box-border)' }}
               >
                 <div
-                  className="w-12 h-12 flex items-center justify-center font-pixel text-px-20 flex-shrink-0"
+                  className="w-12 h-12 flex items-center justify-center flex-shrink-0"
                   style={{
-                    background: exp.badgeColor,
-                    border: `3px solid rgba(0,0,0,0.3)`,
-                    color: '#fff',
+                    background: `${exp.badgeColor}22`,
+                    border: `3px solid ${exp.badgeColor}`,
+                    boxShadow: `0 0 10px ${exp.badgeColor}66`,
                   }}
                 >
-                  {BADGE_ICONS[selected] ?? '◆'}
+                  <img
+                    src={BADGE_SPRITES[selected]}
+                    alt={`${exp.company} badge`}
+                    width={32}
+                    height={32}
+                    style={{ imageRendering: 'pixelated', filter: `drop-shadow(0 0 4px ${exp.badgeColor})` }}
+                  />
                 </div>
                 <div className="flex-1">
                   <div className="font-pixel text-px-12" style={{ color: 'var(--game-text)' }}>
@@ -122,7 +139,7 @@ export function ExperienceSection() {
                     return (
                       <span
                         key={ti}
-                        className="font-pixel text-px-6 px-1.5 py-0.5"
+                        className="font-pixel text-px-8 px-1.5 py-0.5"
                         style={{ background: col, color: '#fff', border: '1px solid rgba(0,0,0,0.3)' }}
                       >
                         {type.toUpperCase().slice(0, 4)}
@@ -137,7 +154,7 @@ export function ExperienceSection() {
                 className="px-4 py-4"
                 style={{ borderBottom: '2px solid var(--game-box-border)' }}
               >
-                <div className="font-pixel text-px-6 mb-3" style={{ color: 'var(--game-text-light)' }}>
+                <div className="font-pixel text-px-8 mb-3" style={{ color: 'var(--game-text-light)' }}>
                   BATTLE LOG
                 </div>
                 <div className="space-y-2.5">
@@ -172,7 +189,7 @@ export function ExperienceSection() {
 
         {/* Navigation hint */}
         <div className="text-center">
-          <span className="font-pixel text-px-6" style={{ color: 'var(--game-text-light)' }}>
+          <span className="font-pixel text-px-8" style={{ color: 'var(--game-text-light)' }}>
             SELECT BADGE TO VIEW EXPERIENCE
           </span>
         </div>

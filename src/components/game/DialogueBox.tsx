@@ -66,7 +66,7 @@ export function DialogueBox({
       <div className="font-vt text-vt-22 leading-relaxed min-h-[44px]" style={{ color: 'var(--game-text)' }}>
         {displayed}
         {done && (
-          <span className="cursor-blink inline-block ml-1 font-pixel text-px-6" style={{ color: 'var(--game-text-mid)' }}>
+          <span className="cursor-blink inline-block ml-1 font-pixel text-px-8" style={{ color: 'var(--game-text-mid)' }}>
             ▼
           </span>
         )}

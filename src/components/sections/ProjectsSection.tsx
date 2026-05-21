@@ -114,7 +114,7 @@ function GBAScreen({ project, typeColor }: { project: typeof projects[0]; typeCo
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 5, paddingInline: 2, flexShrink: 0 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 3 }}>
             <div style={{ width: 4, height: 4, borderRadius: '50%', background: typeColor, boxShadow: `0 0 5px ${typeColor}` }} />
-            <span style={{ fontFamily: 'var(--font-pixel)', fontSize: 5, color: 'rgba(255,255,255,0.2)', letterSpacing: '0.1em' }}>PWR</span>
+            <span style={{ fontFamily: 'var(--font-pixel)', fontSize: 6, color: 'rgba(255,255,255,0.2)', letterSpacing: '0.1em' }}>PWR</span>
           </div>
           <div style={{ display: 'flex', gap: 2 }}>
             {Array.from({ length: 6 }).map((_, i) => (
@@ -183,20 +183,25 @@ export function ProjectsSection() {
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center justify-between gap-1">
                         <span className="font-pixel text-px-8 truncate" style={{ color: 'var(--game-text)' }}>{p.name.toUpperCase()}</span>
-                        <span className="font-pixel text-px-6 px-1 flex-shrink-0" style={{ background: col, color: '#fff', border: '1px solid rgba(0,0,0,0.3)' }}>
+                        <span className="font-pixel text-px-8 px-1 flex-shrink-0" style={{ background: col, color: '#fff', border: '1px solid rgba(0,0,0,0.3)' }}>
                           {p.type.slice(0, 3).toUpperCase()}
                         </span>
                       </div>
                       <div className="flex items-center gap-1 mt-1.5">
-                        <span className="font-pixel text-px-6" style={{ color: 'var(--game-text-light)' }}>HP</span>
+                        <span className="font-pixel text-px-8" style={{ color: 'var(--game-text-light)' }}>HP</span>
                         <HPBar value={hpPct} max={100} showValue={false} animate className="flex-1" />
-                        <span className="font-pixel text-px-6" style={{ color: 'var(--game-text-mid)' }}>{p.hp}</span>
+                        <span className="font-pixel text-px-8" style={{ color: 'var(--game-text-mid)' }}>{p.hp}</span>
                       </div>
                     </div>
                   </div>
                 </div>
               );
             })}
+            <div className="relative z-10 px-3 py-2 mt-auto" style={{ borderTop: '2px solid var(--game-box-shadow)' }}>
+              <span className="font-pixel text-px-8" style={{ color: 'var(--game-text-light)' }}>
+                HOVER OVER POKÉMON TO VIEW PROJECT
+              </span>
+            </div>
           </div>
 
           {/* ── Detail panel ───────────────────────────────── */}
@@ -284,7 +289,7 @@ export function ProjectsSection() {
                     GITHUB ↗
                   </a>
                   {project.liveUrl && project.liveUrl !== '#' && (
-                    <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="game-box font-pixel text-px-6 px-3 py-1.5 relative z-10" style={{ color: 'var(--game-text)' }}>
+                    <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="game-box font-pixel text-px-8 px-3 py-1.5 relative z-10" style={{ color: 'var(--game-text)' }}>
                       LIVE DEMO ↗
                     </a>
                   )}

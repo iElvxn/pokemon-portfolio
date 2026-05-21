@@ -78,7 +78,7 @@ export function StartMenu({ open, onClose }: StartMenuProps) {
                   <MenuCursor active={cursor === i} />
                   <div>
                     <div className="font-pixel text-px-8 text-[var(--game-text)]">{item.label}</div>
-                    <div className="font-pixel text-px-6 text-[var(--game-text-light)] mt-0.5">{item.sub}</div>
+                    <div className="font-pixel text-px-8 text-[var(--game-text-light)] mt-0.5">{item.sub}</div>
                   </div>
                 </div>
               ))}

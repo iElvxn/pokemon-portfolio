@@ -57,7 +57,7 @@ export function EducationSection() {
                   <div className="font-pixel text-px-8" style={{ color: 'var(--game-text)' }}>
                     STONY BROOK
                   </div>
-                  <div className="font-pixel text-px-6 mt-0.5" style={{ color: 'var(--game-text-light)' }}>
+                  <div className="font-pixel text-px-8 mt-0.5" style={{ color: 'var(--game-text-light)' }}>
                     UNIVERSITY
                   </div>
                 </div>
@@ -86,7 +86,7 @@ export function EducationSection() {
                       {d.degree === "Master's of Science" ? 'M.S.' : 'B.S.'} CS
                     </div>
                     <div
-                      className="font-pixel text-px-6 mt-0.5"
+                      className="font-pixel text-px-8 mt-0.5"
                       style={{
                         color: d.status === 'Completed'
                           ? 'var(--game-hp-green)'
@@ -105,7 +105,7 @@ export function EducationSection() {
               className="relative z-10 px-3 py-2"
               style={{ borderTop: '2px solid var(--game-box-border)' }}
             >
-              <div className="font-pixel text-px-6" style={{ color: 'var(--game-text-light)' }}>
+              <div className="font-pixel text-px-8" style={{ color: 'var(--game-text-light)' }}>
                 {education.location.toUpperCase()}
               </div>
             </div>
@@ -129,7 +129,7 @@ export function EducationSection() {
                 >
                   <div className="flex items-start justify-between gap-2">
                     <div>
-                      <div className="font-pixel text-px-10" style={{ color: 'var(--game-text)' }}>
+                      <div className="font-pixel text-px-12" style={{ color: 'var(--game-text)' }}>
                         {degree.degree.toUpperCase()}
                       </div>
                       <div className="font-pixel text-px-8 mt-0.5" style={{ color: education.badgeColor }}>
@@ -137,7 +137,7 @@ export function EducationSection() {
                       </div>
                     </div>
                     <div
-                      className="font-pixel text-px-6 px-2 py-1"
+                      className="font-pixel text-px-8 px-2 py-1"
                       style={{
                         background: degree.status === 'Completed'
                           ? 'var(--game-hp-green)'
@@ -150,7 +150,7 @@ export function EducationSection() {
                       {degree.status === 'Completed' ? 'EARNED' : 'IN PROGRESS'}
                     </div>
                   </div>
-                  <div className="font-pixel text-px-6 mt-1" style={{ color: 'var(--game-text-light)' }}>
+                  <div className="font-pixel text-px-8 mt-1" style={{ color: 'var(--game-text-light)' }}>
                     {degree.startDate.toUpperCase()} – {degree.endDate.toUpperCase()}
                     {degree.status === 'In Progress' ? ' (EXPECTED)' : ''}
                   </div>
@@ -172,49 +172,40 @@ export function EducationSection() {
                   ) : (
                     <div className="flex items-center gap-2">
                       <span className="font-pixel text-px-8" style={{ color: 'var(--game-text)' }}>GPA</span>
-                      <span className="font-pixel text-px-6" style={{ color: 'var(--game-text-light)' }}>
+                      <span className="font-pixel text-px-8" style={{ color: 'var(--game-text-light)' }}>
                         TBD
                       </span>
                     </div>
                   )}
                   {degree.gpa !== null && (
-                    <div className="font-pixel text-px-10 mt-1" style={{ color: education.badgeColor }}>
+                    <div className="font-pixel text-px-12 mt-1" style={{ color: education.badgeColor }}>
                       {degree.gpa.toFixed(2)} / 4.00
                     </div>
                   )}
                 </div>
 
                 {/* Coursework — "MOVES LEARNED" */}
-                {selectedDegree === 1 && (
-                  <div className="relative z-10 px-4 py-3">
-                    <div className="font-pixel text-px-6 mb-2" style={{ color: 'var(--game-text-light)' }}>
-                      MOVES LEARNED (COURSEWORK)
-                    </div>
-                    <div className="flex flex-wrap gap-1">
-                      {education.coursework.map((course) => (
-                        <span
-                          key={course}
-                          className="font-pixel text-px-6 px-2 py-1"
-                          style={{
-                            background: 'var(--game-box-dark)',
-                            border: '2px solid var(--game-box-border)',
-                            boxShadow: '2px 2px 0 var(--game-box-border)',
-                            color: 'var(--game-text)',
-                          }}
-                        >
-                          {course.toUpperCase()}
-                        </span>
-                      ))}
-                    </div>
+                <div className="relative z-10 px-4 py-3">
+                  <div className="font-pixel text-px-8 mb-2" style={{ color: 'var(--game-text-light)' }}>
+                    MOVES LEARNED (COURSEWORK)
                   </div>
-                )}
-                {selectedDegree === 0 && (
-                  <div className="relative z-10 px-4 py-3">
-                    <div className="font-pixel text-px-6" style={{ color: 'var(--game-text-light)' }}>
-                      CURRENTLY PURSUING — COURSEWORK IN PROGRESS
-                    </div>
+                  <div className="flex flex-wrap gap-1">
+                    {degree.coursework.map((course) => (
+                      <span
+                        key={course}
+                        className="font-pixel text-px-8 px-2 py-1"
+                        style={{
+                          background: 'var(--game-box-dark)',
+                          border: '2px solid var(--game-box-border)',
+                          boxShadow: '2px 2px 0 var(--game-box-border)',
+                          color: 'var(--game-text)',
+                        }}
+                      >
+                        {course.toUpperCase()}
+                      </span>
+                    ))}
                   </div>
-                )}
+                </div>
               </motion.div>
             </AnimatePresence>
 
@@ -246,10 +237,10 @@ export function EducationSection() {
                         <div className="font-pixel text-px-8" style={{ color: 'var(--game-text)' }}>
                           {a.org.toUpperCase()} — {a.role.toUpperCase()}
                         </div>
-                        <div className="font-pixel text-px-6 mt-0.5" style={{ color: a.color }}>
+                        <div className="font-pixel text-px-8 mt-0.5" style={{ color: a.color }}>
                           {a.period.toUpperCase()}
                         </div>
-                        <div className="font-vt text-vt-18 mt-0.5" style={{ color: 'var(--game-text-mid)' }}>
+                        <div className="font-vt text-vt-20 mt-0.5" style={{ color: 'var(--game-text-mid)' }}>
                           {a.description}
                         </div>
                       </div>

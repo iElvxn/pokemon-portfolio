@@ -50,7 +50,7 @@ export function AboutSection() {
               style={{ borderBottom: '3px solid var(--game-box-border)' }}
             >
               <div>
-                <div className="font-pixel text-px-6" style={{ color: 'var(--game-text-light)' }}>
+                <div className="font-pixel text-px-8" style={{ color: 'var(--game-text-light)' }}>
                   {personal.pokedexNumber}
                 </div>
                 <div className="font-pixel text-px-12" style={{ color: 'var(--game-text)' }}>
@@ -80,7 +80,7 @@ export function AboutSection() {
                 return (
                   <span
                     key={t}
-                    className="font-pixel text-px-6 px-2 py-1"
+                    className="font-pixel text-px-8 px-2 py-1"
                     style={{ background: col, color: '#fff', border: '2px solid rgba(0,0,0,0.3)' }}
                   >
                     {t.toUpperCase()}
@@ -150,7 +150,7 @@ export function AboutSection() {
               <div className="relative z-10 flex items-center gap-3">
                 <div>
                   <div className="font-pixel text-px-10" style={{ color: 'var(--game-text)' }}>PROF. OAK</div>
-                  <div className="font-pixel text-px-6 mt-0.5" style={{ color: 'var(--game-text-light)' }}>PALLET TOWN RESEARCHER</div>
+                  <div className="font-pixel text-px-8 mt-0.5" style={{ color: 'var(--game-text-light)' }}>PALLET TOWN RESEARCHER</div>
                 </div>
               </div>
             </div>
@@ -197,7 +197,7 @@ export function AboutSection() {
                       href={href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="game-box-sm game-box font-pixel text-px-6 px-3 py-1.5 relative z-10"
+                      className="game-box-sm game-box font-pixel text-px-8 px-3 py-1.5 relative z-10"
                       style={{ color: 'var(--game-text)' }}
                     >
                       {label} ↗
@@ -224,7 +224,7 @@ export function AboutSection() {
             { label: 'REGION',   value: personal.region.toUpperCase() },
           ].map(({ label, value }) => (
             <div key={label} className="text-center relative z-10">
-              <div className="font-pixel text-px-6" style={{ color: 'var(--game-text-light)' }}>{label}</div>
+              <div className="font-pixel text-px-8" style={{ color: 'var(--game-text-light)' }}>{label}</div>
               <div className="font-pixel text-px-16 mt-1" style={{ color: 'var(--game-text)' }}>{value}</div>
             </div>
           ))}

@@ -26,7 +26,7 @@ export function Footer() {
           <div className="font-pixel text-px-10 mb-1" style={{ color: 'var(--game-text)' }}>
             POKEMON PORTFOLIO
           </div>
-          <div className="font-pixel text-px-6 mb-3" style={{ color: 'var(--game-text-light)' }}>
+          <div className="font-pixel text-px-8 mb-3" style={{ color: 'var(--game-text-light)' }}>
             BY {personal.name.toUpperCase()}
           </div>
 
@@ -56,7 +56,7 @@ export function Footer() {
                 href={href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="game-box game-box-sm font-pixel text-px-6 px-3 py-1.5 relative z-10"
+                className="game-box game-box-sm font-pixel text-px-8 px-3 py-1.5 relative z-10"
                 style={{ color: 'var(--game-text)', textDecoration: 'none' }}
               >
                 {label} ↗
@@ -64,10 +64,10 @@ export function Footer() {
             ))}
           </div>
 
-          <div className="font-pixel text-px-6" style={{ color: 'var(--game-text-light)' }}>
+          <div className="font-pixel text-px-8" style={{ color: 'var(--game-text-light)' }}>
             © 2025 {personal.name.toUpperCase()} · GOTTA SHIP &apos;EM ALL
           </div>
-          <div className="font-pixel text-px-6 mt-1" style={{ color: 'var(--game-text-dim)' }}>
+          <div className="font-pixel text-px-8 mt-1" style={{ color: 'var(--game-text-dim)' }}>
             BUILT WITH NEXT.JS 15 + FRAMER MOTION
           </div>
         </div>

@@ -11,6 +11,7 @@ export const education = {
       startDate: 'Aug 2026',
       endDate: 'May 2027',
       gpa: null,
+      coursework: ['Natural Language Processing', 'Database Systems'],
     },
     {
       id: 'bs',
@@ -20,17 +21,17 @@ export const education = {
       startDate: 'Aug 2023',
       endDate: 'May 2026',
       gpa: 3.73,
+      coursework: [
+        'Software Development',
+        'Data Structures & Algorithms',
+        'Database Systems',
+        'System Fundamentals',
+        'OOP',
+        'Data Science',
+        'Computer Networks',
+        'Natural Language Processing',
+      ],
     },
-  ],
-  coursework: [
-    'Software Development',
-    'Data Structures & Algorithms',
-    'Database Systems',
-    'System Fundamentals',
-    'OOP',
-    'Data Science',
-    'Computer Networks',
-    'Natural Language Processing',
   ],
   affiliations: [
     {
