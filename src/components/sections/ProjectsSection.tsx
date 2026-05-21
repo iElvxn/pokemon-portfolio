@@ -29,7 +29,7 @@ export function ProjectsSection() {
 
       {/* Section label */}
       <div className="absolute top-4 left-1/2 -translate-x-1/2 z-10">
-        <div className="location-badge">TRAINER HALL</div>
+        <div className="location-badge">POKEMON PARTY</div>
       </div>
 
       <div className="relative z-10 w-full max-w-6xl mx-auto px-4 flex-1 flex flex-col gap-2 py-14">
@@ -37,14 +37,14 @@ export function ProjectsSection() {
         {/* Header */}
         <div className="game-box px-4 py-2 text-center">
           <div className="relative z-10 font-pixel text-px-16" style={{ color: 'var(--game-text)' }}>
-            POKEMON PARTY
+            PROJECTS
           </div>
         </div>
 
         <div className="flex gap-4 flex-1 min-h-0">
 
           {/* ── Party list (left panel) ────────────────────── */}
-          <div className="game-box w-56 flex-shrink-0 flex flex-col overflow-hidden">
+          <div className="game-box w-72 flex-shrink-0 flex flex-col overflow-hidden">
             {projects.map((p, i) => {
               const col = getTypeColor(p.type as PokemonType);
               const isActive = i === selected;
@@ -68,17 +68,17 @@ export function ProjectsSection() {
                     <img
                       src={p.pokemonSprite}
                       alt={p.pokemonName}
-                      width={40}
-                      height={40}
+                      width={56}
+                      height={56}
                       style={{ imageRendering: 'pixelated', flexShrink: 0 }}
                     />
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center justify-between">
                         <span
-                          className="font-pixel text-px-8 truncate"
+                          className="font-pixel text-px-10 truncate"
                           style={{ color: 'var(--game-text)' }}
                         >
-                          {p.name.toUpperCase().slice(0, 12)}
+                          {p.name.toUpperCase()}
                         </span>
                         <span
                           className="font-pixel text-px-6 px-1"
@@ -132,40 +132,45 @@ export function ProjectsSection() {
                         {project.pokemonName?.toUpperCase()}
                       </span>
                       <span
-                        className="font-pixel text-px-6 px-1.5 py-0.5"
+                        className="font-pixel text-px-8 px-1.5 py-0.5"
                         style={{ background: typeColor, color: '#fff', border: '2px solid rgba(0,0,0,0.3)' }}
                       >
                         {project.type.toUpperCase()}
                       </span>
                       {project.secondaryType && (
                         <span
-                          className="font-pixel text-px-6 px-1.5 py-0.5"
+                          className="font-pixel text-px-8 px-1.5 py-0.5"
                           style={{ background: getTypeColor(project.secondaryType as PokemonType), color: '#fff', border: '2px solid rgba(0,0,0,0.3)' }}
                         >
                           {project.secondaryType.toUpperCase()}
                         </span>
                       )}
                     </div>
-                    <div className="font-pixel text-px-6 mt-0.5" style={{ color: 'var(--game-text-light)' }}>
+                    <div className="font-pixel text-px-8 mt-0.5" style={{ color: 'var(--game-text-light)' }}>
                       {RARITY_LABEL[project.rarity ?? 'common']}
                     </div>
                     <div className="flex items-center gap-1 mt-1">
-                      <span className="font-pixel text-px-6" style={{ color: 'var(--game-text-light)' }}>HP</span>
+                      <span className="font-pixel text-px-8" style={{ color: 'var(--game-text-light)' }}>HP</span>
                       <HPBar value={project.hp} max={500} showValue className="flex-1" />
                     </div>
                   </div>
                 </div>
 
-                {/* Project name & description */}
+                {/* Project name & achievements */}
                 <div
                   className="px-4 py-3 relative z-10 flex-1"
                   style={{ borderBottom: '2px solid var(--game-box-border)' }}
                 >
-                  <div className="font-pixel text-px-12 mb-2" style={{ color: typeColor }}>
+                  <div className="font-pixel text-px-14 mb-3" style={{ color: typeColor }}>
                     {project.name.toUpperCase()}
                   </div>
-                  <div className="font-vt text-vt-22" style={{ color: 'var(--game-text)' }}>
-                    {project.description}
+                  <div className="space-y-2">
+                    {project.achievements.map((a, i) => (
+                      <div key={i} className="flex items-start gap-2">
+                        <span className="font-pixel text-px-8 flex-shrink-0 mt-0.5" style={{ color: typeColor }}>►</span>
+                        <span className="font-vt text-vt-22" style={{ color: 'var(--game-text)' }}>{a}</span>
+                      </div>
+                    ))}
                   </div>
                 </div>
 
@@ -174,14 +179,14 @@ export function ProjectsSection() {
                   className="px-4 py-3 relative z-10"
                   style={{ borderBottom: '2px solid var(--game-box-border)' }}
                 >
-                  <div className="font-pixel text-px-6 mb-2" style={{ color: 'var(--game-text-light)' }}>
+                  <div className="font-pixel text-px-10 mb-2" style={{ color: 'var(--game-text-light)' }}>
                     MOVES (TECH STACK)
                   </div>
                   <div className="grid grid-cols-2 gap-2">
                     {project.techStack.slice(0, 4).map((tech) => (
                       <div
                         key={tech}
-                        className="game-box-sm game-box font-pixel text-px-6 px-2 py-1 text-center relative z-10"
+                        className="game-box-sm game-box font-pixel text-px-8 px-2 py-1 text-center relative z-10"
                         style={{ color: 'var(--game-text)', boxShadow: '2px 2px 0 var(--game-box-border)' }}
                       >
                         {tech.toUpperCase().slice(0, 12)}
@@ -196,7 +201,7 @@ export function ProjectsSection() {
                     href={project.githubUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="game-box game-box-sm font-pixel text-px-6 px-3 py-1.5 relative z-10"
+                    className="game-box game-box-sm font-pixel text-px-8 px-3 py-1.5 relative z-10"
                     style={{ color: 'var(--game-text)' }}
                   >
                     GITHUB ↗

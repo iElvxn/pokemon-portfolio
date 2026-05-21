@@ -7,7 +7,6 @@ import { personal } from '@/data/personal';
 
 const AREA_MAP: Record<string, string> = {
   hero:       'PALLET TOWN',
-  about:      "PROFESSOR'S LAB",
   skills:     'POKEMON CENTER',
   projects:   'TRAINER HALL',
   experience: 'BADGE CASE',

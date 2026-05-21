@@ -10,6 +10,7 @@ export interface Project {
   secondaryType?: PokemonType;
   hp: number;
   techStack: string[];
+  achievements: string[];
   githubUrl?: string;
   liveUrl?: string;
   imageUrl?: string;

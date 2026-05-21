@@ -24,7 +24,6 @@ function outline(size: number, color = '#1a0c36', drop = true): string {
 }
 
 const NAV_ITEMS = [
-  { label: 'POKÉDEX',  sub: 'ABOUT ME',    href: '#about'      },
   { label: 'TRAINER',  sub: 'EXPERIENCE',  href: '#experience' },
   { label: 'BAG',      sub: 'PROJECTS',    href: '#projects'   },
   { label: 'DIPLOMA',  sub: 'EDUCATION',   href: '#education'  },

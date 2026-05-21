@@ -6,7 +6,6 @@ import { GameBox } from './GameBox';
 import { MenuCursor } from './MenuCursor';
 
 const MENU_ITEMS = [
-  { label: 'POKÉDEX',  sub: 'ABOUT ME',    href: '#about'      },
   { label: 'TRAINER',  sub: 'EXPERIENCE',  href: '#experience' },
   { label: 'BAG',      sub: 'PROJECTS',    href: '#projects'   },
   { label: 'DIPLOMA',  sub: 'EDUCATION',   href: '#education'  },

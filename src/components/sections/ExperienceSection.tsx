@@ -23,7 +23,7 @@ export function ExperienceSection() {
 
       {/* Section label */}
       <div className="absolute top-4 left-1/2 -translate-x-1/2 z-10">
-        <div className="location-badge">BADGE CASE</div>
+        <div className="location-badge">GYM BADGES</div>
       </div>
 
       <div className="relative z-10 w-full max-w-6xl mx-auto px-4 flex-1 flex flex-col gap-2 py-14">
@@ -31,7 +31,7 @@ export function ExperienceSection() {
         {/* Header */}
         <div className="game-box px-4 py-2 text-center">
           <div className="relative z-10 font-pixel text-px-16" style={{ color: 'var(--game-text)' }}>
-            TRAINER INFO
+            EXPERIENCE
           </div>
         </div>
 

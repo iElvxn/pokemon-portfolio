@@ -2,7 +2,6 @@ import { Navigation } from '@/components/layout/Navigation';
 import { Footer } from '@/components/layout/Footer';
 import { StarField } from '@/components/game/StarField';
 import { HeroSection } from '@/components/sections/HeroSection';
-import { AboutSection } from '@/components/sections/AboutSection';
 import { SkillsSection } from '@/components/sections/SkillsSection';
 import { ProjectsSection } from '@/components/sections/ProjectsSection';
 import { ExperienceSection } from '@/components/sections/ExperienceSection';
@@ -17,7 +16,6 @@ export default function Home() {
       <Navigation />
       <main>
         <HeroSection />
-        <AboutSection />
         <ExperienceSection />
         <ProjectsSection />
         <EducationSection />
