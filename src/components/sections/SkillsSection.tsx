@@ -26,7 +26,7 @@ export function SkillsSection() {
   return (
     <section
       id="skills"
-      className="game-screen flex flex-col items-center justify-center relative overflow-hidden"
+      className="game-screen flex flex-col items-center relative overflow-hidden"
     >
       <SectionEnterTransition />
 
@@ -35,7 +35,7 @@ export function SkillsSection() {
         <div className="location-badge">POKEMON CENTER</div>
       </div>
 
-      <div className="relative z-10 w-full max-w-4xl mx-auto px-4 flex flex-col gap-3">
+      <div className="relative z-10 w-full max-w-6xl mx-auto px-4 flex-1 flex flex-col gap-2 py-14">
 
         {/* Header */}
         <div className="game-box px-4 py-2 text-center">
@@ -44,10 +44,10 @@ export function SkillsSection() {
           </div>
         </div>
 
-        <div className="flex gap-4 items-start">
+        <div className="flex gap-4 flex-1 min-h-0">
 
           {/* ── Left: Type menu (FireRed style) ────────────── */}
-          <div className="game-box w-44 flex-shrink-0">
+          <div className="game-box w-48 flex-shrink-0 flex flex-col overflow-hidden">
             {skillCategories.map((cat, i) => {
               const col = getTypeColor(cat.type as PokemonType);
               const isActive = i === active;
@@ -90,7 +90,7 @@ export function SkillsSection() {
           </div>
 
           {/* ── Right: Skill stats panel ──────────────────── */}
-          <div className="flex-1 min-w-0">
+          <div className="flex-1 min-w-0 flex flex-col">
             <AnimatePresence mode="wait">
               <motion.div
                 key={active}
@@ -98,18 +98,18 @@ export function SkillsSection() {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -8 }}
                 transition={{ duration: 0.22 }}
-                className="game-box"
+                className="game-box flex flex-col flex-1"
               >
                 {/* Panel header */}
                 <div
-                  className="flex items-center gap-3 px-4 py-2 relative z-10"
+                  className="flex items-center gap-3 px-4 py-3 relative z-10"
                   style={{ borderBottom: '3px solid var(--game-box-border)' }}
                 >
                   <img
                     src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${spriteId}.png`}
                     alt={category.type}
-                    width={48}
-                    height={48}
+                    width={64}
+                    height={64}
                     className="sprite-bob"
                     style={{ imageRendering: 'pixelated' }}
                   />
@@ -136,7 +136,7 @@ export function SkillsSection() {
                 </div>
 
                 {/* Skill HP bars */}
-                <div className="px-4 py-3 space-y-3 relative z-10">
+                <div className="px-4 py-4 space-y-4 relative z-10 flex-1">
                   {category.skills.map((skill, i) => (
                     <motion.div
                       key={skill.name}
@@ -176,7 +176,7 @@ export function SkillsSection() {
         </div>
 
         {/* Bottom hint */}
-        <div className="text-center">
+        <div className="text-center pb-1">
           <span className="font-pixel text-px-6" style={{ color: 'var(--game-text-light)' }}>
             HOVER TYPE TO SWITCH ► SELECT WITH CLICK
           </span>

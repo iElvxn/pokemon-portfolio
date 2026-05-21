@@ -60,7 +60,7 @@ export function ContactSection() {
   return (
     <section
       id="contact"
-      className="game-screen flex flex-col items-center justify-center relative overflow-hidden"
+      className="game-screen flex flex-col items-center relative overflow-hidden"
     >
       <SectionEnterTransition />
 
@@ -69,7 +69,7 @@ export function ContactSection() {
         <div className="location-badge">POKÉGEAR</div>
       </div>
 
-      <div className="relative z-10 w-full max-w-4xl mx-auto px-4 flex flex-col gap-3">
+      <div className="relative z-10 w-full max-w-6xl mx-auto px-4 flex-1 flex flex-col gap-2 py-14">
 
         {/* Header */}
         <div className="game-box px-4 py-2 text-center">
@@ -78,10 +78,10 @@ export function ContactSection() {
           </div>
         </div>
 
-        <div className="flex gap-4 items-start">
+        <div className="flex gap-4 flex-1 min-h-0">
 
           {/* ── Left: Contacts list ───────────────────────── */}
-          <div className="game-box w-52 flex-shrink-0">
+          <div className="game-box w-56 flex-shrink-0 flex flex-col overflow-hidden">
             <div
               className="relative z-10 px-3 py-2"
               style={{ borderBottom: '3px solid var(--game-box-border)' }}
@@ -141,8 +141,8 @@ export function ContactSection() {
           </div>
 
           {/* ── Right: Message form ───────────────────────── */}
-          <div className="flex-1 min-w-0">
-            <div className="game-box">
+          <div className="flex-1 min-w-0 flex flex-col">
+            <div className="game-box flex flex-col flex-1">
               <div
                 className="relative z-10 px-4 py-2"
                 style={{ borderBottom: '3px solid var(--game-box-border)' }}
@@ -155,7 +155,7 @@ export function ContactSection() {
                 </div>
               </div>
 
-              <div className="relative z-10 px-4 py-3">
+              <div className="relative z-10 px-4 py-3 flex-1 flex flex-col">
                 <AnimatePresence mode="wait">
                   {sent ? (
                     <motion.div

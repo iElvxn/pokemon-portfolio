@@ -14,7 +14,7 @@ export function EducationSection() {
   return (
     <section
       id="education"
-      className="game-screen flex flex-col items-center justify-center relative overflow-hidden"
+      className="game-screen flex flex-col items-center relative overflow-hidden"
     >
       <SectionEnterTransition />
 
@@ -23,7 +23,7 @@ export function EducationSection() {
         <div className="location-badge">TRAINER ACADEMY</div>
       </div>
 
-      <div className="relative z-10 w-full max-w-4xl mx-auto px-4 flex flex-col gap-3">
+      <div className="relative z-10 w-full max-w-6xl mx-auto px-4 flex-1 flex flex-col gap-2 py-14">
 
         {/* Header */}
         <div className="game-box px-4 py-2 text-center">
@@ -32,10 +32,10 @@ export function EducationSection() {
           </div>
         </div>
 
-        <div className="flex gap-4 items-start">
+        <div className="flex gap-4 flex-1 min-h-0">
 
           {/* ── Left: Institution card ────────────────────── */}
-          <div className="game-box w-52 flex-shrink-0">
+          <div className="game-box w-56 flex-shrink-0 flex flex-col overflow-hidden">
             {/* School header */}
             <div
               className="relative z-10 px-3 py-2"
@@ -112,7 +112,7 @@ export function EducationSection() {
           </div>
 
           {/* ── Right: Degree detail ──────────────────────── */}
-          <div className="flex-1 min-w-0 flex flex-col gap-3">
+          <div className="flex-1 min-w-0 flex flex-col gap-2">
             <AnimatePresence mode="wait">
               <motion.div
                 key={selectedDegree}
@@ -124,7 +124,7 @@ export function EducationSection() {
               >
                 {/* Degree header */}
                 <div
-                  className="relative z-10 px-4 py-2"
+                  className="relative z-10 px-4 py-3"
                   style={{ borderBottom: '3px solid var(--game-box-border)' }}
                 >
                   <div className="flex items-start justify-between gap-2">
@@ -158,7 +158,7 @@ export function EducationSection() {
 
                 {/* GPA or level bar */}
                 <div
-                  className="relative z-10 px-4 py-2"
+                  className="relative z-10 px-4 py-3"
                   style={{ borderBottom: '2px solid var(--game-box-border)' }}
                 >
                   {degree.gpa !== null ? (
@@ -186,7 +186,7 @@ export function EducationSection() {
 
                 {/* Coursework — "MOVES LEARNED" */}
                 {selectedDegree === 1 && (
-                  <div className="relative z-10 px-4 py-2">
+                  <div className="relative z-10 px-4 py-3">
                     <div className="font-pixel text-px-6 mb-2" style={{ color: 'var(--game-text-light)' }}>
                       MOVES LEARNED (COURSEWORK)
                     </div>
@@ -209,7 +209,7 @@ export function EducationSection() {
                   </div>
                 )}
                 {selectedDegree === 0 && (
-                  <div className="relative z-10 px-4 py-2">
+                  <div className="relative z-10 px-4 py-3">
                     <div className="font-pixel text-px-6" style={{ color: 'var(--game-text-light)' }}>
                       CURRENTLY PURSUING — COURSEWORK IN PROGRESS
                     </div>

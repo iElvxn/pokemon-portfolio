@@ -23,7 +23,7 @@ export function ProjectsSection() {
   return (
     <section
       id="projects"
-      className="game-screen flex flex-col items-center justify-center relative overflow-hidden"
+      className="game-screen flex flex-col items-center relative overflow-hidden"
     >
       <SectionEnterTransition />
 
@@ -32,7 +32,7 @@ export function ProjectsSection() {
         <div className="location-badge">TRAINER HALL</div>
       </div>
 
-      <div className="relative z-10 w-full max-w-4xl mx-auto px-4 flex flex-col gap-3">
+      <div className="relative z-10 w-full max-w-6xl mx-auto px-4 flex-1 flex flex-col gap-2 py-14">
 
         {/* Header */}
         <div className="game-box px-4 py-2 text-center">
@@ -41,10 +41,10 @@ export function ProjectsSection() {
           </div>
         </div>
 
-        <div className="flex gap-4 items-start">
+        <div className="flex gap-4 flex-1 min-h-0">
 
           {/* ── Party list (left panel) ────────────────────── */}
-          <div className="game-box w-52 flex-shrink-0">
+          <div className="game-box w-56 flex-shrink-0 flex flex-col overflow-hidden">
             {projects.map((p, i) => {
               const col = getTypeColor(p.type as PokemonType);
               const isActive = i === selected;
@@ -100,7 +100,7 @@ export function ProjectsSection() {
           </div>
 
           {/* ── Selected project detail (right panel) ─────── */}
-          <div className="flex-1 min-w-0">
+          <div className="flex-1 min-w-0 flex flex-col">
             <AnimatePresence mode="wait">
               <motion.div
                 key={selected}
@@ -108,18 +108,18 @@ export function ProjectsSection() {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -8 }}
                 transition={{ duration: 0.22 }}
-                className="game-box"
+                className="game-box flex flex-col flex-1"
               >
                 {/* Pokemon header */}
                 <div
-                  className="flex items-center gap-3 px-4 py-2 relative z-10"
+                  className="flex items-center gap-3 px-4 py-3 relative z-10"
                   style={{ borderBottom: '3px solid var(--game-box-border)' }}
                 >
                   <img
                     src={project.pokemonSprite}
                     alt={project.pokemonName}
-                    width={56}
-                    height={56}
+                    width={72}
+                    height={72}
                     className="sprite-bob"
                     style={{
                       imageRendering: 'pixelated',
@@ -158,26 +158,26 @@ export function ProjectsSection() {
 
                 {/* Project name & description */}
                 <div
-                  className="px-4 py-2 relative z-10"
+                  className="px-4 py-3 relative z-10 flex-1"
                   style={{ borderBottom: '2px solid var(--game-box-border)' }}
                 >
-                  <div className="font-pixel text-px-10 mb-1" style={{ color: typeColor }}>
+                  <div className="font-pixel text-px-12 mb-2" style={{ color: typeColor }}>
                     {project.name.toUpperCase()}
                   </div>
-                  <div className="font-vt text-vt-20" style={{ color: 'var(--game-text)' }}>
+                  <div className="font-vt text-vt-22" style={{ color: 'var(--game-text)' }}>
                     {project.description}
                   </div>
                 </div>
 
                 {/* Moves = tech stack */}
                 <div
-                  className="px-4 py-2 relative z-10"
+                  className="px-4 py-3 relative z-10"
                   style={{ borderBottom: '2px solid var(--game-box-border)' }}
                 >
                   <div className="font-pixel text-px-6 mb-2" style={{ color: 'var(--game-text-light)' }}>
                     MOVES (TECH STACK)
                   </div>
-                  <div className="grid grid-cols-2 gap-1">
+                  <div className="grid grid-cols-2 gap-2">
                     {project.techStack.slice(0, 4).map((tech) => (
                       <div
                         key={tech}

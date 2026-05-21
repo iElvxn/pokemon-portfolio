@@ -17,7 +17,7 @@ export function ExperienceSection() {
   return (
     <section
       id="experience"
-      className="game-screen flex flex-col items-center justify-center relative overflow-hidden"
+      className="game-screen flex flex-col items-center relative overflow-hidden"
     >
       <SectionEnterTransition />
 
@@ -26,7 +26,7 @@ export function ExperienceSection() {
         <div className="location-badge">BADGE CASE</div>
       </div>
 
-      <div className="relative z-10 w-full max-w-4xl mx-auto px-4 flex flex-col gap-3">
+      <div className="relative z-10 w-full max-w-6xl mx-auto px-4 flex-1 flex flex-col gap-2 py-14">
 
         {/* Header */}
         <div className="game-box px-4 py-2 text-center">
@@ -37,11 +37,11 @@ export function ExperienceSection() {
 
         {/* Badge Case — top row */}
         <div className="game-box relative z-0">
-          <div className="relative z-10 px-4 py-2">
+          <div className="relative z-10 px-4 py-3">
             <div className="font-pixel text-px-8 mb-3" style={{ color: 'var(--game-text-light)' }}>
               BADGES EARNED
             </div>
-            <div className="flex gap-4 flex-wrap">
+            <div className="flex gap-5 flex-wrap">
               {experiences.map((e, i) => (
                 <button
                   key={e.id}
@@ -51,7 +51,7 @@ export function ExperienceSection() {
                   <motion.div
                     whileHover={{ scale: 1.15, y: -2 }}
                     animate={{ scale: selected === i ? 1.2 : 1 }}
-                    className="w-12 h-12 flex items-center justify-center font-pixel text-px-24"
+                    className="w-14 h-14 flex items-center justify-center font-pixel text-px-24"
                     style={{
                       background: selected === i ? e.badgeColor : 'rgba(255,255,255,0.05)',
                       border: `3px solid ${e.badgeColor}`,
@@ -81,16 +81,16 @@ export function ExperienceSection() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.22 }}
-            className="game-box relative z-0"
+            className="game-box relative z-0 flex-1"
           >
             <div className="relative z-10">
               {/* Job header */}
               <div
-                className="flex items-start gap-3 px-4 py-3"
+                className="flex items-start gap-3 px-4 py-4"
                 style={{ borderBottom: '3px solid var(--game-box-border)' }}
               >
                 <div
-                  className="w-10 h-10 flex items-center justify-center font-pixel text-px-20 flex-shrink-0"
+                  className="w-12 h-12 flex items-center justify-center font-pixel text-px-20 flex-shrink-0"
                   style={{
                     background: exp.badgeColor,
                     border: `3px solid rgba(0,0,0,0.3)`,
@@ -134,19 +134,19 @@ export function ExperienceSection() {
 
               {/* Achievements */}
               <div
-                className="px-4 py-3"
+                className="px-4 py-4"
                 style={{ borderBottom: '2px solid var(--game-box-border)' }}
               >
-                <div className="font-pixel text-px-6 mb-2" style={{ color: 'var(--game-text-light)' }}>
+                <div className="font-pixel text-px-6 mb-3" style={{ color: 'var(--game-text-light)' }}>
                   BATTLE LOG
                 </div>
-                <div className="space-y-1.5">
+                <div className="space-y-2.5">
                   {exp.achievements.map((a, ai) => (
                     <div key={ai} className="flex items-start gap-2">
                       <span className="font-pixel text-px-8 flex-shrink-0 mt-0.5" style={{ color: exp.badgeColor }}>
                         ►
                       </span>
-                      <span className="font-vt text-vt-20" style={{ color: 'var(--game-text)' }}>
+                      <span className="font-vt text-vt-22" style={{ color: 'var(--game-text)' }}>
                         {a}
                       </span>
                     </div>
@@ -155,14 +155,14 @@ export function ExperienceSection() {
               </div>
 
               {/* Level gained */}
-              <div className="flex items-center gap-3 px-4 py-2">
+              <div className="flex items-center gap-3 px-4 py-3">
                 <span
                   className="font-pixel text-px-10"
                   style={{ color: 'var(--game-electric)' }}
                 >
                   LEVEL UP!
                 </span>
-                <span className="font-vt text-vt-20" style={{ color: 'var(--game-text)' }}>
+                <span className="font-vt text-vt-22" style={{ color: 'var(--game-text)' }}>
                   {exp.levelGained}
                 </span>
               </div>
