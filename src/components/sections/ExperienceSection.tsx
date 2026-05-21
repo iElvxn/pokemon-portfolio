@@ -100,17 +100,17 @@ export function ExperienceSection() {
                   {BADGE_ICONS[selected] ?? '◆'}
                 </div>
                 <div className="flex-1">
-                  <div className="font-pixel text-px-10" style={{ color: 'var(--game-text)' }}>
+                  <div className="font-pixel text-px-12" style={{ color: 'var(--game-text)' }}>
                     {exp.role.toUpperCase()}
                   </div>
-                  <div className="font-pixel text-px-8 mt-0.5" style={{ color: exp.badgeColor }}>
+                  <div className="font-pixel text-px-10 mt-0.5" style={{ color: exp.badgeColor }}>
                     {exp.company.toUpperCase()}
                   </div>
                   <div className="flex gap-4 mt-1">
-                    <span className="font-pixel text-px-6" style={{ color: 'var(--game-text-light)' }}>
+                    <span className="font-pixel text-px-8" style={{ color: 'var(--game-text-light)' }}>
                       {exp.startDate.toUpperCase()} – {exp.endDate.toUpperCase()}
                     </span>
-                    <span className="font-pixel text-px-6" style={{ color: 'var(--game-text-light)' }}>
+                    <span className="font-pixel text-px-8" style={{ color: 'var(--game-text-light)' }}>
                       {exp.location.toUpperCase()}
                     </span>
                   </div>

@@ -14,6 +14,7 @@ export interface Project {
   githubUrl?: string;
   liveUrl?: string;
   imageUrl?: string;
+  imagePortrait?: boolean;
   pokemonSprite: string;
   pokemonName: string;
   rarity: 'common' | 'uncommon' | 'rare' | 'holo-rare';
