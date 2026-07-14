@@ -1,47 +1,53 @@
 # Portfolio Polish Plan
+# Goal: Big Tech SWE Interviews — The site IS the code sample. Polish = competence signal.
 
-## 1. Sound Effects
-- **Menu cursor move** — soft blip when hovering over menu items (StartMenu + hero nav)
-- **Menu confirm** — classic GBA "select" ding when clicking a nav item
-- **Section transition** — whoosh/flash sound tied to the white battle-flash animation
-- **Splash screen unlock** — short opening chime plays when pressing any key to open the menu
-- **Dialogue tick** — faint typewriter click for each character in the About section DialogueBox
-- **HP bar fill** — subtle ascending tone when stat bars animate in (Skills + About)
-- **Badge select** — satisfying "ping" when clicking an experience badge
-- **Button hover** — very faint tick on any game-box button hover
-- **Background music toggle** — optional Route 1 / Pokemon Center chiptune, muted by default, with a mute/unmute button in the nav HUD
+---
 
-## 2. Interactive UI
-- **Gengar clickable easter egg** — clicking the hero Gengar plays a cry + shows a speech bubble ("...")
-- **Konami code** (↑↑↓↓←→←→BA) — triggers a full wild encounter battle screen with a funny "Wild RECRUITER appeared!"
-- **Skills section** — clicking a skill bar shows a small popup with a one-liner ("Super effective against production bugs")
-- **Project cards** — hover lifts the card with a deeper shadow; clicking expands to a full-screen modal with more detail (screenshots, longer description, all tech stack)
-- **Experience badges** — hover sparkles/glow pulse on each badge before selection
-- **Type badges** — tooltip on hover explaining what real tech the type maps to (e.g., GHOST = "Core CS / Systems")
-- **About sprite** — Gengar in the trainer card blinks occasionally and has a subtle idle animation beyond the float
+## ✅ SHIPPED
 
-## 3. Small Details
-- **Custom cursor** — replace default OS cursor with a pixel-art Pokeball cursor (CSS `cursor: url(...)`)
-- **Favicon** — Gengar pixel sprite as the browser tab icon
-- **Scroll indicator** — small bouncing Pokeball at the bottom of non-hero sections hinting to scroll down; disappears on last section
-- **Animated stat counters** — the "2+ YRS EXP / 5+ PROJECTS" numbers in About count up from 0 on first view
-- **Section enter sound** — very soft "entering area" tone when each SectionEnterTransition plays
-- **404 page** — "Wild RECRUITER appeared!" battle screen with four options: [VIEW RESUME] [CONTACT] [GO BACK] [RUN]
-- **Footer refinement** — add social icons, "© 2025 ELVIN LY", and a "BACK TO TOP" game-box button
-- **Pokeball section dividers** — thin horizontal rule with a centered Pokeball SVG between major sections (visible in the scroll-snap gap)
-- **Time-based hero greeting** — dynamically change "HI, MY NAME IS" to "GOOD MORNING, TRAINER" / "GOOD EVENING" based on visitor's local time
-- **Mobile swipe** — swipe up/down gesture navigates sections on touch devices
+### Tier 1 — Quick Wins
+- [x] **Favicon** — Gengar pixel sprite via `app/icon.tsx` (Next.js ImageResponse)
+- [x] **OG image** — 1200×630 pixel art card via `app/opengraph-image.tsx`
+- [x] **Color contrast** — `--game-text-light` bumped to #9e9e94 (WCAG AA pass)
+- [x] **Type badge shimmer** — CSS `@keyframes badge-shimmer-move` + `.badge-shimmer` class; sweeps on first render across all type badges sitewide
+- [x] **Custom Pokeball cursor** — SVG cursor via `cursor: url('/cursor-pokeball.svg')` in body
+- [x] **Dialogue speed** — 22ms → 14ms (AboutSection)
+- [x] **Animated stat counters** — `useCountUp` hook drives YRS EXP, PROJECTS, COMMITS from 0 on viewport entry
+- [x] **Time-based greeting** — "GOOD MORNING/AFTERNOON/EVENING/NIGHT, TRAINER" based on `new Date().getHours()`
 
-## 4. Text & Styling Refinements
-- **Hero spacing** — gap between "HI, MY NAME IS" / name / role subtitle feels uneven; tighten the rhythm
-- **Hero menu** — menu items need more breathing room; currently feels dense for 6 items
-- **About bio text** — the three bio lines are wordy; trim to punchy 1-line statements
-- **Dialogue box speed** — character typing speed could be slightly faster (currently 22ms, try 14ms)
-- **Skills left panel** — type label chips are hard to read at small size; increase to text-px-8
-- **Experience detail panel** — "BATTLE LOG" bullet text (VT323) is too small at vt-20; bump to vt-22 and increase line spacing
-- **Navigation HUD** — the trainer badge (top right) and location badge (top left) overlap content on small screens; add backdrop blur
-- **Game box consistency** — some boxes use `game-box-sm` inner bevel inconsistently; audit all sections
-- **Color contrast** — `--game-text-light` (#888) fails WCAG AA on dark backgrounds; bump to #aaa minimum
-- **Mobile layout** — all sections need a single-column fallback below 640px (currently some panels overflow)
-- **Typography scale** — audit all `text-px-*` and `text-vt-*` usages for visual hierarchy consistency; there are too many sizes in use
-- **Section transitions** — SectionEnterTransition (black wipe) runs on every section including ones re-entered by scrolling back up; consider only running once per section (`once: true` on the animation)
+### Tier 2 — Signature Features
+- [x] **Trainer card 3D tilt + holographic shimmer** — `useMotionValue` + `useSpring` drives `rotateX/Y` on the About trainer card; holographic `color-dodge` gradient overlay shifts with cursor (`--mx`/`--my`)
+- [x] **Holographic foil on holo-rare project cards** — Detail panel for `rarity === 'holo-rare'` (Job Match RAG) gets shifting `conic-gradient` foil layer on hover
+- [x] **Project full-screen modal** — "DETAILS ►" button expands to `AnimatePresence` modal overlay with full description, screenshot, achievements, complete tech stack
+- [x] **Page load stagger** — `.stagger-item` CSS class with `@keyframes stagger-in` on section headers, party lists, and detail panels
+- [x] **Skills bar spring overshoot** — Framer Motion `type: 'spring', stiffness: 320, damping: 22` on skill bar entrance; bars slam in from left with spring physics
+- [x] **Konami code → "Wild RECRUITER appeared!"** — ↑↑↓↓←→←→BA triggers full GBA battle intro (sliding bands, Gengar sprite, RECRUITER emoji, 4-option action menu)
+
+### Tier 3 — Polish
+- [x] **Ambient type glow** — `radial-gradient` in each section background shifts with selected type/badge color
+- [x] **Badge 3D press** — `.badge-press:active` CSS depresses experience badges with `translate + scale`
+- [x] **Type badge tooltips** — `.type-tooltip-wrapper` + `.type-tooltip` on all type badges (About, Skills, Experience, Projects) explains real-world tech mapping
+- [x] **Gengar easter egg** — Click hero Gengar → speech bubble "..." appears for 1.8s
+- [x] **Gengar blink** — `.sprite-blink` CSS class combines `sprite-bob` + `gengar-blink` eye-blink keyframe on About trainer card Gengar
+- [x] **HPBar spring physics** — Framer Motion `type: 'spring', stiffness: 280, damping: 22` replaces duration-based bar fill
+
+### Tier 4 — Sound (opt-in)
+- [x] **SoundProvider context** — Wraps app in `SoundProvider`; `useSound()` hook exposes `musicOn` / `toggleMusic`
+- [x] **Background music toggle** — "♪ ON / ♪ OFF" button in HUD; Web Audio API 8-note chiptune melody loop via `scheduleLoop`
+- [x] **Sound effects** — `sounds.confirm()`, `sounds.splashUnlock()`, `sounds.badgeSelect()`, `sounds.menuMove()` exported for use anywhere
+
+### Other
+- [x] **404 page restyle** — Fully ported to GBA aesthetic: `game-box`, pixel fonts, correct CSS vars, GBA battle scene with Gengar + RECRUITER, 4-option action grid
+
+---
+
+## REMAINING (lower priority, future session)
+
+- **Parallax background layers** — Hero parallax: 2–3 depth layers shifting at different speeds on `mousemove`. Gate behind `prefers-reduced-motion`. Perf-test first.
+- **Mobile swipe gestures** — `touchstart`/`touchend` delta → scroll to next snap section
+- **Mobile layout** — Single-column fallback below 640px (several panels overflow currently)
+- **Game box consistency audit** — Some panels use `game-box-sm` inconsistently; quick visual audit
+- **Typography scale audit** — Too many `text-px-*` and `text-vt-*` sizes; consolidate
+- **Navigation HUD on mobile** — Trainer badge + location badge overlap content on small screens
+- **Background music rework** — Current 8-note chiptune loop in `SoundManager.tsx` needs a new melody (current one feels repetitive/placeholder)
+- **Wire up menu/interaction SFX** — `sounds.confirm()`, `sounds.badgeSelect()`, `sounds.menuMove()` are defined but not actually called from any component yet; hook them into nav clicks, badge selects, and Konami menu navigation

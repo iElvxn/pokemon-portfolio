@@ -258,11 +258,11 @@ export function AboutSection() {
                     a software engineer from {personal.region}.
                   </div>
                   <div className="font-vt text-vt-22" style={{ color: 'var(--game-text-dim)' }}>
-                    Pursuing my MS in CS at Stony Brook (BS GPA: 3.73).
+                    Pursuing my MS in CS at Stony Brook (BS GPA: 3.72).
                     I build full-stack apps, cloud-native microservices, and ML pipelines.
                   </div>
                   <div className="font-vt text-vt-22" style={{ color: 'var(--game-text-dim)' }}>
-                    Incoming SWE Intern at Capital One · Google BASTA SWEP Fellow · Open to full-time.
+                    Software Engineer Intern at Capital One · Google BASTA SWEP Fellow · Open to full-time.
                   </div>
                 </div>
                 <div className="flex gap-2 pt-1 flex-wrap">

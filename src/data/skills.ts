@@ -71,6 +71,9 @@ export const skillCategories: SkillCategory[] = [
       { name: 'GCP', value: 68 },
       { name: 'Git', value: 82 },
       { name: 'Postman', value: 67 },
+      { name: 'Jira', value: 65 },
+      { name: 'Jenkins', value: 55 },
+      { name: 'Claude Code', value: 78 },
     ],
   },
   {
