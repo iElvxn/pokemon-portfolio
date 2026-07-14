@@ -24,11 +24,18 @@ function outline(size: number, color = '#1a0c36', drop = true): string {
 }
 
 const NAV_ITEMS = [
-  { label: 'TRAINER',  sub: 'EXPERIENCE',  href: '#experience' },
-  { label: 'BAG',      sub: 'PROJECTS',    href: '#projects'   },
-  { label: 'DIPLOMA',  sub: 'EDUCATION',   href: '#education'  },
-  { label: 'POKÉMON',  sub: 'SKILLS',      href: '#skills'     },
-  { label: 'SAVE',     sub: 'CONTACT',     href: '#contact'    },
+  { label: 'EXPERIENCE', href: '#experience' },
+  { label: 'PROJECTS',   href: '#projects'   },
+  { label: 'EDUCATION',  href: '#education'  },
+  { label: 'SKILLS',     href: '#skills'     },
+  { label: 'CONTACT',    href: '#contact'    },
+];
+
+/* Condensed intro facts — replaces the old standalone About section */
+const HERO_FACTS = [
+  'SWE INTERN @ CAPITAL ONE',
+  'MS CS @ STONY BROOK (EXP. 2027)',
+  'BS CS, 3.72 GPA',
 ];
 
 function getGreeting(): string {
@@ -81,6 +88,9 @@ export function HeroSection() {
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
       if (phase === 'title') {
+        /* Let keyboard users Tab to and activate the trainer-card links
+           normally instead of hijacking every keypress into the menu */
+        if ((e.target as HTMLElement | null)?.closest('a, button')) return;
         e.preventDefault();
         setPhase('menu');
       } else if (phase === 'menu') {
@@ -272,12 +282,41 @@ export function HeroSection() {
           {phase === 'title' && (
             <motion.div
               key="cta"
-              className="flex flex-col items-center gap-2 mt-4"
+              className="flex flex-col items-center gap-3 mt-4"
               initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
+              animate={{ opacity: visible ? 1 : 0 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
+              transition={{ duration: 0.3, delay: 0.35 }}
             >
+              {/* Condensed intro card — tagline + key facts + resume,
+                  visible immediately (no need to press start first) */}
+              <div
+                className="game-box px-4 py-3 flex flex-col gap-2.5 w-72 text-left"
+                style={{ maxWidth: '85vw' }}
+                onClick={(e) => e.stopPropagation()}
+              >
+                <p className="font-vt text-vt-20 leading-snug" style={{ color: 'var(--game-text-mid)' }}>
+                  {personal.bio}
+                </p>
+                <div className="flex flex-col gap-1">
+                  {HERO_FACTS.map((fact) => (
+                    <div key={fact} className="flex items-start gap-1.5">
+                      <span className="font-pixel text-px-8 flex-shrink-0" style={{ color: 'var(--game-accent)' }}>►</span>
+                      <span className="font-pixel text-px-8" style={{ color: 'var(--game-text)' }}>{fact}</span>
+                    </div>
+                  ))}
+                </div>
+                <a
+                  href={personal.resume}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="game-box game-box-sm font-pixel text-px-8 px-3 py-1.5 text-center mt-0.5"
+                  style={{ color: 'var(--game-text)', textDecoration: 'none' }}
+                >
+                  RESUME ►
+                </a>
+              </div>
+
               <div
                 className="font-pixel text-px-8 select-none"
                 style={{
@@ -317,10 +356,7 @@ export function HeroSection() {
                     >
                       ►
                     </span>
-                    <div>
-                      <div className="font-pixel text-px-8 text-[var(--game-text)]">{item.label}</div>
-                      <div className="font-pixel text-px-8 text-[var(--game-text-light)] mt-0.5">{item.sub}</div>
-                    </div>
+                    <div className="font-pixel text-px-10 text-[var(--game-text)]">{item.label}</div>
                   </div>
                 ))}
               </div>

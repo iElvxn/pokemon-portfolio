@@ -1,7 +1,7 @@
 export const personal = {
   name: 'Elvin Ly',
   title: ['Software Engineer', 'Full Stack Developer', 'ML Engineer'],
-  bio: 'Building scalable cloud-native systems and intelligent applications. Passionate about RAG pipelines, mobile engineering, and clean architecture.',
+  bio: 'I build cloud-native backend systems and applied AI infrastructure, with a focus on distributed architecture, retrieval-augmented pipelines, and clean system design.',
   pokedexNumber: '#0001',
   species: 'Full-Stack Engineer',
   types: ['ghost', 'electric'] as const,

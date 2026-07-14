@@ -566,19 +566,6 @@ body::after {
 }
 
 /* ============================================================
-   GENGAR BLINK — occasional eye blink
-   ============================================================ */
-
-@keyframes gengar-blink {
-  0%, 88%, 94%, 100% { transform: scaleY(1); }
-  91%                 { transform: scaleY(0.08); }
-}
-.sprite-blink {
-  animation: sprite-bob 2s steps(2) infinite, gengar-blink 5s ease-in-out 2s infinite;
-  transform-origin: center center;
-}
-
-/* ============================================================
    3D CARD — tilt wrapper
    ============================================================ */
 
