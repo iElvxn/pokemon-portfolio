@@ -256,10 +256,10 @@ export function ProjectsSection() {
           </div>
         </div>
 
-        <div className="flex gap-4 flex-1 min-h-0">
+        <div className="flex gap-4 flex-1 min-h-0 mobile-stack">
 
           {/* ── Party list ─────────────────────────────────── */}
-          <div className="game-box w-64 flex-shrink-0 flex flex-col overflow-hidden stagger-item">
+          <div className="game-box w-64 flex-shrink-0 flex flex-col overflow-hidden stagger-item mobile-full">
             {projects.map((p, i) => {
               const col      = getTypeColor(p.type as PokemonType);
               const isActive = i === selected;
@@ -353,7 +353,7 @@ export function ProjectsSection() {
 
                 {/* Achievements */}
                 <div
-                  className="px-4 py-3 relative z-10 flex-1 flex min-h-0"
+                  className="px-4 py-3 relative z-10 flex-1 flex min-h-0 achievements-row"
                   style={{
                     borderBottom: '2px solid var(--game-box-border)',
                     flexDirection: project.imagePortrait ? 'row' : 'column',
@@ -374,7 +374,7 @@ export function ProjectsSection() {
                   </div>
 
                   <div
-                    className="flex-shrink-0"
+                    className="flex-shrink-0 achievements-media"
                     style={project.imagePortrait
                       ? { marginLeft: 12, alignSelf: 'stretch', display: 'flex', flexDirection: 'column', justifyContent: 'center' }
                       : { flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }

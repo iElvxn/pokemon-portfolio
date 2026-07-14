@@ -25,7 +25,6 @@ const TYPE_LORE: Record<string, string> = {
 export function AboutSection() {
   const sectionRef  = useRef<HTMLDivElement>(null);
   const inView      = useInView(sectionRef, { once: true, margin: '-80px' });
-  const [dialogueDone, setDialogueDone] = useState(false);
 
   /* ── Stat counters ─────────────────────────────────────────── */
   const yearsCount   = useCountUp(personal.yearsExp,         1200, inView);
@@ -84,12 +83,12 @@ export function AboutSection() {
       <div className="relative z-10 w-full max-w-6xl mx-auto px-4 flex-1 flex flex-col gap-2 py-14">
 
         {/* Main row: trainer card + right panel */}
-        <div className="flex gap-4 flex-1 min-h-0">
+        <div className="flex gap-4 flex-1 min-h-0 mobile-stack">
 
           {/* ── Trainer Card (3D tilt) ─────────────────────── */}
           <motion.div
             ref={cardRef}
-            className="w-64 flex-shrink-0"
+            className="w-64 flex-shrink-0 mobile-full"
             style={{
               rotateX: springRotX,
               rotateY: springRotY,
@@ -106,7 +105,7 @@ export function AboutSection() {
             onMouseLeave={handleCardMouseLeave}
           >
             <div
-              className="game-box flex flex-col overflow-hidden h-full"
+              className="game-box flex flex-col overflow-hidden h-full mobile-auto-h"
               style={{ position: 'relative' }}
             >
               {/* Holographic foil overlay */}
@@ -235,15 +234,15 @@ export function AboutSection() {
             <DialogueBox
               text={personal.flavorText}
               speaker="PROF. OAK"
-              speed={14}
-              onComplete={() => setDialogueDone(true)}
+              speed={8}
             />
 
-            {/* Bio (shown after dialogue) */}
+            {/* Bio + contact links — shown immediately so recruiters
+                aren't stuck waiting on the flavor-text typewriter */}
             <motion.div
               initial={{ opacity: 0 }}
-              animate={{ opacity: dialogueDone ? 1 : 0 }}
-              transition={{ duration: 0.5 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.4, delay: 0.2 }}
               className="game-box-dark px-4 py-4 flex-1"
             >
               <div className="relative z-10 space-y-3 h-full flex flex-col justify-between">

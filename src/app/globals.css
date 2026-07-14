@@ -670,11 +670,11 @@ body::after {
    PAGE LOAD STAGGER — coordinated entrance
    ============================================================ */
 
-.stagger-item { opacity: 0; animation: stagger-in 0.4s ease-out forwards; }
-.stagger-item:nth-child(1) { animation-delay: 0.05s; }
-.stagger-item:nth-child(2) { animation-delay: 0.13s; }
-.stagger-item:nth-child(3) { animation-delay: 0.21s; }
-.stagger-item:nth-child(4) { animation-delay: 0.29s; }
+.stagger-item { opacity: 0; animation: stagger-in 0.3s ease-out forwards; }
+.stagger-item:nth-child(1) { animation-delay: 0.03s; }
+.stagger-item:nth-child(2) { animation-delay: 0.08s; }
+.stagger-item:nth-child(3) { animation-delay: 0.13s; }
+.stagger-item:nth-child(4) { animation-delay: 0.18s; }
 
 @keyframes stagger-in {
   from { opacity: 0; transform: translateY(8px); }
@@ -711,4 +711,37 @@ body::after {
   align-items: center;
   justify-content: center;
   cursor: url('/cursor-pokeball.svg') 12 12, default;
+}
+
+/* ============================================================
+   MOBILE LAYOUT — stack sections instead of clipping them
+   ============================================================ */
+
+@media (max-width: 640px) {
+  /* Free scrolling — mandatory snap + variable-height stacked
+     sections fight each other and can jump over content */
+  html { scroll-snap-type: none; }
+
+  /* Sections were a hard-clipped 100vh box; let them grow to fit
+     stacked content instead of hiding whatever didn't fit */
+  .game-screen {
+    height: auto;
+    min-height: 100vh;
+    overflow: visible;
+  }
+
+  /* Two-column game boxes (About/Skills/Projects/Education/Contact)
+     stack via .mobile-stack on the row + .mobile-full on the sidebar */
+  .mobile-stack { flex-direction: column; }
+  .mobile-full { width: 100%; }
+  .mobile-auto-h { height: auto; }
+
+  /* Project detail: achievement text + screenshot frame side-by-side
+     doesn't fit a phone screen — stack them */
+  .achievements-row { flex-direction: column !important; }
+  .achievements-media { margin-left: 0 !important; margin-top: 12px !important; }
+
+  /* HUD badges are cramped at narrow widths */
+  .game-hud { padding: 6px; gap: 4px; }
+  .location-badge { padding: 4px 8px; }
 }

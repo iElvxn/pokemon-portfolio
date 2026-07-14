@@ -32,10 +32,10 @@ export function EducationSection() {
           </div>
         </div>
 
-        <div className="flex gap-4 flex-1 min-h-0">
+        <div className="flex gap-4 flex-1 min-h-0 mobile-stack">
 
           {/* ── Left: Institution card ────────────────────── */}
-          <div className="game-box w-56 flex-shrink-0 flex flex-col overflow-hidden">
+          <div className="game-box w-56 flex-shrink-0 flex flex-col overflow-hidden mobile-full">
             {/* School header */}
             <div
               className="relative z-10 px-3 py-2"

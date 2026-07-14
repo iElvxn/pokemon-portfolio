@@ -78,10 +78,10 @@ export function ContactSection() {
           </div>
         </div>
 
-        <div className="flex gap-4 flex-1 min-h-0">
+        <div className="flex gap-4 flex-1 min-h-0 mobile-stack">
 
           {/* ── Left: Contacts list ───────────────────────── */}
-          <div className="game-box w-56 flex-shrink-0 flex flex-col overflow-hidden">
+          <div className="game-box w-56 flex-shrink-0 flex flex-col overflow-hidden mobile-full">
             <div
               className="relative z-10 px-3 py-2"
               style={{ borderBottom: '3px solid var(--game-box-border)' }}
@@ -195,7 +195,7 @@ export function ContactSection() {
                       onSubmit={handleSubmit(onSubmit)}
                       className="space-y-3"
                     >
-                      <div className="grid grid-cols-2 gap-3">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         <div>
                           <label className="font-pixel text-px-8 block mb-1" style={{ color: 'var(--game-text-light)' }}>
                             NAME

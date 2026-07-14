@@ -60,10 +60,10 @@ export function SkillsSection() {
           </div>
         </div>
 
-        <div className="flex gap-4 flex-1 min-h-0">
+        <div className="flex gap-4 flex-1 min-h-0 mobile-stack">
 
           {/* ── Left: Type menu ────────────────────────────── */}
-          <div className="game-box w-48 flex-shrink-0 flex flex-col overflow-hidden stagger-item">
+          <div className="game-box w-48 flex-shrink-0 flex flex-col overflow-hidden stagger-item mobile-full">
             {skillCategories.map((cat, i) => {
               const col      = getTypeColor(cat.type as PokemonType);
               const isActive = i === active;

@@ -39,15 +39,20 @@
 ### Other
 - [x] **404 page restyle** — Fully ported to GBA aesthetic: `game-box`, pixel fonts, correct CSS vars, GBA battle scene with Gengar + RECRUITER, 4-option action grid
 
+### Tier 5 — Recruiter-facing fixes
+- [x] **Mobile layout** — `max-width:640px` media query frees `.game-screen` from clipped `100vh`/`overflow:hidden` into `min-height:100vh`/`overflow:visible`; two-column layouts (About/Skills/Projects/Education/Contact) stack via `.mobile-stack`/`.mobile-full`; scroll-snap disabled on mobile
+- [x] **Navigation HUD on mobile** — Tightened HUD padding/gaps, hid "LV.100" label on small screens; active-section detector now tracks max intersection ratio instead of a fixed 55% threshold (needed since stacked mobile sections can exceed viewport height)
+- [x] **Content reveal speed** — About section's bio + contact links no longer gated behind the Prof. Oak typewriter finishing (was ~4s delay hiding the RESUME/GITHUB/LINKEDIN/EMAIL buttons); dialogue speed 14ms → 8ms; stagger-entrance delays trimmed (~0.7s → ~0.5s max)
+
 ---
 
 ## REMAINING (lower priority, future session)
 
 - **Parallax background layers** — Hero parallax: 2–3 depth layers shifting at different speeds on `mousemove`. Gate behind `prefers-reduced-motion`. Perf-test first.
 - **Mobile swipe gestures** — `touchstart`/`touchend` delta → scroll to next snap section
-- **Mobile layout** — Single-column fallback below 640px (several panels overflow currently)
 - **Game box consistency audit** — Some panels use `game-box-sm` inconsistently; quick visual audit
 - **Typography scale audit** — Too many `text-px-*` and `text-vt-*` sizes; consolidate
-- **Navigation HUD on mobile** — Trainer badge + location badge overlap content on small screens
 - **Background music rework** — Current 8-note chiptune loop in `SoundManager.tsx` needs a new melody (current one feels repetitive/placeholder)
 - **Wire up menu/interaction SFX** — `sounds.confirm()`, `sounds.badgeSelect()`, `sounds.menuMove()` are defined but not actually called from any component yet; hook them into nav clicks, badge selects, and Konami menu navigation
+- **Title-screen gate friction** — Hero's "PRESS ANY KEY TO CONTINUE" locks scroll until interaction; recruiters skimming may not realize they need to interact. Flagged but not yet addressed.
+- **External sprite dependency** — Favicon, OG image, and several sections fetch Gengar/type sprites live from `raw.githubusercontent.com`; slow/rate-limited responses would hurt first impression (e.g. in link previews)

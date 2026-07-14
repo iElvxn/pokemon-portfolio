@@ -20,17 +20,24 @@ export function Navigation() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [steps, setSteps]     = useState(0);
 
+  /* Track the most-visible section rather than a fixed intersection
+     threshold — on mobile, stacked sections can grow taller than the
+     viewport, so a single "55% visible" ratio may never be reached */
   useEffect(() => {
+    const ratios = new Map<string, number>();
     const observer = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
-          if (entry.isIntersecting) {
-            const id = entry.target.id;
-            if (AREA_MAP[id]) setArea(AREA_MAP[id]);
-          }
+          ratios.set(entry.target.id, entry.intersectionRatio);
         }
+        let bestId = '';
+        let bestRatio = 0;
+        ratios.forEach((ratio, id) => {
+          if (ratio > bestRatio) { bestRatio = ratio; bestId = id; }
+        });
+        if (bestId && AREA_MAP[bestId]) setArea(AREA_MAP[bestId]);
       },
-      { threshold: 0.55 }
+      { threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1] }
     );
     document.querySelectorAll('section[id]').forEach((el) => observer.observe(el));
     return () => observer.disconnect();
@@ -72,13 +79,13 @@ export function Navigation() {
         </AnimatePresence>
 
         {/* Trainer badge + music toggle */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1 sm:gap-2">
           <MusicToggle />
-          <div className="game-box game-box-sm py-1 px-3 flex items-center gap-3">
+          <div className="game-box game-box-sm py-1 px-2 sm:px-3 flex items-center gap-2 sm:gap-3">
             <span className="font-pixel text-px-8 text-[var(--game-text)]">
               {personal.name.split(' ')[0].toUpperCase()} ♂
             </span>
-            <span className="font-pixel text-px-8 text-[var(--game-text-light)]">
+            <span className="font-pixel text-px-8 text-[var(--game-text-light)] hidden sm:inline">
               LV.{personal.level}
             </span>
           </div>

@@ -119,7 +119,7 @@ export function ExperienceSection() {
             <div className="relative z-10">
               {/* Job header */}
               <div
-                className="flex items-start gap-3 px-4 py-4"
+                className="flex items-start gap-3 px-4 py-4 flex-wrap"
                 style={{ borderBottom: '3px solid var(--game-box-border)' }}
               >
                 <div
@@ -138,14 +138,14 @@ export function ExperienceSection() {
                     style={{ imageRendering: 'pixelated', filter: `drop-shadow(0 0 4px ${exp.badgeColor})` }}
                   />
                 </div>
-                <div className="flex-1">
+                <div className="flex-1 min-w-[140px]">
                   <div className="font-pixel text-px-12" style={{ color: 'var(--game-text)' }}>
                     {exp.role.toUpperCase()}
                   </div>
                   <div className="font-pixel text-px-10 mt-0.5" style={{ color: exp.badgeColor }}>
                     {exp.company.toUpperCase()}
                   </div>
-                  <div className="flex gap-4 mt-1">
+                  <div className="flex gap-4 mt-1 flex-wrap">
                     <span className="font-pixel text-px-8" style={{ color: 'var(--game-text-light)' }}>
                       {exp.startDate.toUpperCase()} – {exp.endDate.toUpperCase()}
                     </span>
