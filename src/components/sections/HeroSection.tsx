@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { SectionEnterTransition } from '@/components/game/BattleTransition';
 import { personal } from '@/data/personal';
@@ -31,11 +31,22 @@ const NAV_ITEMS = [
   { label: 'SAVE',     sub: 'CONTACT',     href: '#contact'    },
 ];
 
+function getGreeting(): string {
+  const h = new Date().getHours();
+  if (h < 5)  return 'GOOD NIGHT, TRAINER';
+  if (h < 12) return 'GOOD MORNING, TRAINER';
+  if (h < 17) return 'GOOD AFTERNOON, TRAINER';
+  if (h < 21) return 'GOOD EVENING, TRAINER';
+  return 'GOOD NIGHT, TRAINER';
+}
+
 export function HeroSection() {
   const [phase, setPhase]           = useState<Phase>('title');
   const [menuCursor, setMenuCursor] = useState(0);
   const [blink, setBlink]           = useState(true);
   const [visible, setVisible]       = useState(false);
+  const [gengarBubble, setGengarBubble] = useState(false);
+  const greeting = getGreeting();
 
   /* Always start at top, lock scroll on the splash screen */
   useEffect(() => {
@@ -116,30 +127,83 @@ export function HeroSection() {
         }}
       />
 
-      {/* Gengar */}
+      {/* Gengar — clickable easter egg */}
       <motion.div
         className="absolute z-10"
-        style={{ left: '8%', top: '50%', transform: 'translateY(-50%)' }}
+        style={{ left: '8%', top: '50%', transform: 'translateY(-50%)', position: 'absolute' }}
         initial={{ opacity: 0, x: -30 }}
         animate={{ opacity: visible ? 1 : 0, x: visible ? 0 : -30 }}
         transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
       >
-        <img
-          src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/94.png"
-          alt="Gengar"
-          className="sprite-float"
-          style={{
-            imageRendering: 'pixelated',
-            width: 'clamp(80px, 11vw, 144px)',
-            height: 'auto',
-            filter: [
-              'drop-shadow(0 0 14px rgba(112,88,152,1))',
-              'drop-shadow(0 0 36px rgba(112,88,152,0.65))',
-              'drop-shadow(0 0 64px rgba(112,88,152,0.3))',
-              'brightness(1.15)',
-            ].join(' '),
+        <div
+          style={{ position: 'relative', display: 'inline-block', cursor: 'pointer' }}
+          onClick={(e) => {
+            e.stopPropagation();
+            setGengarBubble(true);
+            setTimeout(() => setGengarBubble(false), 1800);
           }}
-        />
+        >
+          <img
+            src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/94.png"
+            alt="Gengar"
+            className="sprite-float"
+            style={{
+              imageRendering: 'pixelated',
+              width: 'clamp(80px, 11vw, 144px)',
+              height: 'auto',
+              filter: [
+                'drop-shadow(0 0 14px rgba(112,88,152,1))',
+                'drop-shadow(0 0 36px rgba(112,88,152,0.65))',
+                'drop-shadow(0 0 64px rgba(112,88,152,0.3))',
+                'brightness(1.15)',
+              ].join(' '),
+            }}
+          />
+          <AnimatePresence>
+            {gengarBubble && (
+              <motion.div
+                initial={{ opacity: 0, y: 4, scale: 0.8 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.8 }}
+                style={{
+                  position: 'absolute',
+                  top: '-42px',
+                  left: '50%',
+                  transform: 'translateX(-50%)',
+                  background: 'var(--game-box)',
+                  border: '3px solid var(--game-box-border)',
+                  boxShadow: '3px 3px 0 var(--game-box-border)',
+                  padding: '4px 10px',
+                  whiteSpace: 'nowrap',
+                  pointerEvents: 'none',
+                }}
+              >
+                <span className="font-pixel text-px-8" style={{ color: 'var(--game-text)' }}>...</span>
+                {/* speech tail */}
+                <div style={{
+                  position: 'absolute',
+                  bottom: -8,
+                  left: '50%',
+                  transform: 'translateX(-50%)',
+                  width: 0, height: 0,
+                  borderLeft: '6px solid transparent',
+                  borderRight: '6px solid transparent',
+                  borderTop: '8px solid var(--game-box-border)',
+                }} />
+                <div style={{
+                  position: 'absolute',
+                  bottom: -5,
+                  left: '50%',
+                  transform: 'translateX(-50%)',
+                  width: 0, height: 0,
+                  borderLeft: '5px solid transparent',
+                  borderRight: '5px solid transparent',
+                  borderTop: '6px solid var(--game-box)',
+                }} />
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
       </motion.div>
 
       {/* ── Main content — title text always rendered ────── */}
@@ -151,7 +215,7 @@ export function HeroSection() {
           transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
           style={{ paddingBottom: phase === 'title' ? '8%' : '0' }}
         >
-          {/* "Hi, my name is" */}
+          {/* Time-based greeting */}
           <motion.div
             className="font-pixel select-none"
             style={{
@@ -164,7 +228,7 @@ export function HeroSection() {
             animate={{ opacity: visible ? 1 : 0 }}
             transition={{ duration: 0.4 }}
           >
-            HI, MY NAME IS
+            {greeting}
           </motion.div>
 
           {/* NAME */}

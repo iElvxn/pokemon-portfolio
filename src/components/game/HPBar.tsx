@@ -19,7 +19,7 @@ export function HPBar({
   className,
   animate = true,
 }: HPBarProps) {
-  const pct = Math.min(Math.max((value / max) * 100, 0), 100);
+  const pct        = Math.min(Math.max((value / max) * 100, 0), 100);
   const colorClass = pct > 50 ? 'green' : pct > 20 ? 'yellow' : 'red';
 
   return (
@@ -39,7 +39,12 @@ export function HPBar({
             initial={{ width: '0%' }}
             whileInView={{ width: `${pct}%` }}
             viewport={{ once: true }}
-            transition={{ duration: 1, delay: 0.15 }}
+            transition={{
+              type: 'spring',
+              stiffness: 280,
+              damping: 22,
+              delay: 0.1,
+            }}
           />
         ) : (
           <div className={`hp-bar-fill ${colorClass}`} style={{ width: `${pct}%` }} />

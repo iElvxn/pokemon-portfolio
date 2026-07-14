@@ -1,142 +1,151 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { staggerContainer, fadeInUp } from '@/lib/animations';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useState } from 'react';
 import Link from 'next/link';
 
 const ACTIONS = [
-  { label: '⚔ Fight', sub: 'WRITE CODE', href: '#', color: 'var(--color-fire)' },
-  { label: '📄 Resume', sub: 'SEE CREDS', href: '/resume.pdf', color: 'var(--color-water)' },
-  { label: '🏃 Run', sub: 'GO BACK', href: '/', color: 'var(--color-ghost)' },
-  { label: '✉ Contact', sub: 'SEND MSG', href: '/#contact', color: 'var(--color-psychic)' },
+  { label: 'VIEW RESUME', sub: 'SEE CREDS',  href: '/resume.pdf',  color: '#6890f0' },
+  { label: 'CONTACT',     sub: 'SEND MSG',   href: '/#contact',    color: '#f85888' },
+  { label: 'GO BACK',     sub: 'RUN AWAY',   href: '/',            color: '#705898' },
+  { label: 'PROJECTS',    sub: 'WRITE CODE', href: '/#projects',   color: '#f08030' },
 ];
 
 export default function NotFound() {
+  const [cursor, setCursor] = useState(0);
+
   return (
     <div
-      className="min-h-screen flex flex-col items-center justify-center p-6"
-      style={{ background: 'var(--color-void)' }}
+      className="game-screen flex items-center justify-center sky-bg pixel-grid"
+      style={{ minHeight: '100vh' }}
     >
-      {/* Battle scene */}
-      <div
-        className="w-full max-w-lg rounded-2xl overflow-hidden border border-[var(--color-border)]"
-        style={{ background: 'var(--color-surface)' }}
-      >
-        {/* Battle area */}
+      {/* CRT scanlines */}
+      <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.06) 2px, rgba(0,0,0,0.06) 4px)', zIndex: 3 }} />
+
+      {/* Location badge */}
+      <div className="absolute top-4 left-1/2 -translate-x-1/2 z-10">
+        <div className="location-badge">UNKNOWN AREA</div>
+      </div>
+
+      <div className="w-full max-w-2xl mx-auto px-4 relative z-10">
+
+        {/* Battle scene */}
         <div
-          className="relative flex items-end justify-between px-8 pt-8 pb-6"
+          className="game-box-dark"
           style={{
-            background: 'linear-gradient(180deg, #1a1a2e 0%, #16213e 100%)',
-            minHeight: '200px',
+            background: 'linear-gradient(180deg, #88c8f8 0%, #58a8e8 38%, #c8e8a0 38%, #78b840 55%, #48880022 100%)',
+            minHeight: 220,
+            position: 'relative',
+            overflow: 'hidden',
+            borderBottom: '4px solid #383838',
           }}
         >
-          {/* Enemy — RECRUITER */}
-          <div className="text-center">
-            <motion.div
-              initial={{ x: 60, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-            >
-              <div className="text-5xl mb-1">🧑‍💼</div>
-              <div
-                className="px-3 py-1 rounded font-mono text-[10px] uppercase tracking-wider"
-                style={{ background: 'rgba(255,255,255,0.08)', color: 'var(--color-text-secondary)' }}
-              >
-                RECRUITER Lv.??
-              </div>
-              {/* HP bar */}
-              <div className="mt-2 w-24 h-1.5 rounded-full overflow-hidden" style={{ background: 'var(--color-border)' }}>
-                <div className="h-full rounded-full" style={{ width: '75%', background: 'var(--color-success)' }} />
-              </div>
-            </motion.div>
-          </div>
+          {/* Ground line */}
+          <div style={{ position: 'absolute', top: '55%', left: 0, right: 0, height: 4, background: '#383838' }} />
 
-          {/* Player — Gengar */}
-          <div className="text-center">
-            <motion.div
-              initial={{ x: -60, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-            >
+          {/* Enemy: RECRUITER */}
+          <motion.div
+            style={{ position: 'absolute', top: '6%', right: '8%' }}
+            initial={{ x: 120, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <div className="text-center">
+              <div style={{ fontSize: 72 }}>🧑‍💼</div>
+              <div className="font-pixel text-px-8 mt-1" style={{ color: '#383838' }}>RECRUITER Lv.??</div>
+              <div style={{ marginTop: 5, width: 80, height: 6, background: '#383838', overflow: 'hidden' }}>
+                <div style={{ width: '75%', height: '100%', background: '#58c038' }} />
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Player: Gengar */}
+          <motion.div
+            style={{ position: 'absolute', bottom: '18%', left: '8%' }}
+            initial={{ x: -120, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <div className="text-center">
               <img
                 src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/94.png"
                 alt="Gengar"
-                width={80}
-                height={80}
-                style={{ imageRendering: 'pixelated' }}
-                className="drop-shadow-[0_0_10px_rgba(112,88,152,0.6)]"
+                className="sprite-bob"
+                style={{ imageRendering: 'pixelated', width: 80, filter: 'drop-shadow(0 0 8px rgba(112,88,152,0.8))' }}
               />
-              <div className="mt-1 font-mono text-[10px] text-[var(--color-ghost-light)] uppercase tracking-wider">
-                GENGAR Lv.100
+              <div className="font-pixel text-px-8" style={{ color: '#383838' }}>GENGAR Lv.100</div>
+              <div style={{ marginTop: 4, width: 80, height: 6, background: '#383838', overflow: 'hidden' }}>
+                <div style={{ width: '90%', height: '100%', background: '#58c038' }} />
               </div>
-              <div className="mt-1.5 w-20 h-1.5 rounded-full overflow-hidden" style={{ background: 'var(--color-border)' }}>
-                <div className="h-full rounded-full" style={{ width: '90%', background: 'var(--color-ghost)' }} />
-              </div>
-            </motion.div>
-          </div>
-        </div>
-
-        {/* Dialog box */}
-        <div
-          className="p-5 border-t border-[var(--color-border)]"
-          style={{ background: 'var(--color-surface-2)' }}
-        >
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.5 }}
-          >
-            <p className="font-mono text-sm text-[var(--color-text-primary)] mb-1">
-              Wild <span style={{ color: 'var(--color-electric)' }}>RECRUITER</span> appeared!
-            </p>
-            <p className="font-mono text-xs text-[var(--color-text-secondary)]">
-              (Page not found — error 404)
-            </p>
+            </div>
           </motion.div>
         </div>
 
-        {/* Action grid */}
-        <div className="p-4 border-t border-[var(--color-border)]">
-          <p className="font-mono text-xs text-[var(--color-text-muted)] mb-3 text-center uppercase tracking-wider">
-            What will ELVIN do?
-          </p>
-          <div className="grid grid-cols-2 gap-2">
-            {ACTIONS.map(({ label, sub, href, color }, i) => (
+        {/* Battle UI box */}
+        <motion.div
+          className="game-box"
+          initial={{ y: 40, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ delay: 0.7, duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+          style={{ marginTop: 0 }}
+        >
+          <div style={{ display: 'flex', gap: 0 }}>
+            {/* Dialogue side */}
+            <div style={{ flex: 1, padding: '16px 20px', borderRight: '3px solid var(--game-box-border)' }}>
               <motion.div
-                key={label}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.6 + i * 0.1 }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 1.0 }}
               >
+                <div className="font-vt text-vt-28" style={{ color: 'var(--game-text)' }}>
+                  Wild <span style={{ color: '#705898' }}>RECRUITER</span>{' '}appeared!
+                </div>
+                <div className="font-pixel text-px-8 mt-2" style={{ color: 'var(--game-text-light)' }}>
+                  ERROR 404 · PAGE NOT FOUND
+                </div>
+                <div className="font-pixel text-px-8 mt-3" style={{ color: 'var(--game-text-mid)' }}>
+                  What will ELVIN do?
+                </div>
+              </motion.div>
+            </div>
+
+            {/* Action grid */}
+            <motion.div
+              style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', minWidth: 220 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 1.1 }}
+            >
+              {ACTIONS.map((action, i) => (
                 <Link
-                  href={href}
-                  className="flex flex-col items-center justify-center p-3 rounded-xl border border-[var(--color-border)] transition-all duration-200 hover:scale-105"
+                  key={action.label}
+                  href={action.href}
+                  onMouseEnter={() => setCursor(i)}
+                  className="relative z-10"
                   style={{
-                    background: `${color}10`,
-                    borderColor: `${color}40`,
+                    padding: '12px 16px',
+                    borderBottom: i < 2 ? '2px solid var(--game-box-border)' : 'none',
+                    borderRight: i % 2 === 0 ? '2px solid var(--game-box-border)' : 'none',
+                    background: cursor === i ? 'rgba(112,88,152,0.1)' : 'transparent',
+                    textDecoration: 'none',
+                    display: 'block',
+                    transition: 'background 0.1s',
                   }}
                 >
-                  <span className="font-display font-bold text-sm" style={{ color }}>
-                    {label}
-                  </span>
-                  <span className="font-mono text-[9px] text-[var(--color-text-muted)] mt-0.5">
-                    {sub}
-                  </span>
+                  <div className="flex items-center gap-1.5">
+                    <span className="font-pixel text-px-8" style={{ opacity: cursor === i ? 1 : 0, color: 'var(--game-text)' }}>►</span>
+                    <div>
+                      <div className="font-pixel text-px-8" style={{ color: action.color }}>{action.label}</div>
+                      <div className="font-pixel text-px-8 mt-0.5" style={{ color: 'var(--game-text-light)' }}>{action.sub}</div>
+                    </div>
+                  </div>
                 </Link>
-              </motion.div>
-            ))}
+              ))}
+            </motion.div>
           </div>
-        </div>
-      </div>
+        </motion.div>
 
-      <motion.p
-        className="font-mono text-xs text-[var(--color-text-muted)] mt-6"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1 }}
-      >
-        Error 404 · Page not found
-      </motion.p>
+      </div>
     </div>
   );
 }

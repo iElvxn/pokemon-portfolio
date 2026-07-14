@@ -16,6 +16,17 @@ const BADGE_SPRITES = [
   '/badges/boulder.webp',
 ];
 
+const TYPE_LORE: Record<string, string> = {
+  fire:     'Backend / Infra',
+  steel:    'DevOps / Cloud',
+  electric: 'Frontend',
+  water:    'Backend',
+  rock:     'Core CS',
+  normal:   'General',
+  ghost:    'Systems',
+  psychic:  'AI / ML',
+};
+
 export function ExperienceSection() {
   const [selected, setSelected] = useState(0);
   const exp = experiences[selected];
@@ -27,7 +38,15 @@ export function ExperienceSection() {
     >
       <SectionEnterTransition />
 
-      {/* Section label */}
+      {/* Ambient glow using badge color */}
+      <div
+        className="absolute inset-0 pointer-events-none z-0"
+        style={{
+          background: `radial-gradient(ellipse 55% 45% at 50% 30%, ${exp.badgeColor}14 0%, transparent 65%)`,
+          transition: 'background 0.4s ease',
+        }}
+      />
+
       <div className="absolute top-4 left-1/2 -translate-x-1/2 z-10">
         <div className="location-badge">GYM BADGES</div>
       </div>
@@ -35,14 +54,14 @@ export function ExperienceSection() {
       <div className="relative z-10 w-full max-w-6xl mx-auto px-4 flex-1 flex flex-col gap-2 py-14">
 
         {/* Header */}
-        <div className="game-box px-4 py-2 text-center">
+        <div className="game-box px-4 py-2 text-center stagger-item">
           <div className="relative z-10 font-pixel text-px-16" style={{ color: 'var(--game-text)' }}>
             EXPERIENCE
           </div>
         </div>
 
-        {/* Badge Case — top row */}
-        <div className="game-box relative z-0">
+        {/* Badge Case */}
+        <div className="game-box relative z-0 stagger-item">
           <div className="relative z-10 px-4 py-3">
             <div className="font-pixel text-px-8 mb-3" style={{ color: 'var(--game-text-light)' }}>
               BADGES EARNED
@@ -52,7 +71,7 @@ export function ExperienceSection() {
                 <button
                   key={e.id}
                   onClick={() => setSelected(i)}
-                  className="flex flex-col items-center gap-1 focus:outline-none"
+                  className="flex flex-col items-center gap-1 focus:outline-none badge-press"
                 >
                   <motion.div
                     whileHover={{ scale: 1.15, y: -2 }}
@@ -72,7 +91,10 @@ export function ExperienceSection() {
                       alt={`${e.company} badge`}
                       width={36}
                       height={36}
-                      style={{ imageRendering: 'pixelated', filter: selected === i ? `drop-shadow(0 0 4px ${e.badgeColor})` : 'none' }}
+                      style={{
+                        imageRendering: 'pixelated',
+                        filter: selected === i ? `drop-shadow(0 0 4px ${e.badgeColor})` : 'none',
+                      }}
                     />
                   </motion.div>
                   <span className="font-pixel text-px-8" style={{ color: e.badgeColor }}>
@@ -92,7 +114,7 @@ export function ExperienceSection() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.22 }}
-            className="game-box relative z-0 flex-1"
+            className="game-box relative z-0 flex-1 stagger-item"
           >
             <div className="relative z-10">
               {/* Job header */}
@@ -132,18 +154,21 @@ export function ExperienceSection() {
                     </span>
                   </div>
                 </div>
-                {/* Tech types */}
+                {/* Tech type badges with tooltips */}
                 <div className="flex gap-1 flex-wrap justify-end">
                   {exp.techStack.slice(0, 3).map((type, ti) => {
-                    const col = getTypeColor(type as PokemonType);
+                    const col  = getTypeColor(type as PokemonType);
+                    const lore = TYPE_LORE[type];
                     return (
-                      <span
-                        key={ti}
-                        className="font-pixel text-px-8 px-1.5 py-0.5"
-                        style={{ background: col, color: '#fff', border: '1px solid rgba(0,0,0,0.3)' }}
-                      >
-                        {type.toUpperCase().slice(0, 4)}
-                      </span>
+                      <div key={ti} className="type-tooltip-wrapper">
+                        <span
+                          className="font-pixel text-px-8 px-1.5 py-0.5 badge-shimmer"
+                          style={{ background: col, color: '#fff', border: '1px solid rgba(0,0,0,0.3)' }}
+                        >
+                          {type.toUpperCase().slice(0, 4)}
+                        </span>
+                        {lore && <div className="type-tooltip">{lore}</div>}
+                      </div>
                     );
                   })}
                 </div>
@@ -173,10 +198,7 @@ export function ExperienceSection() {
 
               {/* Level gained */}
               <div className="flex items-center gap-3 px-4 py-3">
-                <span
-                  className="font-pixel text-px-10"
-                  style={{ color: 'var(--game-electric)' }}
-                >
+                <span className="font-pixel text-px-10" style={{ color: 'var(--game-electric)' }}>
                   LEVEL UP!
                 </span>
                 <span className="font-vt text-vt-22" style={{ color: 'var(--game-text)' }}>
@@ -187,7 +209,6 @@ export function ExperienceSection() {
           </motion.div>
         </AnimatePresence>
 
-        {/* Navigation hint */}
         <div className="text-center">
           <span className="font-pixel text-px-8" style={{ color: 'var(--game-text-light)' }}>
             SELECT BADGE TO VIEW EXPERIENCE

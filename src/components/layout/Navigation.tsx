@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { StartMenu } from '@/components/game/StartMenu';
+import { MusicToggle } from '@/components/game/SoundManager';
 import { personal } from '@/data/personal';
 
 const AREA_MAP: Record<string, string> = {
@@ -70,16 +71,17 @@ export function Navigation() {
           </motion.div>
         </AnimatePresence>
 
-        {/* Trainer badge */}
-        <div
-          className="game-box game-box-sm py-1 px-3 flex items-center gap-3"
-        >
-          <span className="font-pixel text-px-8 text-[var(--game-text)]">
-            {personal.name.split(' ')[0].toUpperCase()} ♂
-          </span>
-          <span className="font-pixel text-px-8 text-[var(--game-text-light)]">
-            LV.{personal.level}
-          </span>
+        {/* Trainer badge + music toggle */}
+        <div className="flex items-center gap-2">
+          <MusicToggle />
+          <div className="game-box game-box-sm py-1 px-3 flex items-center gap-3">
+            <span className="font-pixel text-px-8 text-[var(--game-text)]">
+              {personal.name.split(' ')[0].toUpperCase()} ♂
+            </span>
+            <span className="font-pixel text-px-8 text-[var(--game-text-light)]">
+              LV.{personal.level}
+            </span>
+          </div>
         </div>
       </div>
 

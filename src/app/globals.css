@@ -26,7 +26,7 @@
   /* ── Text ───────────────────────────────────────────────── */
   --game-text:        #383838;
   --game-text-mid:    #585858;
-  --game-text-light:  #888880;
+  --game-text-light:  #9e9e94;
   --game-text-dim:    #b0b0a8;
   --game-text-white:  #f0f0f8;
   --game-text-glow:   #c8b8f0;
@@ -94,7 +94,7 @@ body {
   -webkit-font-smoothing: none;
   -moz-osx-font-smoothing: unset;
   font-smooth: never;
-  cursor: default;
+  cursor: url('/cursor-pokeball.svg') 12 12, default;
 }
 
 img { image-rendering: pixelated; }
@@ -535,4 +535,180 @@ body::after {
 /* Night sky gradient background */
 .sky-bg {
   background: linear-gradient(180deg, var(--game-sky-top) 0%, var(--game-sky-mid) 40%, var(--game-sky-btm) 100%);
+}
+
+/* ============================================================
+   TYPE BADGE SHIMMER — sweeps across on first render
+   ============================================================ */
+
+@keyframes badge-shimmer-move {
+  from { background-position: -200% center; }
+  to   { background-position: 200% center;  }
+}
+
+.badge-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+.badge-shimmer::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 35%,
+    rgba(255,255,255,0.55) 50%,
+    transparent 65%
+  );
+  background-size: 250% 100%;
+  animation: badge-shimmer-move 1s ease-out 0.6s 1 both;
+  pointer-events: none;
+}
+
+/* ============================================================
+   GENGAR BLINK — occasional eye blink
+   ============================================================ */
+
+@keyframes gengar-blink {
+  0%, 88%, 94%, 100% { transform: scaleY(1); }
+  91%                 { transform: scaleY(0.08); }
+}
+.sprite-blink {
+  animation: sprite-bob 2s steps(2) infinite, gengar-blink 5s ease-in-out 2s infinite;
+  transform-origin: center center;
+}
+
+/* ============================================================
+   3D CARD — tilt wrapper
+   ============================================================ */
+
+.tilt-card {
+  will-change: transform;
+  transform-style: preserve-3d;
+  transition: transform 0.12s ease-out;
+}
+.tilt-card:hover { box-shadow: 6px 12px 32px rgba(0,0,0,0.45); }
+
+/* ============================================================
+   HOLOGRAPHIC FOIL OVERLAY
+   ============================================================ */
+
+.holo-foil-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 20;
+  opacity: 0;
+  transition: opacity 0.3s;
+  mix-blend-mode: color-dodge;
+  background: linear-gradient(
+    135deg,
+    rgba(255,0,128,0.35) 0%,
+    rgba(255,140,0,0.35) 16%,
+    rgba(255,230,0,0.35) 33%,
+    rgba(0,255,136,0.35) 50%,
+    rgba(0,200,255,0.35) 66%,
+    rgba(124,0,255,0.35) 83%,
+    rgba(255,0,128,0.35) 100%
+  );
+  background-size: 400% 400%;
+}
+
+/* ============================================================
+   AMBIENT TYPE GLOW — behind content boxes
+   ============================================================ */
+
+.ambient-glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ============================================================
+   TYPE BADGE TOOLTIP
+   ============================================================ */
+
+.type-tooltip-wrapper {
+  position: relative;
+  display: inline-block;
+}
+.type-tooltip {
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  background: var(--game-bg-2);
+  border: 2px solid var(--game-box-border);
+  box-shadow: 3px 3px 0 var(--game-box-border);
+  padding: 4px 8px;
+  font-family: var(--font-pixel), monospace;
+  font-size: 7px;
+  color: var(--game-text-white);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s;
+  z-index: 100;
+  -webkit-font-smoothing: none;
+}
+.type-tooltip-wrapper:hover .type-tooltip { opacity: 1; }
+
+/* ============================================================
+   BADGE PRESS — tactile depress effect
+   ============================================================ */
+
+.badge-press {
+  transition: transform 0.08s ease-out, box-shadow 0.08s ease-out;
+}
+.badge-press:active {
+  transform: translate(2px, 2px) scale(0.96) !important;
+  box-shadow: 1px 1px 0 rgba(0,0,0,0.5) !important;
+}
+
+/* ============================================================
+   PAGE LOAD STAGGER — coordinated entrance
+   ============================================================ */
+
+.stagger-item { opacity: 0; animation: stagger-in 0.4s ease-out forwards; }
+.stagger-item:nth-child(1) { animation-delay: 0.05s; }
+.stagger-item:nth-child(2) { animation-delay: 0.13s; }
+.stagger-item:nth-child(3) { animation-delay: 0.21s; }
+.stagger-item:nth-child(4) { animation-delay: 0.29s; }
+
+@keyframes stagger-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0);   }
+}
+
+/* ============================================================
+   MODAL — full-screen project detail
+   ============================================================ */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9000;
+  background: rgba(8,4,18,0.92);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  cursor: url('/cursor-pokeball.svg') 12 12, default;
+}
+
+/* ============================================================
+   KONAMI BATTLE SCREEN
+   ============================================================ */
+
+.konami-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: #f0e8c8;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: url('/cursor-pokeball.svg') 12 12, default;
 }
