@@ -66,7 +66,7 @@ export function ExperienceSection() {
             <div className="font-pixel text-px-8 mb-3" style={{ color: 'var(--game-text-light)' }}>
               BADGES EARNED
             </div>
-            <div className="flex gap-5 flex-wrap">
+            <div className="flex gap-6 flex-wrap">
               {experiences.map((e, i) => (
                 <button
                   key={e.id}
@@ -76,7 +76,7 @@ export function ExperienceSection() {
                   <motion.div
                     whileHover={{ scale: 1.15, y: -2 }}
                     animate={{ scale: selected === i ? 1.2 : 1 }}
-                    className="w-14 h-14 flex items-center justify-center"
+                    className="w-20 h-20 flex items-center justify-center"
                     style={{
                       background: selected === i ? `${e.badgeColor}22` : 'rgba(255,255,255,0.05)',
                       border: `3px solid ${e.badgeColor}`,
@@ -89,15 +89,15 @@ export function ExperienceSection() {
                     <img
                       src={BADGE_SPRITES[i]}
                       alt={`${e.company} badge`}
-                      width={36}
-                      height={36}
+                      width={52}
+                      height={52}
                       style={{
                         imageRendering: 'pixelated',
                         filter: selected === i ? `drop-shadow(0 0 4px ${e.badgeColor})` : 'none',
                       }}
                     />
                   </motion.div>
-                  <span className="font-pixel text-px-8" style={{ color: e.badgeColor }}>
+                  <span className="font-pixel text-px-10" style={{ color: e.badgeColor }}>
                     {e.company.toUpperCase()}
                   </span>
                 </button>

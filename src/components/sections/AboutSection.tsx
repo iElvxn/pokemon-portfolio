@@ -81,10 +81,6 @@ export function AboutSection() {
         }}
       />
 
-      <div className="absolute top-4 left-1/2 -translate-x-1/2 z-10">
-        <div className="location-badge">PROFESSOR&apos;S LAB</div>
-      </div>
-
       <div className="relative z-10 w-full max-w-6xl mx-auto px-4 flex-1 flex flex-col gap-2 py-14">
 
         {/* Main row: trainer card + right panel */}
