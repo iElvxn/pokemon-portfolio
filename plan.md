@@ -43,12 +43,12 @@
 - [x] **Mobile layout** — `max-width:640px` media query frees `.game-screen` from clipped `100vh`/`overflow:hidden` into `min-height:100vh`/`overflow:visible`; two-column layouts (About/Skills/Projects/Education/Contact) stack via `.mobile-stack`/`.mobile-full`; scroll-snap disabled on mobile
 - [x] **Navigation HUD on mobile** — Tightened HUD padding/gaps, hid "LV.100" label on small screens; active-section detector now tracks max intersection ratio instead of a fixed 55% threshold (needed since stacked mobile sections can exceed viewport height)
 - [x] **Content reveal speed** — About section's bio + contact links no longer gated behind the Prof. Oak typewriter finishing (was ~4s delay hiding the RESUME/GITHUB/LINKEDIN/EMAIL buttons); dialogue speed 14ms → 8ms; stagger-entrance delays trimmed (~0.7s → ~0.5s max)
+- [x] **Parallax background layers** — Hero: 3 depth layers (wallpaper, ground gradient, Gengar) shift on `mousemove` via Framer Motion springs, scoped to the `onMouseMove` handler on the section itself (no-op on touch/mobile). Gated behind `prefers-reduced-motion` with live `matchMedia` listener.
 
 ---
 
 ## REMAINING (lower priority, future session)
 
-- **Parallax background layers** — Hero parallax: 2–3 depth layers shifting at different speeds on `mousemove`. Gate behind `prefers-reduced-motion`. Perf-test first.
 - **Mobile swipe gestures** — `touchstart`/`touchend` delta → scroll to next snap section
 - **Game box consistency audit** — Some panels use `game-box-sm` inconsistently; quick visual audit
 - **Typography scale audit** — Too many `text-px-*` and `text-vt-*` sizes; consolidate

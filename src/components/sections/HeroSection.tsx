@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { SectionEnterTransition } from '@/components/game/BattleTransition';
 import { personal } from '@/data/personal';
 
@@ -53,7 +53,41 @@ export function HeroSection() {
   const [blink, setBlink]           = useState(true);
   const [visible, setVisible]       = useState(false);
   const [gengarBubble, setGengarBubble] = useState(false);
+  const [reducedMotion, setReducedMotion] = useState(false);
   const greeting = getGreeting();
+
+  /* ── Mouse parallax — depth layers shift at different speeds.
+     Disabled entirely for prefers-reduced-motion. ─────────────── */
+  useEffect(() => {
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    setReducedMotion(mq.matches);
+    const handler = () => setReducedMotion(mq.matches);
+    mq.addEventListener('change', handler);
+    return () => mq.removeEventListener('change', handler);
+  }, []);
+
+  const mx = useMotionValue(0);
+  const my = useMotionValue(0);
+  const springMx = useSpring(mx, { stiffness: 60, damping: 18, mass: 0.6 });
+  const springMy = useSpring(my, { stiffness: 60, damping: 18, mass: 0.6 });
+
+  /* Farthest layer moves least, nearest (Gengar) moves most */
+  const bgX     = useTransform(springMx, (v) => v * -25);
+  const bgY     = useTransform(springMy, (v) => v * -16);
+  const groundX = useTransform(springMx, (v) => v * -40);
+  const gengarX = useTransform(springMx, (v) => v * -70);
+  const gengarY = useTransform(springMy, (v) => v * -40);
+
+  function handleHeroMouseMove(e: React.MouseEvent<HTMLElement>) {
+    if (reducedMotion) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    mx.set((e.clientX - rect.left) / rect.width - 0.5);
+    my.set((e.clientY - rect.top) / rect.height - 0.5);
+  }
+  function handleHeroMouseLeave() {
+    mx.set(0);
+    my.set(0);
+  }
 
   /* Always start at top, lock scroll on the splash screen */
   useEffect(() => {
@@ -108,25 +142,39 @@ export function HeroSection() {
     <section
       id="hero"
       className="game-screen relative overflow-hidden"
-      style={{
-        backgroundImage: 'url(/wallpaper.jpg)',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center center',
-        cursor: phase === 'title' ? 'pointer' : 'default',
-      }}
+      style={{ cursor: phase === 'title' ? 'pointer' : 'default' }}
       onClick={() => { if (phase === 'title') setPhase('menu'); }}
+      onMouseMove={handleHeroMouseMove}
+      onMouseLeave={handleHeroMouseLeave}
     >
       <SectionEnterTransition />
+
+      {/* Wallpaper — farthest parallax layer, scaled up so panning
+          never reveals empty edges */}
+      <motion.div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          backgroundImage: 'url(/wallpaper.jpg)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center center',
+          scale: 1.08,
+          x: bgX,
+          y: bgY,
+        }}
+      />
 
       {/* Dark overlay */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{ background: 'rgba(8,4,18,0.28)' }}
       />
-      {/* Ground gradient */}
-      <div
+      {/* Ground gradient — mid-depth parallax layer */}
+      <motion.div
         className="absolute bottom-0 left-0 right-0 h-32 pointer-events-none"
-        style={{ background: 'linear-gradient(180deg, transparent 0%, rgba(15,8,32,0.7) 100%)' }}
+        style={{
+          background: 'linear-gradient(180deg, transparent 0%, rgba(15,8,32,0.7) 100%)',
+          x: groundX,
+        }}
       />
       {/* CRT scanlines */}
       <div
@@ -137,83 +185,85 @@ export function HeroSection() {
         }}
       />
 
-      {/* Gengar — clickable easter egg */}
-      <motion.div
-        className="absolute z-10"
-        style={{ left: '8%', top: '50%', transform: 'translateY(-50%)', position: 'absolute' }}
-        initial={{ opacity: 0, x: -30 }}
-        animate={{ opacity: visible ? 1 : 0, x: visible ? 0 : -30 }}
-        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-      >
-        <div
-          style={{ position: 'relative', display: 'inline-block', cursor: 'pointer' }}
-          onClick={(e) => {
-            e.stopPropagation();
-            setGengarBubble(true);
-            setTimeout(() => setGengarBubble(false), 1800);
-          }}
+      {/* Gengar — clickable easter egg; nearest/fastest parallax layer */}
+      <motion.div className="absolute z-10 inset-0 pointer-events-none" style={{ x: gengarX, y: gengarY }}>
+        <motion.div
+          className="absolute pointer-events-auto"
+          style={{ left: '8%', top: '50%', transform: 'translateY(-50%)', position: 'absolute' }}
+          initial={{ opacity: 0, x: -30 }}
+          animate={{ opacity: visible ? 1 : 0, x: visible ? 0 : -30 }}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
         >
-          <img
-            src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/94.png"
-            alt="Gengar"
-            className="sprite-float"
-            style={{
-              imageRendering: 'pixelated',
-              width: 'clamp(80px, 11vw, 144px)',
-              height: 'auto',
-              filter: [
-                'drop-shadow(0 0 14px rgba(112,88,152,1))',
-                'drop-shadow(0 0 36px rgba(112,88,152,0.65))',
-                'drop-shadow(0 0 64px rgba(112,88,152,0.3))',
-                'brightness(1.15)',
-              ].join(' '),
+          <div
+            style={{ position: 'relative', display: 'inline-block', cursor: 'pointer' }}
+            onClick={(e) => {
+              e.stopPropagation();
+              setGengarBubble(true);
+              setTimeout(() => setGengarBubble(false), 1800);
             }}
-          />
-          <AnimatePresence>
-            {gengarBubble && (
-              <motion.div
-                initial={{ opacity: 0, y: 4, scale: 0.8 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.8 }}
-                style={{
-                  position: 'absolute',
-                  top: '-42px',
-                  left: '50%',
-                  transform: 'translateX(-50%)',
-                  background: 'var(--game-box)',
-                  border: '3px solid var(--game-box-border)',
-                  boxShadow: '3px 3px 0 var(--game-box-border)',
-                  padding: '4px 10px',
-                  whiteSpace: 'nowrap',
-                  pointerEvents: 'none',
-                }}
-              >
-                <span className="font-pixel text-px-8" style={{ color: 'var(--game-text)' }}>...</span>
-                {/* speech tail */}
-                <div style={{
-                  position: 'absolute',
-                  bottom: -8,
-                  left: '50%',
-                  transform: 'translateX(-50%)',
-                  width: 0, height: 0,
-                  borderLeft: '6px solid transparent',
-                  borderRight: '6px solid transparent',
-                  borderTop: '8px solid var(--game-box-border)',
-                }} />
-                <div style={{
-                  position: 'absolute',
-                  bottom: -5,
-                  left: '50%',
-                  transform: 'translateX(-50%)',
-                  width: 0, height: 0,
-                  borderLeft: '5px solid transparent',
-                  borderRight: '5px solid transparent',
-                  borderTop: '6px solid var(--game-box)',
-                }} />
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
+          >
+            <img
+              src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/94.png"
+              alt="Gengar"
+              className="sprite-float"
+              style={{
+                imageRendering: 'pixelated',
+                width: 'clamp(80px, 11vw, 144px)',
+                height: 'auto',
+                filter: [
+                  'drop-shadow(0 0 14px rgba(112,88,152,1))',
+                  'drop-shadow(0 0 36px rgba(112,88,152,0.65))',
+                  'drop-shadow(0 0 64px rgba(112,88,152,0.3))',
+                  'brightness(1.15)',
+                ].join(' '),
+              }}
+            />
+            <AnimatePresence>
+              {gengarBubble && (
+                <motion.div
+                  initial={{ opacity: 0, y: 4, scale: 0.8 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.8 }}
+                  style={{
+                    position: 'absolute',
+                    top: '-42px',
+                    left: '50%',
+                    transform: 'translateX(-50%)',
+                    background: 'var(--game-box)',
+                    border: '3px solid var(--game-box-border)',
+                    boxShadow: '3px 3px 0 var(--game-box-border)',
+                    padding: '4px 10px',
+                    whiteSpace: 'nowrap',
+                    pointerEvents: 'none',
+                  }}
+                >
+                  <span className="font-pixel text-px-8" style={{ color: 'var(--game-text)' }}>...</span>
+                  {/* speech tail */}
+                  <div style={{
+                    position: 'absolute',
+                    bottom: -8,
+                    left: '50%',
+                    transform: 'translateX(-50%)',
+                    width: 0, height: 0,
+                    borderLeft: '6px solid transparent',
+                    borderRight: '6px solid transparent',
+                    borderTop: '8px solid var(--game-box-border)',
+                  }} />
+                  <div style={{
+                    position: 'absolute',
+                    bottom: -5,
+                    left: '50%',
+                    transform: 'translateX(-50%)',
+                    width: 0, height: 0,
+                    borderLeft: '5px solid transparent',
+                    borderRight: '5px solid transparent',
+                    borderTop: '6px solid var(--game-box)',
+                  }} />
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+        </motion.div>
       </motion.div>
 
       {/* ── Main content — title text always rendered ────── */}
