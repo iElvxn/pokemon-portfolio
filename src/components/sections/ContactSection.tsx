@@ -15,7 +15,7 @@ interface FormData {
 }
 
 const CONTACTS = [
-  { label: 'GITHUB',   value: '@elvinly',           href: personal.github,             color: '#b8b8d0' },
+  { label: 'GITHUB',   value: '@elvinly',           href: personal.github,             color: '#24292f' },
   { label: 'LINKEDIN', value: 'ELVIN LY',            href: personal.linkedin,           color: '#6890f0' },
   { label: 'EMAIL',    value: personal.email.toUpperCase(), href: `mailto:${personal.email}`, color: '#f85888' },
 ];
@@ -128,8 +128,8 @@ export function ContactSection() {
                       {c.label}
                     </div>
                     <div
-                      className="font-pixel text-px-8 mt-0.5 truncate"
-                      style={{ color: c.color, maxWidth: 140 }}
+                      className="font-pixel text-px-12 mt-0.5 truncate"
+                      style={{ color: c.color, maxWidth: 165 }}
                     >
                       {c.value}
                     </div>

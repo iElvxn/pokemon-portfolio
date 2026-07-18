@@ -218,11 +218,15 @@ body::after {
   position: absolute;
   left: 0;
   top: 0;
-  transition: width 1s steps(20, end);
 }
 .hp-bar-fill.green  { background: var(--game-hp-green);  }
 .hp-bar-fill.yellow { background: var(--game-hp-yellow); }
 .hp-bar-fill.red    { background: var(--game-hp-red);    }
+
+/* Only the non-Framer-Motion (animate=false) bars need a CSS transition —
+   Framer Motion drives width itself for the animated variant, and a CSS
+   transition on the same property fights it, stalling the fill near 0%. */
+.hp-bar-fill-static { transition: width 1s steps(20, end); }
 
 /* Double-scanline inside HP bar */
 .hp-bar-track::after {

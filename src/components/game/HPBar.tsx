@@ -26,7 +26,7 @@ export function HPBar({
     <div className={`flex items-center gap-2 ${className ?? ''}`}>
       {label && (
         <span
-          className="font-pixel text-px-8 shrink-0 min-w-[96px]"
+          className="font-pixel text-px-12 shrink-0 min-w-[116px]"
           style={{ color: 'var(--game-text)' }}
         >
           {label}
@@ -47,11 +47,11 @@ export function HPBar({
             }}
           />
         ) : (
-          <div className={`hp-bar-fill ${colorClass}`} style={{ width: `${pct}%` }} />
+          <div className={`hp-bar-fill hp-bar-fill-static ${colorClass}`} style={{ width: `${pct}%` }} />
         )}
       </div>
       {showValue && (
-        <span className="font-pixel text-px-8 shrink-0 w-6 text-right" style={{ color: 'var(--game-text)' }}>
+        <span className="font-pixel text-px-12 shrink-0 w-8 text-right" style={{ color: 'var(--game-text)' }}>
           {value}
         </span>
       )}

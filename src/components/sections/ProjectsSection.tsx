@@ -7,6 +7,7 @@ import { HPBar } from '@/components/game/HPBar';
 import { MenuCursor } from '@/components/game/MenuCursor';
 import { projects } from '@/data/projects';
 import { getTypeColor, PokemonType } from '@/lib/type-colors';
+import { highlightMetrics } from '@/lib/highlight-metrics';
 
 const RARITY_LABEL: Record<string, string> = {
   'holo-rare': '★★★ HOLO',
@@ -164,7 +165,7 @@ function ProjectModal({ project, onClose }: { project: typeof projects[0]; onClo
             {project.achievements.map((a, i) => (
               <div key={i} className="flex items-start gap-2">
                 <span className="font-pixel text-px-8 flex-shrink-0 mt-0.5" style={{ color: typeColor }}>►</span>
-                <span className="font-vt text-vt-22" style={{ color: 'var(--game-text)' }}>{a}</span>
+                <span className="font-vt text-vt-22" style={{ color: 'var(--game-text)' }}>{highlightMetrics(a, typeColor)}</span>
               </div>
             ))}
           </div>
@@ -175,7 +176,7 @@ function ProjectModal({ project, onClose }: { project: typeof projects[0]; onClo
           <div className="font-pixel text-px-8 mb-2" style={{ color: 'var(--game-text-light)' }}>MOVES (FULL TECH STACK)</div>
           <div className="flex flex-wrap gap-1.5">
             {project.techStack.map((tech) => (
-              <div key={tech} className="game-box font-pixel text-px-8 px-2 py-1 relative z-10" style={{ color: 'var(--game-text)', boxShadow: '2px 2px 0 var(--game-box-border)' }}>
+              <div key={tech} className="game-box font-pixel text-px-12 px-2 py-1 relative z-10" style={{ color: 'var(--game-text)', boxShadow: '2px 2px 0 var(--game-box-border)' }}>
                 {tech.toUpperCase()}
               </div>
             ))}
@@ -259,7 +260,7 @@ export function ProjectsSection() {
         <div className="flex gap-4 flex-1 min-h-0 mobile-stack">
 
           {/* ── Party list ─────────────────────────────────── */}
-          <div className="game-box w-64 flex-shrink-0 flex flex-col overflow-hidden stagger-item mobile-full">
+          <div className="game-box w-80 flex-shrink-0 flex flex-col overflow-hidden stagger-item mobile-full">
             {projects.map((p, i) => {
               const col      = getTypeColor(p.type as PokemonType);
               const isActive = i === selected;
@@ -281,7 +282,7 @@ export function ProjectsSection() {
                     <img src={p.pokemonSprite} alt={p.pokemonName} width={56} height={56} style={{ imageRendering: 'pixelated', flexShrink: 0 }} />
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center justify-between gap-1">
-                        <span className="font-pixel text-px-8 truncate" style={{ color: 'var(--game-text)' }}>{p.name.toUpperCase()}</span>
+                        <span className="font-pixel text-px-12 truncate" style={{ color: 'var(--game-text)' }}>{p.name.toUpperCase()}</span>
                         <span className="font-pixel text-px-8 px-1 flex-shrink-0 badge-shimmer" style={{ background: col, color: '#fff', border: '1px solid rgba(0,0,0,0.3)' }}>
                           {p.type.slice(0, 3).toUpperCase()}
                         </span>
@@ -367,7 +368,7 @@ export function ProjectsSection() {
                       {project.achievements.map((a, i) => (
                         <div key={i} className="flex items-start gap-2">
                           <span className="font-pixel text-px-8 flex-shrink-0 mt-0.5" style={{ color: typeColor }}>►</span>
-                          <span className="font-vt text-vt-20" style={{ color: 'var(--game-text)' }}>{a}</span>
+                          <span className="font-vt text-vt-20" style={{ color: 'var(--game-text)' }}>{highlightMetrics(a, typeColor)}</span>
                         </div>
                       ))}
                     </div>
@@ -389,7 +390,7 @@ export function ProjectsSection() {
                   <div className="font-pixel text-px-8 mb-2" style={{ color: 'var(--game-text-light)' }}>MOVES (TECH STACK)</div>
                   <div className="flex flex-wrap gap-1.5">
                     {project.techStack.map((tech) => (
-                      <div key={tech} className="game-box font-pixel text-px-8 px-2 py-1 relative z-10" style={{ color: 'var(--game-text)', boxShadow: '2px 2px 0 var(--game-box-border)' }}>
+                      <div key={tech} className="game-box font-pixel text-px-12 px-2 py-1 relative z-10" style={{ color: 'var(--game-text)', boxShadow: '2px 2px 0 var(--game-box-border)' }}>
                         {tech.toUpperCase()}
                       </div>
                     ))}

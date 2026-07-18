@@ -6,6 +6,7 @@ import { SectionEnterTransition } from '@/components/game/BattleTransition';
 import { MenuCursor } from '@/components/game/MenuCursor';
 import { experiences } from '@/data/experience';
 import { getTypeColor, PokemonType } from '@/lib/type-colors';
+import { highlightMetrics } from '@/lib/highlight-metrics';
 
 const BADGE_SPRITES = [
   '/badges/volcano.webp',
@@ -146,10 +147,10 @@ export function ExperienceSection() {
                     {exp.company.toUpperCase()}
                   </div>
                   <div className="flex gap-4 mt-1 flex-wrap">
-                    <span className="font-pixel text-px-8" style={{ color: 'var(--game-text-light)' }}>
+                    <span className="font-pixel text-px-12" style={{ color: 'var(--game-text-mid)' }}>
                       {exp.startDate.toUpperCase()} – {exp.endDate.toUpperCase()}
                     </span>
-                    <span className="font-pixel text-px-8" style={{ color: 'var(--game-text-light)' }}>
+                    <span className="font-pixel text-px-12" style={{ color: 'var(--game-text-mid)' }}>
                       {exp.location.toUpperCase()}
                     </span>
                   </div>
@@ -189,7 +190,7 @@ export function ExperienceSection() {
                         ►
                       </span>
                       <span className="font-vt text-vt-22" style={{ color: 'var(--game-text)' }}>
-                        {a}
+                        {highlightMetrics(a, exp.badgeColor)}
                       </span>
                     </div>
                   ))}

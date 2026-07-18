@@ -54,7 +54,7 @@ export function EducationSection() {
                   }}
                 />
                 <div>
-                  <div className="font-pixel text-px-8" style={{ color: 'var(--game-text)' }}>
+                  <div className="font-pixel text-px-12" style={{ color: 'var(--game-text)' }}>
                     STONY BROOK
                   </div>
                   <div className="font-pixel text-px-8 mt-0.5" style={{ color: 'var(--game-text-light)' }}>
@@ -82,7 +82,7 @@ export function EducationSection() {
                 <div className="flex items-center gap-2">
                   <MenuCursor active={selectedDegree === i} />
                   <div>
-                    <div className="font-pixel text-px-8" style={{ color: 'var(--game-text)' }}>
+                    <div className="font-pixel text-px-12" style={{ color: 'var(--game-text)' }}>
                       {d.degree === "Master's of Science" ? 'M.S.' : 'B.S.'} CS
                     </div>
                     <div
@@ -150,7 +150,7 @@ export function EducationSection() {
                       {degree.status === 'Completed' ? 'EARNED' : 'IN PROGRESS'}
                     </div>
                   </div>
-                  <div className="font-pixel text-px-8 mt-1" style={{ color: 'var(--game-text-light)' }}>
+                  <div className="font-pixel text-px-12 mt-1" style={{ color: 'var(--game-text-mid)' }}>
                     {degree.startDate.toUpperCase()} – {degree.endDate.toUpperCase()}
                     {degree.status === 'In Progress' ? ' (EXPECTED)' : ''}
                   </div>
@@ -193,7 +193,7 @@ export function EducationSection() {
                     {degree.coursework.map((course) => (
                       <span
                         key={course}
-                        className="font-pixel text-px-8 px-2 py-1"
+                        className="font-pixel text-px-12 px-2 py-1"
                         style={{
                           background: 'var(--game-box-dark)',
                           border: '2px solid var(--game-box-border)',
@@ -234,10 +234,10 @@ export function EducationSection() {
                         ►
                       </span>
                       <div>
-                        <div className="font-pixel text-px-8" style={{ color: 'var(--game-text)' }}>
+                        <div className="font-pixel text-px-12" style={{ color: 'var(--game-text)' }}>
                           {a.org.toUpperCase()} — {a.role.toUpperCase()}
                         </div>
-                        <div className="font-pixel text-px-8 mt-0.5" style={{ color: a.color }}>
+                        <div className="font-pixel text-px-12 mt-0.5" style={{ color: a.color }}>
                           {a.period.toUpperCase()}
                         </div>
                         <div className="font-vt text-vt-20 mt-0.5" style={{ color: 'var(--game-text-mid)' }}>

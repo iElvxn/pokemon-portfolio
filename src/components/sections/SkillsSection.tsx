@@ -63,7 +63,7 @@ export function SkillsSection() {
         <div className="flex gap-4 flex-1 min-h-0 mobile-stack">
 
           {/* ── Left: Type menu ────────────────────────────── */}
-          <div className="game-box w-48 flex-shrink-0 flex flex-col overflow-hidden stagger-item mobile-full">
+          <div className="game-box w-60 flex-shrink-0 flex flex-col overflow-hidden stagger-item mobile-full">
             {skillCategories.map((cat, i) => {
               const col      = getTypeColor(cat.type as PokemonType);
               const isActive = i === active;
@@ -90,7 +90,7 @@ export function SkillsSection() {
                       </span>
                       {lore && <div className="type-tooltip" style={{ fontSize: 6 }}>{lore}</div>}
                     </div>
-                    <div className="font-pixel text-px-8" style={{ color: 'var(--game-text)' }}>
+                    <div className="font-pixel text-px-12" style={{ color: 'var(--game-text)' }}>
                       {cat.label.toUpperCase()}
                     </div>
                   </div>
@@ -177,7 +177,7 @@ export function SkillsSection() {
                   <span className="font-pixel text-px-8" style={{ color: 'var(--game-text-light)' }}>
                     TYPE AVG
                   </span>
-                  <span className="font-pixel text-px-10" style={{ color: typeColor }}>
+                  <span className="font-pixel text-px-12" style={{ color: typeColor }}>
                     {Math.round(
                       category.skills.reduce((s, sk) => s + sk.value, 0) / category.skills.length
                     )}

@@ -335,7 +335,7 @@ export function HeroSection() {
               className="flex flex-col items-center gap-3 mt-4"
               initial={{ opacity: 0 }}
               animate={{ opacity: visible ? 1 : 0 }}
-              exit={{ opacity: 0 }}
+              exit={{ opacity: 0, transition: { duration: 0.15, delay: 0 } }}
               transition={{ duration: 0.3, delay: 0.35 }}
             >
               {/* Condensed intro card — tagline + key facts + resume,
