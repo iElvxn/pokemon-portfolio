@@ -15,32 +15,47 @@ interface FormData {
 }
 
 const CONTACTS = [
-  { label: 'GITHUB',   value: '@elvinly',           href: personal.github,             color: '#f0f0ff' },
+  { label: 'GITHUB',   value: '@elvinly',           href: personal.github,             color: '#b8b8d0' },
   { label: 'LINKEDIN', value: 'ELVIN LY',            href: personal.linkedin,           color: '#6890f0' },
   { label: 'EMAIL',    value: personal.email.toUpperCase(), href: `mailto:${personal.email}`, color: '#f85888' },
 ];
 
+/* Web3Forms access key is a public, client-side key by design —
+   see https://web3forms.com/ — not a secret, safe to inline via NEXT_PUBLIC_ */
+const WEB3FORMS_ACCESS_KEY = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY;
+
 export function ContactSection() {
   const [sending, setSending] = useState(false);
   const [sent, setSent] = useState(false);
+  const [sendFailed, setSendFailed] = useState(false);
   const [contactCursor, setContactCursor] = useState(0);
 
   const { register, handleSubmit, reset, formState: { errors } } = useForm<FormData>();
 
   const onSubmit = async (data: FormData) => {
     setSending(true);
+    setSendFailed(false);
     try {
-      await fetch('/api/contact', {
+      if (!WEB3FORMS_ACCESS_KEY) throw new Error('Not configured');
+      const res = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
+        body: JSON.stringify({
+          access_key: WEB3FORMS_ACCESS_KEY,
+          name: data.name,
+          email: data.email,
+          subject: data.subject,
+          message: data.message,
+        }),
       });
-    } catch {
-      /* fail silently for portfolio demo */
-    } finally {
-      setSending(false);
+      const result = await res.json();
+      if (!res.ok || !result.success) throw new Error('Delivery failed');
       setSent(true);
       reset();
+    } catch {
+      setSendFailed(true);
+    } finally {
+      setSending(false);
     }
   };
 
@@ -258,6 +273,14 @@ export function ContactSection() {
                       >
                         {sending ? 'SENDING...' : 'SEND MESSAGE ►'}
                       </button>
+                      {sendFailed && (
+                        <div className="font-pixel text-px-8 text-center" style={{ color: 'var(--game-hp-red)' }}>
+                          DELIVERY FAILED — TRY{' '}
+                          <a href={`mailto:${personal.email}`} style={{ color: 'var(--game-hp-red)', textDecoration: 'underline' }}>
+                            EMAILING DIRECTLY
+                          </a>
+                        </div>
+                      )}
                     </motion.form>
                   )}
                 </AnimatePresence>
