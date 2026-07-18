@@ -37,13 +37,23 @@ function chord(freqs: number[], duration: number, vol = 0.04) {
   freqs.forEach((f, i) => beep(f, duration, 'square', vol, i * 0.02));
 }
 
+/* ── Real button click sample ──────────────────────────────── */
+
+let buttonAudio: HTMLAudioElement | null = null;
+function playButtonSound() {
+  if (typeof window === 'undefined') return;
+  if (!buttonAudio) {
+    buttonAudio = new Audio('/button.mp3');
+    buttonAudio.volume = 0.5;
+  }
+  buttonAudio.currentTime = 0;
+  buttonAudio.play().catch(() => {});
+}
+
 /* ── Individual sound effects ───────────────────────────────── */
 
 export const sounds = {
-  confirm: () => {
-    beep(523, 0.08, 'square', 0.07);
-    beep(659, 0.12, 'square', 0.07, 0.09);
-  },
+  confirm: playButtonSound,
   splashUnlock: () => {
     chord([261, 329, 392], 0.2, 0.05);
     setTimeout(() => chord([392, 523, 659], 0.3, 0.07), 220);
@@ -116,6 +126,18 @@ export function SoundProvider({ children }: { children: React.ReactNode }) {
       }
       return !on;
     });
+  }, []);
+
+  /* Play button.mp3 on any click of an interactive game element, site-wide */
+  useEffect(() => {
+    function handleClick(e: MouseEvent) {
+      const target = e.target as HTMLElement;
+      if (target.closest('button, a, .game-menu-item, .badge-press, [role="button"]')) {
+        sounds.confirm();
+      }
+    }
+    document.addEventListener('click', handleClick);
+    return () => document.removeEventListener('click', handleClick);
   }, []);
 
   return (

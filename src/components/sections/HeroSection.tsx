@@ -341,18 +341,18 @@ export function HeroSection() {
               {/* Condensed intro card — tagline + key facts + resume,
                   visible immediately (no need to press start first) */}
               <div
-                className="game-box px-4 py-3 flex flex-col gap-2.5 w-72 text-left"
+                className="game-box px-5 py-4 flex flex-col gap-3 w-80 text-left"
                 style={{ maxWidth: '85vw' }}
                 onClick={(e) => e.stopPropagation()}
               >
-                <p className="font-vt text-vt-20 leading-snug" style={{ color: 'var(--game-text-mid)' }}>
+                <p className="font-vt text-vt-22 leading-snug" style={{ color: 'var(--game-text-mid)' }}>
                   {personal.bio}
                 </p>
-                <div className="flex flex-col gap-1">
+                <div className="flex flex-col gap-1.5">
                   {HERO_FACTS.map((fact) => (
                     <div key={fact} className="flex items-start gap-1.5">
-                      <span className="font-pixel text-px-8 flex-shrink-0" style={{ color: 'var(--game-accent)' }}>►</span>
-                      <span className="font-pixel text-px-8" style={{ color: 'var(--game-text)' }}>{fact}</span>
+                      <span className="font-pixel text-px-10 flex-shrink-0" style={{ color: 'var(--game-accent)' }}>►</span>
+                      <span className="font-pixel text-px-10" style={{ color: 'var(--game-text)' }}>{fact}</span>
                     </div>
                   ))}
                 </div>
@@ -360,7 +360,7 @@ export function HeroSection() {
                   href={personal.resume}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="game-box game-box-sm font-pixel text-px-8 px-3 py-1.5 text-center mt-0.5"
+                  className="game-box game-box-sm font-pixel text-px-10 px-4 py-2 text-center mt-0.5"
                   style={{ color: 'var(--game-text)', textDecoration: 'none' }}
                 >
                   RESUME ►
