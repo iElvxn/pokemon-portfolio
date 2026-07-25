@@ -15,7 +15,7 @@ interface FormData {
 }
 
 const CONTACTS = [
-  { label: 'GITHUB',   value: '@elvinly',           href: personal.github,             color: '#24292f' },
+  { label: 'GITHUB',   value: '@iElvxn',            href: personal.github,             color: '#24292f' },
   { label: 'LINKEDIN', value: 'ELVIN LY',            href: personal.linkedin,           color: '#6890f0' },
   { label: 'EMAIL',    value: personal.email.toUpperCase(), href: `mailto:${personal.email}`, color: '#f85888' },
 ];

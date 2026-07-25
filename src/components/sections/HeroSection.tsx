@@ -436,7 +436,7 @@ export function HeroSection() {
         animate={{ opacity: visible ? 1 : 0 }}
         transition={{ delay: 1.0 }}
       >
-        © 2025 {personal.name.toUpperCase()}
+        © {new Date().getFullYear()} {personal.name.toUpperCase()}
       </motion.div>
     </section>
   );

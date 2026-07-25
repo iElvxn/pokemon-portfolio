@@ -185,12 +185,14 @@ function ProjectModal({ project, onClose }: { project: typeof projects[0]; onClo
 
         {/* Links */}
         <div className="flex gap-2 px-5 py-3 relative z-10">
-          <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="game-box font-pixel text-px-8 px-4 py-2 relative z-10" style={{ color: 'var(--game-text)' }}>
-            GITHUB ↗
-          </a>
+          {project.githubUrl && (
+            <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="game-box font-pixel text-px-8 px-4 py-2 relative z-10" style={{ color: 'var(--game-text)' }}>
+              GITHUB ↗
+            </a>
+          )}
           {project.liveUrl && project.liveUrl !== '#' && (
             <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="game-box font-pixel text-px-8 px-4 py-2 relative z-10" style={{ color: 'var(--game-text)' }}>
-              LIVE DEMO ↗
+              {project.liveLabel ?? 'LIVE DEMO'} ↗
             </a>
           )}
         </div>
@@ -399,12 +401,14 @@ export function ProjectsSection() {
 
                 {/* Links + details button */}
                 <div className="flex gap-2 px-4 py-2.5 relative z-10">
-                  <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="game-box font-pixel text-px-8 px-3 py-1.5 relative z-10" style={{ color: 'var(--game-text)' }}>
-                    GITHUB ↗
-                  </a>
+                  {project.githubUrl && (
+                    <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="game-box font-pixel text-px-8 px-3 py-1.5 relative z-10" style={{ color: 'var(--game-text)' }}>
+                      GITHUB ↗
+                    </a>
+                  )}
                   {project.liveUrl && project.liveUrl !== '#' && (
                     <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="game-box font-pixel text-px-8 px-3 py-1.5 relative z-10" style={{ color: 'var(--game-text)' }}>
-                      LIVE DEMO ↗
+                      {project.liveLabel ?? 'LIVE DEMO'} ↗
                     </a>
                   )}
                   <button

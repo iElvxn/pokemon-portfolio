@@ -1,9 +1,9 @@
 import { Fragment } from 'react';
 
 /* Matches quantified impact — percentages, multipliers, and count/scale
-   numbers (500+, 1000+, 123K+) — so recruiters skimming bullets can spot
+   numbers (500+, 1,000+, 123K+) — so recruiters skimming bullets can spot
    the metrics without reading full sentences. */
-const METRIC_PATTERN = /(\d+(?:\.\d+)?%|\d+(?:\.\d+)?[Kk]?\+|\d+(?:\.\d+)?[x×])/g;
+const METRIC_PATTERN = /(\d+(?:,\d{3})*(?:\.\d+)?(?:%|[Kk]?\+|[x×]))/g;
 
 export function highlightMetrics(text: string, color: string) {
   // str.split() with a capturing-group regex always puts matches at odd

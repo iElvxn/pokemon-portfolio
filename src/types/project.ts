@@ -13,6 +13,8 @@ export interface Project {
   achievements: string[];
   githubUrl?: string;
   liveUrl?: string;
+  /** Button label for liveUrl, e.g. 'APP STORE' — defaults to 'LIVE DEMO' */
+  liveLabel?: string;
   imageUrl?: string;
   imagePortrait?: boolean;
   pokemonSprite: string;
