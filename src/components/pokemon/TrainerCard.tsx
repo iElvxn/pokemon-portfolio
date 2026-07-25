@@ -51,7 +51,7 @@ export function TrainerCard() {
           {/* Gengar silhouette watermark */}
           <div className="absolute inset-0 flex items-center justify-center opacity-10">
             <img
-              src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/94.png"
+              src="/sprites/94.png"
               alt=""
               className="w-32 h-32 object-contain pixelated"
               style={{ imageRendering: 'pixelated', filter: 'blur(2px)' }}

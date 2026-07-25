@@ -187,7 +187,7 @@ export function ContactSection() {
                         I&apos;ll get back to you soon!
                       </div>
                       <img
-                        src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/94.png"
+                        src="/sprites/94.png"
                         alt="Gengar"
                         width={64}
                         height={64}

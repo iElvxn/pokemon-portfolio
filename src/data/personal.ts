@@ -1,3 +1,6 @@
+/** Canonical production URL — used by metadataBase, sitemap, and robots */
+export const siteUrl = 'https://elvinly.dev';
+
 export const personal = {
   name: 'Elvin Ly',
   title: ['Software Engineer', 'Full Stack Developer', 'ML Engineer'],

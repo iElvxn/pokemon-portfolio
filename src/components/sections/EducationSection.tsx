@@ -43,7 +43,7 @@ export function EducationSection() {
             >
               <div className="flex items-center gap-2">
                 <img
-                  src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/199.png"
+                  src="/sprites/199.png"
                   alt="Slowking"
                   width={40}
                   height={40}

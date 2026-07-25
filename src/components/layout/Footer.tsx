@@ -33,7 +33,7 @@ export function Footer() {
           {/* Gengar sprite */}
           <div className="flex justify-center mb-3">
             <img
-              src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/94.png"
+              src="/sprites/94.png"
               alt="Gengar"
               width={48}
               height={48}

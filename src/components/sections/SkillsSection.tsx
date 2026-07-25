@@ -115,7 +115,7 @@ export function SkillsSection() {
                   style={{ borderBottom: '3px solid var(--game-box-border)' }}
                 >
                   <img
-                    src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${spriteId}.png`}
+                    src={`/sprites/${spriteId}.png`}
                     alt={category.type}
                     width={64}
                     height={64}

@@ -122,7 +122,7 @@ export function KonamiCode() {
           >
             <div className="text-center">
               <img
-                src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/94.png"
+                src="/sprites/back/94.png"
                 alt="Gengar"
                 className="sprite-bob"
                 style={{

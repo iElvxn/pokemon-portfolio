@@ -242,7 +242,7 @@ export function HeroSection() {
             }}
           >
             <img
-              src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/94.png"
+              src="/sprites/94.png"
               alt="Gengar"
               className="sprite-float"
               style={{

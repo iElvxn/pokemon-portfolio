@@ -1,9 +1,12 @@
 import { ImageResponse } from 'next/og';
+import { readFile } from 'node:fs/promises';
+import { join } from 'node:path';
 
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 
-export default function OGImage() {
+export default async function OGImage() {
+  const sprite = await readFile(join(process.cwd(), 'public/sprites/94.png'));
   return new ImageResponse(
     <div
       style={{
@@ -41,7 +44,7 @@ export default function OGImage() {
         }}
       >
         <img
-          src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/94.png"
+          src={`data:image/png;base64,${sprite.toString('base64')}`}
           width={200}
           height={200}
           style={{ imageRendering: 'pixelated' }}

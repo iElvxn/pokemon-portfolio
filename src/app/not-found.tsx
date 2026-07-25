@@ -68,7 +68,7 @@ export default function NotFound() {
           >
             <div className="text-center">
               <img
-                src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/94.png"
+                src="/sprites/back/94.png"
                 alt="Gengar"
                 className="sprite-bob"
                 style={{ imageRendering: 'pixelated', width: 80, filter: 'drop-shadow(0 0 8px rgba(112,88,152,0.8))' }}

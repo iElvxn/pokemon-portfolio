@@ -45,19 +45,21 @@ Check items off as we complete them.
 
 ## P3 — Polish / technical
 
-- [ ] **SEO title** — "ELVIN LY — POKEMON PORTFOLIO" (`src/app/layout.tsx:21`).
-  Recruiters Google you by name → "Elvin Ly — Software Engineer" (keep Pokémon flavor
-  in the description).
-- [ ] **Add `metadataBase`** with the deployed URL so the OG image resolves when shared
-  on LinkedIn/Slack.
-- [ ] **Compress studykitty.webp** — 2.4 MB (and a 3.3 MB PNG duplicate next to it).
-  Re-encode at display resolution (<200 KB), delete the PNG.
-- [ ] **Delete `wallpaperflare.com_wallpaper.jpg`** from repo root (stray file).
-- [ ] **Self-host Pokémon sprites** — currently hot-linked from raw.githubusercontent.com
-  (`src/data/projects.ts:25`, `HeroSection.tsx:206`). Not a CDN; can be slow/rate-limited.
-- [ ] **Add Vercel Analytics** — know whether recruiters visit and what they click.
-- [ ] **Add `sitemap.ts` + `robots.ts`**.
-- [ ] **Custom domain** — e.g. `elvinly.dev`.
+- [x] **SEO title** — now "Elvin Ly — Software Engineer" with a recruiter-facing
+  description (Capital One, Stony Brook, full-stack/cloud/AI + the Pokémon hook).
+- [x] **Add `metadataBase`** — `https://elvinly.dev` via a single `siteUrl` constant
+  in `src/data/personal.ts`; also canonical + OG url/siteName.
+- [x] **Compress studykitty.webp** — done in P0 (2.4 MB → 78 KB, PNG deleted).
+- [x] **Delete `wallpaperflare.com_wallpaper.jpg`** — removed from repo root.
+- [x] **Self-host Pokémon sprites** — all 11 sprites now in `public/sprites/` (~9 KB
+  total); icon.tsx and opengraph-image.tsx read the file from disk as a data URI
+  instead of fetching GitHub at render time.
+- [x] **Add Vercel Analytics** — `@vercel/analytics` installed, `<Analytics />` in the
+  root layout. Data appears in the Vercel dashboard once deployed there.
+- [x] **Add `sitemap.ts` + `robots.ts`** — both generated, verified in build output.
+- [ ] **Deploy + custom domain** — NEEDS ELVIN: deploy to Vercel and attach
+  `elvinly.dev` (everything above assumes that domain; change `siteUrl` in
+  `src/data/personal.ts` if you pick a different one).
 
 ---
 
