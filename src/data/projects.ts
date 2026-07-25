@@ -4,9 +4,9 @@ export const projects: Project[] = [
   {
     id: 'proj-1',
     name: 'Study Kitty',
-    subtitle: 'Gamified Mobile Productivity App',
+    subtitle: '1,000+ Users · Live on the App Store',
     description:
-      'Full-stack mobile productivity app with gamified focus sessions — 1000+ users. Built cloud-native microservice architecture on AWS API Gateway, Lambda, and DynamoDB. Local caching cut infrastructure costs by 30% and accelerated responsiveness. Secured with Clerk + AWS Lambda and REST API Gateway authorizers for JWT verification.',
+      'A gamified focus-timer app that 1,000+ people use to study — live on the App Store. Runs on a serverless AWS backend (API Gateway, Lambda, DynamoDB) with JWT-secured endpoints; local caching cut infrastructure costs by 30%.',
     longDescription:
       'Developed a fullstack mobile productivity app with gamified focus sessions using React Native with 1000+ users. Built a cloud-native microservice architecture using AWS API Gateway, Lambda, and DynamoDB. Utilized local caching for efficient dataflow, reducing infrastructure costs by 30% and accelerating responsiveness. Implemented secure authentication by integrating Clerk with AWS Lambda and REST API Gateway authorizers, securely verifying JWTs, resulting in protected user data and securing mobile API endpoints.',
     type: 'ghost',
@@ -31,9 +31,9 @@ export const projects: Project[] = [
   {
     id: 'proj-2',
     name: 'Job Match RAG',
-    subtitle: 'Hybrid RAG Pipeline for Job Matching',
+    subtitle: 'Resume → Matched Jobs, With Cited Evidence',
     description:
-      'Hybrid RAG pipeline for automated job-to-candidate matching across 123K+ postings — BM25 sparse retrieval + dense embeddings with Cohere reranking, doubling BERTScore F1 and increasing RAGAS faithfulness by 35% via a 12-condition ablation study. Redis response caching via Docker cut repeat-query latency by 97%. Eliminated LLM hallucinations via skill extraction and evidence-span citations, achieving 85% skill recall.',
+      'Paste a resume, get matched jobs with evidence-span citations — no hallucinated skills. Hybrid retrieval (BM25 + dense embeddings + Cohere reranking) over 123K+ postings, validated with a 12-condition ablation study; Redis caching makes repeat queries 97% faster.',
     longDescription:
       'Architected a hybrid RAG pipeline using BM25, dense embeddings, and Cohere reranking across 123K+ postings, doubling BERTScore F1 and increasing RAGAS faithfulness by 35% via a 12-condition ablation study. Reduced repeat-query latency by 97% by implementing Redis response caching via Docker keyed on resume SHA-256 hash, eliminating redundant Pinecone vector database queries, Cohere reranking, and GPT-4 calls. Eliminated LLM hallucinations of skills via skill extraction and evidence-span citations, achieving 85% skill recall.',
     type: 'electric',
@@ -57,7 +57,7 @@ export const projects: Project[] = [
     name: 'Driver Drowsiness Detection',
     subtitle: 'Real-time Driver Safety CNN',
     description:
-      'Deep learning CNN for real-time driver drowsiness detection — MobileNetV2 architecture trained with TensorFlow achieved 98% accuracy via data augmentation and regularization. Utilized OpenCV to monitor a user\'s eye movements, providing real-time alerts for potential drowsiness.',
+      'Watches a driver\'s eyes through a webcam and alerts them in real time when they start nodding off. MobileNetV2 CNN trained with TensorFlow to 98% accuracy; OpenCV handles live eye tracking.',
     longDescription:
       'Developed and trained a deep learning CNN for real-time driver drowsiness detection using TensorFlow and a MobileNetV2 architecture, achieving an accuracy of 98% via data augmentation and regularization. Utilized OpenCV to monitor a user\'s eye movements, providing real-time alerts for potential drowsiness.',
     type: 'normal',

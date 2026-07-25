@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { SectionEnterTransition } from '@/components/game/BattleTransition';
-import { HPBar } from '@/components/game/HPBar';
 import { MenuCursor } from '@/components/game/MenuCursor';
 import { skillCategories } from '@/data/skills';
 import { getTypeColor, PokemonType } from '@/lib/type-colors';
@@ -144,44 +143,49 @@ export function SkillsSection() {
                   </div>
                 </div>
 
-                {/* Skill HP bars — spring overshoot entrance */}
-                <div className="px-4 py-4 space-y-4 relative z-10 flex-1">
-                  {category.skills.map((skill, i) => (
-                    <motion.div
-                      key={skill.name}
-                      initial={{ opacity: 0, x: -16 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{
-                        delay: i * 0.07,
-                        type: 'spring',
-                        stiffness: 320,
-                        damping: 22,
-                      }}
-                    >
-                      <HPBar
-                        label={skill.name.toUpperCase().slice(0, 14)}
-                        value={skill.value}
-                        max={100}
-                        showValue
-                        animate
-                      />
-                    </motion.div>
-                  ))}
+                {/* Skill move slots — battle-tested skills first, marked ★ */}
+                <div className="px-4 py-4 grid grid-cols-1 sm:grid-cols-2 gap-2.5 relative z-10 flex-1 content-start">
+                  {[...category.skills]
+                    .sort((a, b) => Number(b.core ?? false) - Number(a.core ?? false))
+                    .map((skill, i) => (
+                      <motion.div
+                        key={skill.name}
+                        initial={{ opacity: 0, x: -16 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{
+                          delay: i * 0.05,
+                          type: 'spring',
+                          stiffness: 320,
+                          damping: 22,
+                        }}
+                        className="flex items-center gap-2 px-3 py-2"
+                        style={{
+                          background: 'var(--game-box-2)',
+                          border: '2px solid var(--game-box-border)',
+                          borderLeft: skill.core
+                            ? `5px solid ${typeColor}`
+                            : '2px solid var(--game-box-border)',
+                          boxShadow: '2px 2px 0 rgba(0,0,0,0.15)',
+                        }}
+                      >
+                        {skill.core && (
+                          <span className="font-pixel text-px-8" style={{ color: typeColor }}>★</span>
+                        )}
+                        <span className="font-pixel text-px-10" style={{ color: 'var(--game-text)' }}>
+                          {skill.name.toUpperCase()}
+                        </span>
+                      </motion.div>
+                    ))}
                 </div>
 
-                {/* Average */}
+                {/* Legend */}
                 <div
-                  className="flex items-center justify-between px-4 py-2 relative z-10"
+                  className="flex items-center gap-2 px-4 py-2 relative z-10"
                   style={{ borderTop: '2px solid var(--game-box-border)' }}
                 >
+                  <span className="font-pixel text-px-8" style={{ color: typeColor }}>★</span>
                   <span className="font-pixel text-px-8" style={{ color: 'var(--game-text-light)' }}>
-                    TYPE AVG
-                  </span>
-                  <span className="font-pixel text-px-12" style={{ color: typeColor }}>
-                    {Math.round(
-                      category.skills.reduce((s, sk) => s + sk.value, 0) / category.skills.length
-                    )}
-                    /100
+                    BATTLE-TESTED — USED IN INTERNSHIPS & SHIPPED PROJECTS
                   </span>
                 </div>
               </motion.div>

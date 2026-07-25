@@ -19,22 +19,21 @@ Check items off as we complete them.
 
 ## P1 — Highest-impact content changes
 
-- [ ] **Remove numeric skill bars** — "PostgreSQL 51/100", "Java 64/100" (`src/data/skills.ts`)
-  read as self-assessed weaknesses; there's no upside to fake-precise percentages.
-  Keep the Pokémon type-category grouping, but show skills as badges/held items,
-  or bucket as "Ability" vs. "Learning".
-- [ ] **Soften the splash gate** — scroll is locked until click/keypress
-  (`src/components/sections/HeroSection.tsx:96`). Mobile/skimming recruiters may bounce.
-  → Auto-advance to menu after ~5s, and let plain scroll/swipe dismiss it too.
-- [ ] **Feature "1000+ users · Live on the App Store" loudly on Study Kitty** —
-  real users is the rarest thing in a new-grad portfolio.
-- [ ] **Plain-English first line per project bullet** — current `achievements` are dense
-  resume bullets verbatim. Lead with the human version ("Cut repeat-search time from
-  30s to under 1s"), then the technical detail.
-- [ ] **Job Match RAG live demo** — host it if feasible; "paste your resume, get matched
-  jobs with cited evidence" is memorable in a way BERTScore numbers aren't.
-- [ ] **Screenshot/GIF for Driver Drowsiness Detection** — `imageUrl` is undefined
-  (`src/data/projects.ts:71`). A vision project should be visual.
+- [x] **Remove numeric skill bars** — replaced HP bars with Pokémon move-slot chips.
+  Skills now carry a `core` flag (★ battle-tested = used in an internship or shipped
+  project) instead of self-scored percentages. Dropped Springboot (not on resume).
+- [x] **Soften the splash gate** — auto-advances to menu after 5s; mouse wheel or
+  upward swipe unlocks scrolling immediately. Hint now says "PRESS ANY KEY OR SCROLL".
+  Also added "INCOMING GRAD RESEARCHER @ SBU" to the hero facts.
+- [x] **Feature "1,000+ users · Live on the App Store" on Study Kitty** — now the
+  card subtitle and the lead sentence of the description.
+- [x] **Plain-English descriptions** — all three project cards now lead with what the
+  thing does in human terms; technical detail follows. Resume-verbatim bullets stay
+  in the modal `achievements`.
+- [ ] **Job Match RAG live demo** — NEEDS ELVIN: host it if feasible; "paste your
+  resume, get matched jobs with cited evidence" is memorable in a way BERTScore isn't.
+- [ ] **Screenshot/GIF for Driver Drowsiness Detection** — NEEDS ELVIN: record a short
+  clip/screenshot of the detection running (`imageUrl` is currently undefined).
 
 ## P2 — The repo is part of the portfolio
 

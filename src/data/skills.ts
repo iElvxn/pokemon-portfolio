@@ -9,7 +9,8 @@ export interface SkillCategory {
 
 export interface Skill {
   name: string;
-  value: number;
+  /** Battle-tested: used in an internship or shipped project */
+  core?: boolean;
 }
 
 export const skillCategories: SkillCategory[] = [
@@ -18,14 +19,13 @@ export const skillCategories: SkillCategory[] = [
     label: 'Languages',
     description: 'Rare, powerful, the foundation of everything',
     skills: [
-      { name: 'Python', value: 92 },
-      { name: 'TypeScript', value: 80 },
-      { name: 'JavaScript', value: 85 },
-      { name: 'Java', value: 64 },
-      { name: 'SQL', value: 65 },
-      { name: 'HTML', value: 80 },
-      { name: 'CSS', value: 74 },
-      { name: 'C', value: 58 },
+      { name: 'Python', core: true },
+      { name: 'TypeScript', core: true },
+      { name: 'JavaScript', core: true },
+      { name: 'Java', core: true },
+      { name: 'SQL', core: true },
+      { name: 'HTML/CSS' },
+      { name: 'C' },
     ],
   },
   {
@@ -33,9 +33,9 @@ export const skillCategories: SkillCategory[] = [
     label: 'Frontend',
     description: 'Fast, flashy, powers the UI',
     skills: [
-      { name: 'React.js', value: 72 },
-      { name: 'Next.js', value: 64 },
-      { name: 'React Native', value: 63 },
+      { name: 'React.js', core: true },
+      { name: 'Next.js', core: true },
+      { name: 'React Native', core: true },
     ],
   },
   {
@@ -43,11 +43,10 @@ export const skillCategories: SkillCategory[] = [
     label: 'Backend',
     description: 'Deep, reliable, flows under pressure',
     skills: [
-      { name: 'Flask', value: 76 },
-      { name: 'FastAPI', value: 80 },
-      { name: 'Node.js', value: 65 },
-      { name: 'Express.js', value: 73 },
-      { name: 'Springboot', value: 57 },
+      { name: 'Flask', core: true },
+      { name: 'FastAPI', core: true },
+      { name: 'Node.js' },
+      { name: 'Express.js' },
     ],
   },
   {
@@ -55,11 +54,11 @@ export const skillCategories: SkillCategory[] = [
     label: 'Databases',
     description: 'Hot data, blazing queries',
     skills: [
-      { name: 'Firebase', value: 84 },
-      { name: 'PostgreSQL', value: 51 },
-      { name: 'MongoDB', value: 82 },
-      { name: 'DynamoDB', value: 73 },
-      { name: 'Pinecone', value: 52 },
+      { name: 'PostgreSQL', core: true },
+      { name: 'DynamoDB', core: true },
+      { name: 'Firebase', core: true },
+      { name: 'Pinecone', core: true },
+      { name: 'MongoDB' },
     ],
   },
   {
@@ -67,13 +66,14 @@ export const skillCategories: SkillCategory[] = [
     label: 'DevOps / Cloud',
     description: 'Tough, structured, battle-hardened',
     skills: [
-      { name: 'AWS', value: 75 },
-      { name: 'GCP', value: 68 },
-      { name: 'Git', value: 82 },
-      { name: 'Postman', value: 67 },
-      { name: 'Jira', value: 65 },
-      { name: 'Jenkins', value: 55 },
-      { name: 'Claude Code', value: 78 },
+      { name: 'AWS', core: true },
+      { name: 'GCP', core: true },
+      { name: 'Git', core: true },
+      { name: 'CI/CD', core: true },
+      { name: 'Postman' },
+      { name: 'Jira' },
+      { name: 'Jenkins' },
+      { name: 'Claude Code' },
     ],
   },
   {
@@ -81,12 +81,12 @@ export const skillCategories: SkillCategory[] = [
     label: 'AI / ML',
     description: 'Powerful mind, predictive insight',
     skills: [
-      { name: 'TensorFlow', value: 62 },
-      { name: 'pandas', value: 64 },
-      { name: 'NumPy', value: 80 },
-      { name: 'RAG Pipelines', value: 75 },
-      { name: 'OpenCV', value: 61 },
-      { name: 'scikit-learn', value: 61 },
+      { name: 'RAG Pipelines', core: true },
+      { name: 'TensorFlow', core: true },
+      { name: 'OpenCV', core: true },
+      { name: 'NumPy', core: true },
+      { name: 'scikit-learn', core: true },
+      { name: 'pandas' },
     ],
   },
 ];

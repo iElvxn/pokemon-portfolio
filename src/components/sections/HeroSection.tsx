@@ -34,6 +34,7 @@ const NAV_ITEMS = [
 /* Condensed intro facts — replaces the old standalone About section */
 const HERO_FACTS = [
   'SWE INTERN @ CAPITAL ONE',
+  'INCOMING GRAD RESEARCHER @ SBU',
   'MS CS @ STONY BROOK (EXP. 2027)',
   'BS CS, 3.72 GPA',
 ];
@@ -108,6 +109,44 @@ export function HeroSection() {
     const t = setInterval(() => setBlink(b => !b), 600);
     return () => clearInterval(t);
   }, []);
+
+  /* Auto-advance to the menu so skimming visitors are never stuck
+     on the title screen waiting for a keypress */
+  useEffect(() => {
+    if (phase !== 'title') return;
+    const t = setTimeout(() => setPhase('menu'), 5000);
+    return () => clearTimeout(t);
+  }, [phase]);
+
+  /* Scroll-intent escape hatch — a wheel tick or upward swipe unlocks
+     the page immediately instead of gating on click/keypress */
+  useEffect(() => {
+    if (phase === 'transition') return;
+
+    const unlock = () => {
+      document.documentElement.style.overflow = '';
+      setPhase(p => (p === 'title' ? 'menu' : p));
+    };
+
+    const onWheel = (e: WheelEvent) => {
+      if (e.deltaY > 0) unlock();
+    };
+
+    let touchStartY = 0;
+    const onTouchStart = (e: TouchEvent) => { touchStartY = e.touches[0].clientY; };
+    const onTouchMove = (e: TouchEvent) => {
+      if (touchStartY - e.touches[0].clientY > 30) unlock();
+    };
+
+    window.addEventListener('wheel', onWheel, { passive: true });
+    window.addEventListener('touchstart', onTouchStart, { passive: true });
+    window.addEventListener('touchmove', onTouchMove, { passive: true });
+    return () => {
+      window.removeEventListener('wheel', onWheel);
+      window.removeEventListener('touchstart', onTouchStart);
+      window.removeEventListener('touchmove', onTouchMove);
+    };
+  }, [phase]);
 
   function navigateTo(href: string) {
     setPhase('transition');
@@ -377,7 +416,7 @@ export function HeroSection() {
                   transition: 'opacity 0.1s',
                 }}
               >
-                PRESS ANY KEY TO CONTINUE
+                PRESS ANY KEY OR SCROLL TO CONTINUE
               </div>
             </motion.div>
           )}
