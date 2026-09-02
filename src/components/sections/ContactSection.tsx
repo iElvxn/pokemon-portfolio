@@ -124,11 +124,11 @@ export function ContactSection() {
                 <div className="flex items-center gap-2">
                   <MenuCursor active={contactCursor === i} />
                   <div>
-                    <div className="font-pixel text-px-8" style={{ color: 'var(--game-text-light)' }}>
+                    <div className="font-pixel text-px-6" style={{ color: 'var(--game-text-light)' }}>
                       {c.label}
                     </div>
                     <div
-                      className="font-pixel text-px-12 mt-0.5 truncate"
+                      className="font-pixel text-px-8 mt-0.5 truncate"
                       style={{ color: c.color, maxWidth: 165 }}
                     >
                       {c.value}
@@ -138,19 +138,36 @@ export function ContactSection() {
               </a>
             ))}
 
-            {/* Phone decorative elements */}
+            {/* Phone quick-action buttons */}
             <div
               className="relative z-10 px-3 py-3 flex justify-center gap-2"
               style={{ borderTop: '3px solid var(--game-box-border)', marginTop: 4 }}
             >
-              {['📞', '✉', '🌐'].map((icon, i) => (
-                <div
-                  key={i}
+              {[
+                {
+                  icon: (
+                    <span className="font-pixel" style={{ fontSize: 8, color: '#0a66c2' }}>
+                      in
+                    </span>
+                  ),
+                  href: personal.linkedin,
+                  title: 'LinkedIn',
+                },
+                { icon: '✉', href: `mailto:${personal.email}`, title: 'Email' },
+                { icon: '🌐', href: personal.github, title: 'GitHub' },
+              ].map((btn) => (
+                <a
+                  key={btn.title}
+                  href={btn.href}
+                  target={btn.href.startsWith('mailto:') ? undefined : '_blank'}
+                  rel="noopener noreferrer"
+                  title={btn.title}
+                  aria-label={btn.title}
                   className="game-box-sm game-box w-8 h-8 flex items-center justify-center relative z-10 text-sm"
-                  style={{ cursor: 'default' }}
+                  style={{ cursor: 'pointer', textDecoration: 'none' }}
                 >
-                  {icon}
-                </div>
+                  {btn.icon}
+                </a>
               ))}
             </div>
           </div>
